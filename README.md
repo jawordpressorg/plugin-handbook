@@ -51,7 +51,7 @@ GitHub が初めての方も [翻訳開始から提案までの流れ](https://g
 1.  `en` ブランチから `en20210905` などのブランチを作成します。
 2.  原文を更新します。[wp-handbook-converter](https://github.com/mirucon/wp-handbook-converter)を使うことをオススメします。
 
-'npx wp-handbook-converter plugins --handbook plugin-handbook --sub-domain developer'
+`npx wp-handbook-converter plugins --handbook plugin-handbook --sub-domain developer`
 
 3.  `en` ブランチにプルリクエストします。差分を確認して問題なければマージしてください。
 
