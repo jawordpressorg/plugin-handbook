@@ -31,4 +31,4 @@ WordPress のプラグインは多くのファイルで構成されています�
 <!-- 
 As a WordPress.org plugin author, you have an amazing opportunity to create a plugin that will be installed, tinkered with, and loved by millions of WordPress users. All **you** need to do is turn your great idea into code. The Plugin Handbook is here to help you with that.
  -->
-WordPress.org のプラグイン作者として、何百万人もの WordPress ユーザーにインストールされ、触られ、愛されるプラグインを作成する素晴らしい機会があります。**あなた**がすべきことは、あなたの素晴らしいアイデアをコードにすることです。プラグインハンドブックは、そのお手伝いをするためにあります。
+WordPress.org のプラグイン作者として、何百万人もの WordPress ユーザーにインストールされ、いじられ、愛されるプラグインを作成する素晴らしい機会があります。**あなた**がすべきことは、あなたの素晴らしいアイデアをコードにすることです。プラグインハンドブックは、そのお手伝いをするためにあります。
