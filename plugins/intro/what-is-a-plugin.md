@@ -21,7 +21,7 @@ Or, using WordPress’ custom post types, you could write a plugin that creates 
 <!-- 
 Most WordPress plugins are composed of many files, but a plugin really only *needs* one main file with a specifically formatted [DocBlock](http://en.wikipedia.org/wiki/PHPDoc#DocBlock) in the header.
  -->
-WordPress のプラグインは多くのファイルで構成されていますが、プラグインはヘッダーに特別な書式の [DocBlock](http://en.wikipedia.org/wiki/PHPDoc#DocBlock) を持つ1つのメインファイルだけが本当に必要なものなのです。
+WordPress のプラグインは多くのファイルで構成されていますが、プラグインとして（認識されるために）本当に必要なのは、ヘッダーに特別な書式の [DocBlock](http://en.wikipedia.org/wiki/PHPDoc#DocBlock) を持つ1つのメインファイルだけです。
 
 <!-- 
 [Hello Dolly](https://wordpress.org/plugins/hello-dolly/ "Hello Dolly"), one of the first plugins, is only [100 lines](https://plugins.trac.wordpress.org/browser/hello-dolly/trunk/hello.php) long. Hello Dolly shows lyrics from [the famous song](http://en.wikipedia.org/wiki/Hello,_Dolly!_(song)) in the WordPress admin. Some CSS is used in the PHP file to control how the lyric is styled.
