@@ -1,6 +1,12 @@
+<!-- 
 # Credits
+ -->
+クレジット
 
+<!-- 
 List of credits brought over manually.
+ -->
+以下のクレジットには手動で追加されています。
 
 *   @2Neil
 *   @aternus
