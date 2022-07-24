@@ -14,13 +14,13 @@ To get started creating a new plugin, follow the steps below.
 
 Here’s what the process looks like on the Unix command line:
 
-</p>
+```php
 wordpress $ cd wp-content
 wp-content $ cd plugins
 plugins $ mkdir plugin-name
 plugins $ cd plugin-name
 plugin-name $ vi plugin-name.php
-<p>
+```
 
 In the example above, `vi` is the name of the text editor. Use whichever editor that is comfortable for you.
 

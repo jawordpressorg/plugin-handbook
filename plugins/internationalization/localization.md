@@ -48,19 +48,19 @@ There are multiple ways to translate a `PO` file.
 
 You can use a text editor to enter the translation. In a text editor it will look like this.
 
-</p>
+```php
 #: plugin-name.php:123
 msgid "Page Title"
 msgstr ""
-<p>
+```
 
 You enter the translation between the quotation marks. For the German translation it would look like this.
 
-</p>
+```php
 #: plugin-name.php:123
 msgid "Page Title"
 msgstr "Seitentitel"
-<p>
+```
 
 ### Poedit
 
@@ -86,41 +86,41 @@ Here are a few tools that can be used to translate PO files online:
 
 **Unix Operating Systems**
 
-</p>
+```php
 msgfmt -o filename.mo filename.po
-<p>
+```
 
 **Windows Operating Systems**
 
-</p>
+```php
 msgfmt -o filename.mo filename.po
-<p>
+```
 
 If you have a lot of `PO` files to convert at once, you can run it as a batch. For example, using a `bash` command:
 
 **Unix Operating Systems**
 
-</p>
+```php
 # Find PO files, process each with msgfmt and rename the result to MO
-for file in \`find . -name "\*.po"\` ; do msgfmt -o ${file/.po/.mo} $file ; done
-<p>
+for file in `find . -name "*.po"` ; do msgfmt -o ${file/.po/.mo} $file ; done
+```
 
 **Windows Operating Systems**  
 For Windows you need to install [Cygwin](http://www.cygwin.com/) first.
 
 Create a file called `potomo.sh` and put the following into it:
 
-</p>
+```php
 #! /bin/sh
 # Find PO files, process each with msgfmt and rename the result to MO
-for file in \`/usr/bin/find . -name '\*.po'\` ; do /usr/bin/msgfmt -o ${file/.po/.mo} $file ; done
-<p>
+for file in `/usr/bin/find . -name '*.po'` ; do /usr/bin/msgfmt -o ${file/.po/.mo} $file ; done
+```
 
 You can run this command in the command line.
 
-</p>
+```php
 cd C:/path/to/language/folder/my-plugin/languages & C:/cygwin/bin/bash -c /cygdrive/c/path/to/script/directory/potomo.sh
-<p>
+```
 
 ### Poedit
 

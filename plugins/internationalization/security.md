@@ -14,11 +14,15 @@ If you’re outputting the strings, then they should be escaped.
 
 Insecure:
 
-\_e( 'The REST API content endpoints were added in WordPress 4.7.', 'your-text-domain' ); 
+```php
+_e( 'The REST API content endpoints were added in WordPress 4.7.', 'your-text-domain' ); 
+```
 
 Secure:
 
-esc\_html\_e( 'The REST API content endpoints were added in WordPress 4.7.', 'your-text-domain' );
+```php
+esc_html_e( 'The REST API content endpoints were added in WordPress 4.7.', 'your-text-domain' );
+```
 
 Alternatively, some people choose to rely on a translation verification mechanism, rather than adding escaping to their code. One example of a verification mechanism is [the editor roles](https://make.wordpress.org/polyglots/handbook/glossary/#project-translation-editor) that the WordPress Polyglots team uses for [translate.wordpress.org](https://translate.wordpress.org). This ensures that any translation submitted by an untrusted contributor has been verified by a trusted editor before being accepted.
 
@@ -28,18 +32,22 @@ Don’t include URLs in internationalized strings, because a malicious translat
 
 Insecure:
 
-\_e(
+```php
+_e(
 	'Please <a href="https://login.wordpress.org/register"> register for a WordPress.org account</a>.',
 	'your-text-domain'
 );
+```
 
 Secure:
 
+```php
 printf(
-	esc\_html\_\_( 'Please %1$s register for a WordPress.org account %2$s.', 'your-text-domain' ),
+	esc_html__( 'Please %1$s register for a WordPress.org account %2$s.', 'your-text-domain' ),
 	'<a href="https://login.wordpress.org/register">',
 	'</a>'
 );
+```
 
 ### Compile Your Own .mo Binaries
 
@@ -47,4 +55,6 @@ Often translators will send the compiled .mo file along with the plaintext .po f
 
 Using PoEdit to generate the binary will override the headers in the .po file, so instead it’s better to compile it from the command line:
 
+```php
 msgfmt -cv -o /path/to/output.mo /path/to/input.po
+```

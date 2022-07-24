@@ -23,10 +23,12 @@ When your callback function is ready, use [add\_action()](https://developer.word
 
 The example below will run `wporg_callback()` when the `init` hook is executed:
 
-function wporg\_callback() {
+```php
+function wporg_callback() {
     // do something
 }
-add\_action( 'init', 'wporg\_callback' );
+add_action( 'init', 'wporg_callback' );
+```
 
 You can refer to the [Hooks](https://developer.wordpress.org/plugins/hooks/) chapter for a list of available hooks.
 
@@ -55,10 +57,12 @@ The second way that callback function order is determined is simply by the order
 For example, the following callback functions are all registered to the  
 `init` hook, but with different priorities:
 
-add\_action('init', 'wporg\_callback\_run\_me\_late', 11);
-add\_action('init', 'wporg\_callback\_run\_me\_normal');
-add\_action('init', 'wporg\_callback\_run\_me\_early', 9);
-add\_action('init', 'wporg\_callback\_run\_me\_later', 11);
+```php
+add_action('init', 'wporg_callback_run_me_late', 11);
+add_action('init', 'wporg_callback_run_me_normal');
+add_action('init', 'wporg_callback_run_me_early', 9);
+add_action('init', 'wporg_callback_run_me_later', 11);
+```
 
 In the example above:
 
@@ -73,16 +77,22 @@ Sometimes it’s desirable for a callback function to receive some extra data re
 
 For example, when WordPress saves a post and runs the `[save_post](https://developer.wordpress.org/reference/hooks/save_post/)` hook, it passes two parameters to the callback function: the ID of the post being saved, and the post object itself:
 
-do\_action( 'save\_post', $post->ID, $post );
+```php
+do_action( 'save_post', $post->ID, $post );
+```
 
 When a callback function is registered for the `[save_post](https://developer.wordpress.org/reference/hooks/save_post/)` hook, it can specify that it wants to receive those two parameters. It does so by telling `add_action` to expect them by (in this case) putting `2` as the fourth argument:
 
-add\_action('save\_post', 'wporg\_custom', 10, 2);
+```php
+add_action('save_post', 'wporg_custom', 10, 2);
+```
 
 In order to actually receive those parameters in your callback function, modify the parameters your callback function will accept, like this:
 
-function wporg\_custom( $post\_id, $post ) {
+```php
+function wporg_custom( $post_id, $post ) {
     // do something
 }
+```
 
 Tip: It’s good practice to give your callback function parameters the same name as the passed parameters, or as close as you can.

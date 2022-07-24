@@ -27,29 +27,29 @@ Post meta values are passed through the [stripslashes()](http://php.net/manual/e
 
 Consider the JSON value `{"key":"value with \"escaped quotes\""}`:
 
-</p>
-$escaped\_json = '{"key":"value with \\"escaped quotes\\""}';
-update\_post\_meta( $id, 'escaped\_json', $escaped\_json );
-$broken = get\_post\_meta( $id, 'escaped\_json', true );
-/\*
+```php
+$escaped_json = '{"key":"value with \"escaped quotes\""}';
+update_post_meta( $id, 'escaped_json', $escaped_json );
+$broken = get_post_meta( $id, 'escaped_json', true );
+/*
 $broken, after stripslashes(), ends up unparsable:
 {"key":"value with "escaped quotes""}
-\*/
-<p>
+*/
+```
 
 ### Workaround
 
 By adding one more level of \\ escaping using the function [wp\_slash()](https://developer.wordpress.org/reference/functions/wp_slash/) (introduced in WP 3.6), you can compensate for the call to [stripslashes()](http://php.net/manual/en/function.stripslashes.php):
 
-</p>
-$escaped\_json = '{"key":"value with \\"escaped quotes\\""}';
-update\_post\_meta( $id, 'double\_escaped\_json', wp\_slash( $escaped\_json ) );
-$fixed = get\_post\_meta( $id, 'double\_escaped\_json', true );
-/\*
+```php
+$escaped_json = '{"key":"value with \"escaped quotes\""}';
+update_post_meta( $id, 'double_escaped_json', wp_slash( $escaped_json ) );
+$fixed = get_post_meta( $id, 'double_escaped_json', true );
+/*
 $fixed, after stripslashes(), ends up as desired:
-{"key":"value with \\"escaped quotes\\""}
-\*/
-<p>
+{"key":"value with \"escaped quotes\""}
+*/
+```
 
 ## Hidden Custom Fields
 
@@ -59,9 +59,9 @@ This can be useful in order to show these custom fields in an unusual way by usi
 
 The example below will add a unique custom field with the `meta_key` name ‘\_color’ and the `meta_value` of ‘red’ but this custom field will not display in the post edit screen:
 
-</p>
-add\_post\_meta( 68, '\_color', 'red', true );
-<p>
+```php
+add_post_meta( 68, '_color', 'red', true );
+```
 
 ### Hidden Arrays
 

@@ -6,30 +6,28 @@ The REST API provides us a way to match URIs to various resources in our WordPre
 
 If we wanted to create an endpoint that would return the phrase “Hello World, this is the WordPress REST API”, we would first need to register the route for that endpoint. To register routes you should use the `register_rest_route()` function. It needs to be called on the `rest_api_init` action hook. `register_rest_route()` handles all of the mapping for routes to endpoints. Let’s try to create a “Hello World, this is the WordPress REST API” route.
 
-/\*\*
- \* This is our callback function that embeds our phrase in a WP\_REST\_Response
- \*/
-function prefix\_get\_endpoint\_phrase() {
-    // rest\_ensure\_response() wraps the data we want to return into a WP\_REST\_Response, and ensures it will be properly returned.
-    return rest\_ensure\_response( 'Hello World, this is the WordPress REST API' );
-}
-
-/\*\*
- \* This function is where we register our routes for our example endpoint.
- \*/
-function prefix\_register\_example\_routes() {
-    // register\_rest\_route() handles more arguments but we are going to stick to the basics for now.
-    register\_rest\_route( 'hello-world/v1', '/phrase', array(
-        // By using this constant we ensure that when the WP\_REST\_Server changes our readable endpoints will work as intended.
-        'methods'  => WP\_REST\_Server::READABLE,
-        // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-        'callback' => 'prefix\_get\_endpoint\_phrase',
+```php
+/**
+ * This is our callback function that embeds our phrase in a WP_REST_Response
+ */
+function prefix_get_endpoint_phrase() {
+    // rest_ensure_response() wraps the data we want to return into a WP_REST_Response, and ensures it will be properly returned.
+    return rest_ensure_response( 'Hello World, this is the WordPress REST API' );
+}</p>
+<p>/**
+ * This function is where we register our routes for our example endpoint.
+ */
+function prefix_register_example_routes() {
+    // register_rest_route() handles more arguments but we are going to stick to the basics for now.
+    register_rest_route( 'hello-world/v1', '/phrase', array(
+        // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
+        'methods'  => WP_REST_Server::READABLE,
+        // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+        'callback' => 'prefix_get_endpoint_phrase',
     ) );
-}
-
-add\_action( 'rest\_api\_init', 'prefix\_register\_example\_routes' );
-
-[Expand full source code](#)[Collapse full source code](#)
+}</p>
+<p>add_action( 'rest_api_init', 'prefix_register_example_routes' );
+```
 
 The first argument passed into `register_rest_route()` is the namespace, which provides us a way to group our routes. The second argument passed in is the resource path, or resource base. For our example, the resource we are retrieving is the “Hello World, this is the WordPress REST API” phrase. The third argument is an array of options. We specify what methods the endpoint can use and what callback should happen when the endpoint is matched (more things can be done but these are the fundamentals).
 
@@ -69,76 +67,68 @@ Using routes like this, we would want each to return a collection of orders or p
 
 Path variables enable us to add dynamic routes. To expand on our eCommerce routes, we could register a route to grab individual products.
 
-/\*\*
- \* This is our callback function to return our products.
- \*
- \* @param WP\_REST\_Request $request This function accepts a rest request to process data.
- \*/
-function prefix\_get\_products( $request ) {
+```php
+/**
+ * This is our callback function to return our products.
+ *
+ * @param WP_REST_Request $request This function accepts a rest request to process data.
+ */
+function prefix_get_products( $request ) {
     // In practice this function would fetch the desired data. Here we are just making stuff up.
     $products = array(
         '1' => 'I am product 1',
         '2' => 'I am product 2',
         '3' => 'I am product 3',
-    );
-    
-    return rest\_ensure\_response( $products );
-}
-
-/\*\*
- \* This is our callback function to return a single product.
- \*
- \* @param WP\_REST\_Request $request This function accepts a rest request to process data.
- \*/
-function prefix\_get\_product( $request ) {
+    );</p>
+<p>    return rest_ensure_response( $products );
+}</p>
+<p>/**
+ * This is our callback function to return a single product.
+ *
+ * @param WP_REST_Request $request This function accepts a rest request to process data.
+ */
+function prefix_get_product( $request ) {
     // In practice this function would fetch the desired data. Here we are just making stuff up.
     $products = array(
         '1' => 'I am product 1',
         '2' => 'I am product 2',
         '3' => 'I am product 3',
-    );
-
-    // Here we are grabbing the 'id' path variable from the $request object. WP\_REST\_Request implements ArrayAccess, which allows us to grab properties as though it is an array.
-    $id = (string) $request\['id'\];
-
-    if ( isset( $products\[ $id \] ) ) {
+    );</p>
+<p>    // Here we are grabbing the 'id' path variable from the $request object. WP_REST_Request implements ArrayAccess, which allows us to grab properties as though it is an array.
+    $id = (string) $request['id'];</p>
+<p>    if ( isset( $products[ $id ] ) ) {
         // Grab the product.
-        $product = $products\[ $id \];
-
-        // Return the product as a response.
-        return rest\_ensure\_response( $product );
+        $product = $products[ $id ];</p>
+<p>        // Return the product as a response.
+        return rest_ensure_response( $product );
     } else {
-        // Return a WP\_Error because the request product was not found. In this case we return a 404 because the main resource was not found.
-        return new WP\_Error( 'rest\_product\_invalid', esc\_html\_\_( 'The product does not exist.', 'my-text-domain' ), array( 'status' => 404 ) );
-    }
-
-    // If the code somehow executes to here something bad happened return a 500.
-    return new WP\_Error( 'rest\_api\_sad', esc\_html\_\_( 'Something went horribly wrong.', 'my-text-domain' ), array( 'status' => 500 ) );
-}
-
-/\*\*
- \* This function is where we register our routes for our example endpoint.
- \*/
-function prefix\_register\_product\_routes() {
+        // Return a WP_Error because the request product was not found. In this case we return a 404 because the main resource was not found.
+        return new WP_Error( 'rest_product_invalid', esc_html__( 'The product does not exist.', 'my-text-domain' ), array( 'status' => 404 ) );
+    }</p>
+<p>    // If the code somehow executes to here something bad happened return a 500.
+    return new WP_Error( 'rest_api_sad', esc_html__( 'Something went horribly wrong.', 'my-text-domain' ), array( 'status' => 500 ) );
+}</p>
+<p>/**
+ * This function is where we register our routes for our example endpoint.
+ */
+function prefix_register_product_routes() {
     // Here we are registering our route for a collection of products.
-    register\_rest\_route( 'my-shop/v1', '/products', array(
-        // By using this constant we ensure that when the WP\_REST\_Server changes our readable endpoints will work as intended.
-        'methods'  => WP\_REST\_Server::READABLE,
-        // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-        'callback' => 'prefix\_get\_products',
+    register_rest_route( 'my-shop/v1', '/products', array(
+        // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
+        'methods'  => WP_REST_Server::READABLE,
+        // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+        'callback' => 'prefix_get_products',
     ) );
-    // Here we are registering our route for single products. The (?P<id>\[\\d\]+) is our path variable for the ID, which, in this example, can only be some form of positive number.
-    register\_rest\_route( 'my-shop/v1', '/products/(?P<id>\[\\d\]+)', array(
-        // By using this constant we ensure that when the WP\_REST\_Server changes our readable endpoints will work as intended.
-        'methods'  => WP\_REST\_Server::READABLE,
-        // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-        'callback' => 'prefix\_get\_product',
+    // Here we are registering our route for single products. The (?P<id>[\d]+) is our path variable for the ID, which, in this example, can only be some form of positive number.
+    register_rest_route( 'my-shop/v1', '/products/(?P<id>[\d]+)', array(
+        // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
+        'methods'  => WP_REST_Server::READABLE,
+        // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+        'callback' => 'prefix_get_product',
     ) );
-}
-
-add\_action( 'rest\_api\_init', 'prefix\_register\_product\_routes' );
-
-[Expand full source code](#)[Collapse full source code](#)
+}</p>
+<p>add_action( 'rest_api_init', 'prefix_register_product_routes' );
+```
 
 The above example covers a lot. The important part to note is that in the second route we register, we add on a path variable `/(?P[\d]+)` to our resource path `/products`. The path variable is a regular expression. In this case it uses `[\d]+` to signify that should be any numerical character at least once. If you are using numeric IDs for your resources, then this is a great example of how to use a path variable. When using path variables, we now have to be careful around what can be matched as it is user input.
 
@@ -150,56 +140,52 @@ Although this section is about routes, we have covered quite a bit about endpoin
 
 Endpoints are the destination that a route needs to map to. For any given route, you could have a number of different endpoints registered to it. We will expand on our fictitious eCommerce plugin, to better show the distinction between routes and endpoints. We are going to create two endpoints that exist at the `/wp-json/my-shop/v1/products/` route. One endpoint uses the HTTP verb `GET` to get products, and the other endpoint uses the HTTP verb `POST` to create a new product.
 
-/\*\*
- \* This is our callback function to return our products.
- \*
- \* @param WP\_REST\_Request $request This function accepts a rest request to process data.
- \*/
-function prefix\_get\_products( $request ) {
+```php
+/**
+ * This is our callback function to return our products.
+ *
+ * @param WP_REST_Request $request This function accepts a rest request to process data.
+ */
+function prefix_get_products( $request ) {
     // In practice this function would fetch the desired data. Here we are just making stuff up.
     $products = array(
-        '1' => 'I am product 1',
-        '2' => 'I am product 2',
-        '3' => 'I am product 3',
-    );
-    
-    return rest\_ensure\_response( $products );
-}
-
-/\*\*
- \* This is our callback function to return a single product.
- \*
- \* @param WP\_REST\_Request $request This function accepts a rest request to process data.
- \*/
-function prefix\_create\_product( $request ) {
+        '1' =&amp;gt; 'I am product 1',
+        '2' =&amp;gt; 'I am product 2',
+        '3' =&amp;gt; 'I am product 3',
+    );</p>
+<p>    return rest_ensure_response( $products );
+}</p>
+<p>/**
+ * This is our callback function to return a single product.
+ *
+ * @param WP_REST_Request $request This function accepts a rest request to process data.
+ */
+function prefix_create_product( $request ) {
     // In practice this function would create a product. Here we are just making stuff up.
-   return rest\_ensure\_response( 'Product has been created' );
-}
-
-/\*\*
- \* This function is where we register our routes for our example endpoint.
- \*/
-function prefix\_register\_product\_routes() {
+   return rest_ensure_response( 'Product has been created' );
+}</p>
+<p>/**
+ * This function is where we register our routes for our example endpoint.
+ */
+function prefix_register_product_routes() {
     // Here we are registering our route for a collection of products and creation of products.
-    register\_rest\_route( 'my-shop/v1', '/products', array(
+    register_rest_route( 'my-shop/v1', '/products', array(
         array(
-            // By using this constant we ensure that when the WP\_REST\_Server changes, our readable endpoints will work as intended.
-            'methods'  => WP\_REST\_Server::READABLE,
-            // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-            'callback' => 'prefix\_get\_products',
+            // By using this constant we ensure that when the WP_REST_Server changes, our readable endpoints will work as intended.
+            'methods'  =&amp;gt; WP_REST_Server::READABLE,
+            // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+            'callback' =&amp;gt; 'prefix_get_products',
         ),
         array(
-            // By using this constant we ensure that when the WP\_REST\_Server changes, our create endpoints will work as intended.
-            'methods'  => WP\_REST\_Server::CREATABLE,
-            // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-            'callback' => 'prefix\_create\_product',
+            // By using this constant we ensure that when the WP_REST_Server changes, our create endpoints will work as intended.
+            'methods'  =&amp;gt; WP_REST_Server::CREATABLE,
+            // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+            'callback' =&amp;gt; 'prefix_create_product',
         ),
     ) );
-}
-
-add\_action( 'rest\_api\_init', 'prefix\_register\_product\_routes' );
-
-[Expand full source code](#)[Collapse full source code](#)
+}</p>
+<p>add_action( 'rest_api_init', 'prefix_register_product_routes' );
+```
 
 Depending on what HTTP Method we use for the route `/wp-json/my-shop/v1/products`, we are matched to a different endpoint and a different callback is fired. When we use `POST` we trigger the `prefix_create_product()` callback, and when we use `GET` we trigger the `prefix_get_products()` callback.
 
@@ -237,45 +223,41 @@ To restrict usage of endpoints we need to register a permissions callback.
 
 Permissions callbacks are extremely important for security with the WordPress REST API. If you have any private data that should not be displayed publicly, then you need to have permissions callbacks registered for your endpoints. Below is an example of how to register permissions callbacks.
 
-/\*\*
- \* This is our callback function that embeds our resource in a WP\_REST\_Response
- \*/
-function prefix\_get\_private\_data() {
-    // rest\_ensure\_response() wraps the data we want to return into a WP\_REST\_Response, and ensures it will be properly returned.
-    return rest\_ensure\_response( 'This is private data.' );
-}
-
-/\*\*
- \* This is our callback function that embeds our resource in a WP\_REST\_Response
- \*/
-function prefix\_get\_private\_data\_permissions\_check() {
-    // Restrict endpoint to only users who have the edit\_posts capability.
-    if ( ! current\_user\_can( 'edit\_posts' ) ) {
-        return new WP\_Error( 'rest\_forbidden', esc\_html\_\_( 'OMG you can not view private data.', 'my-text-domain' ), array( 'status' => 401 ) );
-    }
-
-    // This is a black-listing approach. You could alternatively do this via white-listing, by returning false here and changing the permissions check.
+```php
+/**
+ * This is our callback function that embeds our resource in a WP_REST_Response
+ */
+function prefix_get_private_data() {
+    // rest_ensure_response() wraps the data we want to return into a WP_REST_Response, and ensures it will be properly returned.
+    return rest_ensure_response( 'This is private data.' );
+}</p>
+<p>/**
+ * This is our callback function that embeds our resource in a WP_REST_Response
+ */
+function prefix_get_private_data_permissions_check() {
+    // Restrict endpoint to only users who have the edit_posts capability.
+    if ( ! current_user_can( 'edit_posts' ) ) {
+        return new WP_Error( 'rest_forbidden', esc_html__( 'OMG you can not view private data.', 'my-text-domain' ), array( 'status' => 401 ) );
+    }</p>
+<p>    // This is a black-listing approach. You could alternatively do this via white-listing, by returning false here and changing the permissions check.
     return true;
-}
-
-/\*\*
- \* This function is where we register our routes for our example endpoint.
- \*/
-function prefix\_register\_example\_routes() {
-    // register\_rest\_route() handles more arguments but we are going to stick to the basics for now.
-    register\_rest\_route( 'my-plugin/v1', '/private-data', array(
-        // By using this constant we ensure that when the WP\_REST\_Server changes our readable endpoints will work as intended.
-        'methods'  => WP\_REST\_Server::READABLE,
-        // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-        'callback' => 'prefix\_get\_private\_data',
+}</p>
+<p>/**
+ * This function is where we register our routes for our example endpoint.
+ */
+function prefix_register_example_routes() {
+    // register_rest_route() handles more arguments but we are going to stick to the basics for now.
+    register_rest_route( 'my-plugin/v1', '/private-data', array(
+        // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
+        'methods'  => WP_REST_Server::READABLE,
+        // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+        'callback' => 'prefix_get_private_data',
         // Here we register our permissions callback. The callback is fired before the main callback to check if the current user can access the endpoint.
-        'permissions\_callback' => 'prefix\_get\_private\_data\_permissions\_check',
+        'permissions_callback' => 'prefix_get_private_data_permissions_check',
     ) );
-}
-
-add\_action( 'rest\_api\_init', 'prefix\_register\_example\_routes' );
-
-[Expand full source code](#)[Collapse full source code](#)
+}</p>
+<p>add_action( 'rest_api_init', 'prefix_register_example_routes' );
+```
 
 If you try out this endpoint without any Authentication enabled then you will also be returned the error response, preventing you from seeing the data. Authentication is a huge topic and eventually a portion of this chapter will be created to show you how to create your own authentication processes.
 
@@ -283,10 +265,11 @@ If you try out this endpoint without any Authentication enabled then you will al
 
 When making requests to an endpoint you might need to specify extra parameters to change the response. These extra parameters can be added while registering endpoints. Let’s look at an example of how to use arguments with an endpoint.
 
-/\*\*
- \* This is our callback function that embeds our resource in a WP\_REST\_Response
- \*/
-function prefix\_get\_colors( $request ) {
+```php
+/**
+ * This is our callback function that embeds our resource in a WP_REST_Response
+ */
+function prefix_get_colors( $request ) {
     // In practice this function would fetch the desired data. Here we are just making stuff up.
     $colors = array(
         'blue',
@@ -295,55 +278,50 @@ function prefix\_get\_colors( $request ) {
         'red',
         'green',
         'green',
-    );
-
-    if ( isset( $request\['filter'\] ) ) {
-       $filtered\_colors = array();
+    );</p>
+<p>    if ( isset( $request['filter'] ) ) {
+       $filtered_colors = array();
        foreach ( $colors as $color ) {
-           if ( $request\['filter'\] === $color ) {
-               $filtered\_colors\[\] = $color;
+           if ( $request['filter'] === $color ) {
+               $filtered_colors[] = $color;
            }
        }
-       return rest\_ensure\_response( $filtered\_colors );
+       return rest_ensure_response( $filtered_colors );
     }
-    return rest\_ensure\_response( $colors );
-}
-
-/\*\*
- \* We can use this function to contain our arguments for the example product endpoint.
- \*/
-function prefix\_get\_color\_arguments() {
+    return rest_ensure_response( $colors );
+}</p>
+<p>/**
+ * We can use this function to contain our arguments for the example product endpoint.
+ */
+function prefix_get_color_arguments() {
     $args = array();
     // Here we are registering the schema for the filter argument.
-    $args\['filter'\] = array(
+    $args['filter'] = array(
         // description should be a human readable description of the argument.
-        'description' => esc\_html\_\_( 'The filter parameter is used to filter the collection of colors', 'my-text-domain' ),
+        'description' => esc_html__( 'The filter parameter is used to filter the collection of colors', 'my-text-domain' ),
         // type specifies the type of data that the argument should be.
         'type'        => 'string',
         // enum specified what values filter can take on.
         'enum'        => array( 'red', 'green', 'blue' ),
     );
     return $args;
-}
-
-/\*\*
- \* This function is where we register our routes for our example endpoint.
- \*/
-function prefix\_register\_example\_routes() {
-    // register\_rest\_route() handles more arguments but we are going to stick to the basics for now.
-    register\_rest\_route( 'my-colors/v1', '/colors', array(
-        // By using this constant we ensure that when the WP\_REST\_Server changes our readable endpoints will work as intended.
-        'methods'  => WP\_REST\_Server::READABLE,
-        // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-        'callback' => 'prefix\_get\_colors',
+}</p>
+<p>/**
+ * This function is where we register our routes for our example endpoint.
+ */
+function prefix_register_example_routes() {
+    // register_rest_route() handles more arguments but we are going to stick to the basics for now.
+    register_rest_route( 'my-colors/v1', '/colors', array(
+        // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
+        'methods'  => WP_REST_Server::READABLE,
+        // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+        'callback' => 'prefix_get_colors',
         // Here we register our permissions callback. The callback is fired before the main callback to check if the current user can access the endpoint.
-        'args' => prefix\_get\_color\_arguments(),
+        'args' => prefix_get_color_arguments(),
     ) );
-}
-
-add\_action( 'rest\_api\_init', 'prefix\_register\_example\_routes' );
-
-[Expand full source code](#)[Collapse full source code](#)
+}</p>
+<p>add_action( 'rest_api_init', 'prefix_register_example_routes' );
+```
 
 We have now specified a `filter` argument for this example. We can specify the argument as a query parameter when we request the endpoint. If we make a `GET` request to `https://ourawesomesitem.com/my-colors/v1/colors?filter=blue`, we will be returned only the blue colors in our collection. You could also pass these as body parameters in the request body, instead of in the query string. To understand the distinction between query parameters and body parameters you should read about the HTTP spec. Query parameters live in the query string tacked onto the URL and body parameters are directly embedded in the body of an HTTP request.
 
@@ -355,10 +333,11 @@ Validation and sanitization are extremely important for security in the API. The
 
 In the example above, we need to verify that the `filter` parameter is a string, and it matches the value red, green, or blue. Let’s look at what the code looks like after adding in a `validate_callback`.
 
-/\*\*
- \* This is our callback function that embeds our resource in a WP\_REST\_Response
- \*/
-function prefix\_get\_colors( $request ) {
+```php
+/**
+ * This is our callback function that embeds our resource in a WP_REST_Response
+ */
+function prefix_get_colors( $request ) {
     // In practice this function would fetch more practical data. Here we are just making stuff up.
     $colors = array(
         'blue',
@@ -367,167 +346,153 @@ function prefix\_get\_colors( $request ) {
         'red',
         'green',
         'green',
-    );
-
-    if ( isset( $request\['filter'\] ) ) {
-       $filtered\_colors = array();
+    );</p>
+<p>    if ( isset( $request['filter'] ) ) {
+       $filtered_colors = array();
        foreach ( $colors as $color ) {
-           if ( $request\['filter'\] === $color ) {
-               $filtered\_colors\[\] = $color;
+           if ( $request['filter'] === $color ) {
+               $filtered_colors[] = $color;
            }
        }
-       return rest\_ensure\_response( $filtered\_colors );
+       return rest_ensure_response( $filtered_colors );
     }
-    return rest\_ensure\_response( $colors );
+    return rest_ensure_response( $colors );
 }
-/\*\*
- \* Validate a request argument based on details registered to the route.
- \*
- \* @param  mixed            $value   Value of the 'filter' argument.
- \* @param  WP\_REST\_Request  $request The current request object.
- \* @param  string           $param   Key of the parameter. In this case it is 'filter'.
- \* @return WP\_Error|boolean
- \*/
-function prefix\_filter\_arg\_validate\_callback( $value, $request, $param ) {
+/**
+ * Validate a request argument based on details registered to the route.
+ *
+ * @param  mixed            $value   Value of the 'filter' argument.
+ * @param  WP_REST_Request  $request The current request object.
+ * @param  string           $param   Key of the parameter. In this case it is 'filter'.
+ * @return WP_Error|boolean
+ */
+function prefix_filter_arg_validate_callback( $value, $request, $param ) {
     // If the 'filter' argument is not a string return an error.
-    if ( ! is\_string( $value ) ) {
-        return new WP\_Error( 'rest\_invalid\_param', esc\_html\_\_( 'The filter argument must be a string.', 'my-text-domain' ), array( 'status' => 400 ) );
+    if ( ! is_string( $value ) ) {
+        return new WP_Error( 'rest_invalid_param', esc_html__( 'The filter argument must be a string.', 'my-text-domain' ), array( 'status' => 400 ) );
+    }</p>
+<p>    // Get the registered attributes for this endpoint request.
+    $attributes = $request->get_attributes();</p>
+<p>    // Grab the filter param schema.
+    $args = $attributes['args'][ $param ];</p>
+<p>    // If the filter param is not a value in our enum then we should return an error as well.
+    if ( ! in_array( $value, $args['enum'], true ) ) {
+        return new WP_Error( 'rest_invalid_param', sprintf( __( '%s is not one of %s' ), $param, implode( ', ', $args['enum'] ) ), array( 'status' => 400 ) );
     }
-
-    // Get the registered attributes for this endpoint request.
-    $attributes = $request->get\_attributes();
-
-    // Grab the filter param schema.
-    $args = $attributes\['args'\]\[ $param \];
-
-    // If the filter param is not a value in our enum then we should return an error as well.
-    if ( ! in\_array( $value, $args\['enum'\], true ) ) {
-        return new WP\_Error( 'rest\_invalid\_param', sprintf( \_\_( '%s is not one of %s' ), $param, implode( ', ', $args\['enum'\] ) ), array( 'status' => 400 ) );
-    }
-}
-
-/\*\*
- \* We can use this function to contain our arguments for the example product endpoint.
- \*/
-function prefix\_get\_color\_arguments() {
+}</p>
+<p>/**
+ * We can use this function to contain our arguments for the example product endpoint.
+ */
+function prefix_get_color_arguments() {
     $args = array();
     // Here we are registering the schema for the filter argument.
-    $args\['filter'\] = array(
+    $args['filter'] = array(
         // description should be a human readable description of the argument.
-        'description' => esc\_html\_\_( 'The filter parameter is used to filter the collection of colors', 'my-text-domain' ),
+        'description' => esc_html__( 'The filter parameter is used to filter the collection of colors', 'my-text-domain' ),
         // type specifies the type of data that the argument should be.
         'type'        => 'string',
         // enum specified what values filter can take on.
         'enum'        => array( 'red', 'green', 'blue' ),
         // Here we register the validation callback for the filter argument.
-        'validate\_callback' => 'prefix\_filter\_arg\_validate\_callback',
+        'validate_callback' => 'prefix_filter_arg_validate_callback',
     );
     return $args;
-}
-
-/\*\*
- \* This function is where we register our routes for our example endpoint.
- \*/
-function prefix\_register\_example\_routes() {
-    // register\_rest\_route() handles more arguments but we are going to stick to the basics for now.
-    register\_rest\_route( 'my-colors/v1', '/colors', array(
-        // By using this constant we ensure that when the WP\_REST\_Server changes our readable endpoints will work as intended.
-        'methods'  => WP\_REST\_Server::READABLE,
-        // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-        'callback' => 'prefix\_get\_colors',
+}</p>
+<p>/**
+ * This function is where we register our routes for our example endpoint.
+ */
+function prefix_register_example_routes() {
+    // register_rest_route() handles more arguments but we are going to stick to the basics for now.
+    register_rest_route( 'my-colors/v1', '/colors', array(
+        // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
+        'methods'  => WP_REST_Server::READABLE,
+        // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+        'callback' => 'prefix_get_colors',
         // Here we register our permissions callback. The callback is fired before the main callback to check if the current user can access the endpoint.
-        'args' => prefix\_get\_color\_arguments(),
+        'args' => prefix_get_color_arguments(),
     ) );
-}
-
-add\_action( 'rest\_api\_init', 'prefix\_register\_example\_routes' );
-
-[Expand full source code](#)[Collapse full source code](#)
+}</p>
+<p>add_action( 'rest_api_init', 'prefix_register_example_routes' );
+```
 
 #### Sanitizing
 
 In the above example, we do not need to use a `sanitize_callback`, because we are restricting input to only values in our enum. If we did not have strict validation and accepted any string as a parameter, we would definitely need to register a `sanitize_callback`. What if we wanted to update a content field and the user entered something like `alert('ZOMG Hacking you');`. The field value could potentially be a executable script. To strip out unwanted data or to transform data into a desired format we need to register a `sanitize_callback` for our arguments. Here is an example of how to use WordPress’s `sanitize_text_field()` for a sanitize callback:
 
-/\*\*
- \* This is our callback function that embeds our resource in a WP\_REST\_Response.
- \*
- \* The parameter is already sanitized by this point so we can use it without any worries.
- \*/
-function prefix\_get\_item( $request ) {
-    if ( isset( $request\['data'\] ) ) {
-        return rest\_ensure\_response( $request\['data'\] );
-    }
-
-    return new WP\_Error( 'rest\_invalid', esc\_html\_\_( 'The data parameter is required.', 'my-text-domain' ), array( 'status' => 400 ) );
-}
-
-/\*\*
- \* Validate a request argument based on details registered to the route.
- \*
- \* @param  mixed            $value   Value of the 'filter' argument.
- \* @param  WP\_REST\_Request  $request The current request object.
- \* @param  string           $param   Key of the parameter. In this case it is 'filter'.
- \* @return WP\_Error|boolean
- \*/
-function prefix\_data\_arg\_validate\_callback( $value, $request, $param ) {
+```php
+/**
+ * This is our callback function that embeds our resource in a WP_REST_Response.
+ *
+ * The parameter is already sanitized by this point so we can use it without any worries.
+ */
+function prefix_get_item( $request ) {
+    if ( isset( $request['data'] ) ) {
+        return rest_ensure_response( $request['data'] );
+    }</p>
+<p>    return new WP_Error( 'rest_invalid', esc_html__( 'The data parameter is required.', 'my-text-domain' ), array( 'status' => 400 ) );
+}</p>
+<p>/**
+ * Validate a request argument based on details registered to the route.
+ *
+ * @param  mixed            $value   Value of the 'filter' argument.
+ * @param  WP_REST_Request  $request The current request object.
+ * @param  string           $param   Key of the parameter. In this case it is 'filter'.
+ * @return WP_Error|boolean
+ */
+function prefix_data_arg_validate_callback( $value, $request, $param ) {
     // If the 'data' argument is not a string return an error.
-    if ( ! is\_string( $value ) ) {
-        return new WP\_Error( 'rest\_invalid\_param', esc\_html\_\_( 'The filter argument must be a string.', 'my-text-domain' ), array( 'status' => 400 ) );
+    if ( ! is_string( $value ) ) {
+        return new WP_Error( 'rest_invalid_param', esc_html__( 'The filter argument must be a string.', 'my-text-domain' ), array( 'status' => 400 ) );
     }
-}
-
-/\*\*
- \* Sanitize a request argument based on details registered to the route.
- \*
- \* @param  mixed            $value   Value of the 'filter' argument.
- \* @param  WP\_REST\_Request  $request The current request object.
- \* @param  string           $param   Key of the parameter. In this case it is 'filter'.
- \* @return WP\_Error|boolean
- \*/
-function prefix\_data\_arg\_sanitize\_callback( $value, $request, $param ) {
+}</p>
+<p>/**
+ * Sanitize a request argument based on details registered to the route.
+ *
+ * @param  mixed            $value   Value of the 'filter' argument.
+ * @param  WP_REST_Request  $request The current request object.
+ * @param  string           $param   Key of the parameter. In this case it is 'filter'.
+ * @return WP_Error|boolean
+ */
+function prefix_data_arg_sanitize_callback( $value, $request, $param ) {
     // It is as simple as returning the sanitized value.
-    return sanitize\_text\_field( $value );
-}
-
-/\*\*
- \* We can use this function to contain our arguments for the example product endpoint.
- \*/
-function prefix\_get\_data\_arguments() {
+    return sanitize_text_field( $value );
+}</p>
+<p>/**
+ * We can use this function to contain our arguments for the example product endpoint.
+ */
+function prefix_get_data_arguments() {
     $args = array();
     // Here we are registering the schema for the filter argument.
-    $args\['data'\] = array(
+    $args['data'] = array(
         // description should be a human readable description of the argument.
-        'description' => esc\_html\_\_( 'The data parameter is used to be sanitized and returned in the response.', 'my-text-domain' ),
+        'description' => esc_html__( 'The data parameter is used to be sanitized and returned in the response.', 'my-text-domain' ),
         // type specifies the type of data that the argument should be.
         'type'        => 'string',
         // Set the argument to be required for the endpoint.
         'required'    => true,
         // We are registering a basic validation callback for the data argument.
-        'validate\_callback' => 'prefix\_data\_arg\_validate\_callback',
+        'validate_callback' => 'prefix_data_arg_validate_callback',
         // Here we register the validation callback for the filter argument.
-        'sanitize\_callback' => 'prefix\_data\_arg\_sanitize\_callback',
+        'sanitize_callback' => 'prefix_data_arg_sanitize_callback',
     );
     return $args;
-}
-
-/\*\*
- \* This function is where we register our routes for our example endpoint.
- \*/
-function prefix\_register\_example\_routes() {
-    // register\_rest\_route() handles more arguments but we are going to stick to the basics for now.
-    register\_rest\_route( 'my-plugin/v1', '/sanitized-data', array(
-        // By using this constant we ensure that when the WP\_REST\_Server changes our readable endpoints will work as intended.
-        'methods'  => WP\_REST\_Server::READABLE,
-        // Here we register our callback. The callback is fired when this endpoint is matched by the WP\_REST\_Server class.
-        'callback' => 'prefix\_get\_item',
+}</p>
+<p>/**
+ * This function is where we register our routes for our example endpoint.
+ */
+function prefix_register_example_routes() {
+    // register_rest_route() handles more arguments but we are going to stick to the basics for now.
+    register_rest_route( 'my-plugin/v1', '/sanitized-data', array(
+        // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
+        'methods'  => WP_REST_Server::READABLE,
+        // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+        'callback' => 'prefix_get_item',
         // Here we register our permissions callback. The callback is fired before the main callback to check if the current user can access the endpoint.
-        'args' => prefix\_get\_data\_arguments(),
+        'args' => prefix_get_data_arguments(),
     ) );
-}
-
-add\_action( 'rest\_api\_init', 'prefix\_register\_example\_routes' );
-
-[Expand full source code](#)[Collapse full source code](#)
+}</p>
+<p>add_action( 'rest_api_init', 'prefix_register_example_routes' );
+```
 
 ## Summary
 

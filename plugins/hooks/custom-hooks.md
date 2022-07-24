@@ -31,45 +31,49 @@ Naming the function `wporg_email_body` (where `wporg_` is a unique prefix for yo
 
 If your plugin adds a settings form to the Administrative Panels, you can use Actions to allow other plugins to add their own settings to it.
 
-</p>
-<p>    Foo:<br />
-    Bar:<br />
-   &lt;?php<br />
-    do\_action( &#039;wporg\_after\_settings\_page\_html&#039; );<br />
-}<br />
+```php
+<p>    Foo:
+    Bar:
+   <?php
+    do_action( &#039;wporg_after_settings_page_html&#039; );
+}
+```
 
 Now another plugin can register a callback function for the `wporg_after_settings_page_html` hook and inject new settings:
 
-</p>
-<p>    New 1:<br />
-    &lt;?php<br />
-}<br />
-add\_action( &#039;wporg\_after\_settings\_page\_html&#039;, &#039;myprefix\_add\_settings&#039; );<br />
+```php
+<p>    New 1:
+    <?php
+}
+add_action( &#039;wporg_after_settings_page_html&#039;, &#039;myprefix_add_settings&#039; );
+```
 
 ### Extensible Filter: Custom Post Type
 
 In this example, when the new post type is registered, the parameters that define it are passed through a filter, so another plugin can change them before the post type is created.
 
-<br />
-&lt;?php<br />
-function wporg\_create\_post\_type()<br />
-{<br />
-    $post\_type\_params = \[/\* ... \*/\];</p>
-<p>    register\_post\_type(<br />
-        &#039;post\_type\_slug&#039;,<br />
-        apply\_filters( &#039;wporg\_post\_type\_params&#039;, $post\_type\_params )<br />
-    );<br />
-}<br />
+```php
+<?php
+function wporg_create_post_type()
+{
+    $post_type_params = [/* ... */];</p>
+<p>    register_post_type(
+        &#039;post_type_slug&#039;,
+        apply_filters( &#039;wporg_post_type_params&#039;, $post_type_params )
+    );
+}
+```
 
 Now another plugin can register a callback function for the `wporg_post_type_params` hook and change post type parameters:
 
-<br />
-&lt;?php<br />
-function myprefix\_change\_post\_type\_params( $post\_type\_params ) {<br />
-	$post\_type\_params\[&#039;hierarchical&#039;\] = true;<br />
-	return $post\_type\_params;<br />
-}<br />
-add\_filter( &#039;wporg\_post\_type\_params&#039;, &#039;myprefix\_change\_post\_type\_params&#039; );<br />
+```php
+<?php
+function myprefix_change_post_type_params( $post_type_params ) {
+	$post_type_params[&#039;hierarchical&#039;] = true;
+	return $post_type_params;
+}
+add_filter( &#039;wporg_post_type_params&#039;, &#039;myprefix_change_post_type_params&#039; );
+```
 
 ## External Resources
 

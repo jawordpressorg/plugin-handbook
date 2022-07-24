@@ -4,16 +4,18 @@
 
 To add a new Top-level menu to WordPress Administration, use the [add\_menu\_page()](https://developer.wordpress.org/reference/functions/add_menu_page/) function.
 
+```php
 <?php
-add\_menu\_page(
-    string $page\_title,
-    string $menu\_title,
+add_menu_page(
+    string $page_title,
+    string $menu_title,
     string $capability,
-    string $menu\_slug,
+    string $menu_slug,
     callable $function = '',
-    string $icon\_url = '',
+    string $icon_url = '',
     int $position = null
 );
+```
 
 ### Example
 
@@ -25,47 +27,47 @@ Note:
 
 We recommend wrapping your HTML using a `<div>` with a class of `wrap`.
 
+```php
 <?php
-function wporg\_options\_page\_html() {
+function wporg_options_page_html() {
     ?>
     <div class="wrap">
-      <h1><?php echo esc\_html( get\_admin\_page\_title() ); ?></h1>
+      <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
       <form action="options.php" method="post">
         <?php
-        // output security fields for the registered setting "wporg\_options"
-        settings\_fields( 'wporg\_options' );
+        // output security fields for the registered setting "wporg_options"
+        settings_fields( 'wporg_options' );
         // output setting sections and their fields
         // (sections are registered for "wporg", each field is registered to a specific section)
-        do\_settings\_sections( 'wporg' );
+        do_settings_sections( 'wporg' );
         // output save settings button
-        submit\_button( \_\_( 'Save Settings', 'textdomain' ) );
+        submit_button( __( 'Save Settings', 'textdomain' ) );
         ?>
       </form>
     </div>
     <?php
 }
 ?>
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 **The second step** will be registering our WPOrg menu. The registration needs to occur during the `admin_menu` action hook.
 
+```php
 <?php
-add\_action( 'admin\_menu', 'wporg\_options\_page' );
-function wporg\_options\_page() {
-    add\_menu\_page(
+add_action( 'admin_menu', 'wporg_options_page' );
+function wporg_options_page() {
+    add_menu_page(
         'WPOrg',
         'WPOrg Options',
-        'manage\_options',
+        'manage_options',
         'wporg',
-        'wporg\_options\_page\_html',
-        plugin\_dir\_url(\_\_FILE\_\_) . 'images/icon\_wporg.png',
+        'wporg_options_page_html',
+        plugin_dir_url(__FILE__) . 'images/icon_wporg.png',
         20
     );
 }
 ?>
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 For a list of parameters and what each do please see the [add\_menu\_page()](https://developer.wordpress.org/reference/functions/add_menu_page/) in the reference.
 
@@ -75,32 +77,34 @@ The best practice for portable code would be to create a Callback that requires/
 
 For the sake of completeness and helping you understand legacy code, we will show another way: passing a `PHP file path` as the `$menu_slug` parameter with an `null` `$function` parameter.
 
+```php
 <?php
-add\_action( 'admin\_menu', 'wporg\_options\_page' );
-function wporg\_options\_page() {
-    add\_menu\_page(
+add_action( 'admin_menu', 'wporg_options_page' );
+function wporg_options_page() {
+    add_menu_page(
         'WPOrg',
         'WPOrg Options',
-        'manage\_options',
-        plugin\_dir\_path(\_\_FILE\_\_) . 'admin/view.php',
+        'manage_options',
+        plugin_dir_path(__FILE__) . 'admin/view.php',
         null,
-        plugin\_dir\_url(\_\_FILE\_\_) . 'images/icon\_wporg.png',
+        plugin_dir_url(__FILE__) . 'images/icon_wporg.png',
         20
     );
 }
 ?>
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 ## Remove a Top-Level Menu
 
 To remove a registered menu from WordPress Administration, use the [remove\_menu\_page()](https://developer.wordpress.org/reference/functions/remove_menu_page/) function.
 
+```php
 <?php
-remove\_menu\_page(
-    string $menu\_slug
+remove_menu_page(
+    string $menu_slug
 );
 ?>
+```
 
 Warning:  
 Removing menus won’t prevent users accessing them directly.  
@@ -110,12 +114,14 @@ This should never be used as a way to restrict [user capabilities](https://devel
 
 Lets say we want to remove the “Tools” menu from.
 
+```php
 <?php
-add\_action( 'admin\_menu', 'wporg\_remove\_options\_page', 99 );
-function wporg\_remove\_options\_page() {
-    remove\_menu\_page( 'tools.php' );
+add_action( 'admin_menu', 'wporg_remove_options_page', 99 );
+function wporg_remove_options_page() {
+    remove_menu_page( 'tools.php' );
 }
 ?>
+```
 
 Make sure that the menu have been registered with the `admin_menu` hook before attempting to remove, specify a higher priority number for [add\_action()](https://developer.wordpress.org/reference/functions/add_action/).
 
@@ -133,7 +139,9 @@ You only need to follow those steps if you are manually creating forms in the ba
 
 Use the `$menu_slug` parameter of the options page as the first parameter of `[menu_page_url()](https://developer.wordpress.org/reference/functions/menu_page_url/)`. By the function will automatically escape URL and echo it by default, so you can directly use it within the `<form>` tag:
 
-<form action="<?php menu\_page\_url( 'wporg' ) ?>" method="post">
+```php
+<form action="<?php menu_page_url( 'wporg' ) ?>" method="post">
+```
 
 ### Processing the form
 
@@ -146,22 +154,22 @@ Note:
 
 With the return parameter and action in mind, the example from above would like this:
 
-add\_action( 'admin\_menu', 'wporg\_options\_page' );
-function wporg\_options\_page() {
-	$hookname = add\_menu\_page(
+```php
+add_action( 'admin_menu', 'wporg_options_page' );
+function wporg_options_page() {
+	$hookname = add_menu_page(
 		'WPOrg',
 		'WPOrg Options',
-		'manage\_options',
+		'manage_options',
 		'wporg',
-		'wporg\_options\_page\_html',
-		plugin\_dir\_url(\_\_FILE\_\_) . 'images/icon\_wporg.png',
+		'wporg_options_page_html',
+		plugin_dir_url(__FILE__) . 'images/icon_wporg.png',
 		20
 	);
 
-	add\_action( 'load-' . $hookname, 'wporg\_options\_page\_submit' );
+	add_action( 'load-' . $hookname, 'wporg_options_page_submit' );
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 You can program `wporg_options_page_submit` according to your needs, but keep in mind that you must manually perform all necessary checks, including:
 

@@ -4,14 +4,16 @@
 
 To add a new Sub-menu to WordPress Administration, use the `add_submenu_page()` function.
 
-add\_submenu\_page(
-	string $parent\_slug,
-	string $page\_title,
-	string $menu\_title,
+```php
+add_submenu_page(
+	string $parent_slug,
+	string $page_title,
+	string $menu_title,
 	string $capability,
-	string $menu\_slug,
+	string $menu_slug,
 	callable $function = ''
 );
+```
 
 ### Example
 
@@ -21,45 +23,47 @@ Lets say we want to add a Sub-menu “WPOrg Options” to the “Tools” Top-le
 
 Note: We recommend wrapping your HTML using a `<div>` with a class of `wrap`.
 
-function wporg\_options\_page\_html() {
+```php
+function wporg_options_page_html() {
 	// check user capabilities
-	if ( ! current\_user\_can( 'manage\_options' ) ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 	?>
 	<div class="wrap">
-		<h1><?php echo esc\_html( get\_admin\_page\_title() ); ?></h1>
+		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<form action="options.php" method="post">
 			<?php
-			// output security fields for the registered setting "wporg\_options"
-			settings\_fields( 'wporg\_options' );
+			// output security fields for the registered setting "wporg_options"
+			settings_fields( 'wporg_options' );
 			// output setting sections and their fields
 			// (sections are registered for "wporg", each field is registered to a specific section)
-			do\_settings\_sections( 'wporg' );
+			do_settings_sections( 'wporg' );
 			// output save settings button
-			submit\_button( \_\_( 'Save Settings', 'textdomain' ) );
+			submit_button( __( 'Save Settings', 'textdomain' ) );
 			?>
 		</form>
 	</div>
 	<?php
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 **The second step** will be registering our WPOrg Options Sub-menu. The registration needs to occur during the `admin_menu` action hook.
 
-function wporg\_options\_page()
+```php
+function wporg_options_page()
 {
-	add\_submenu\_page(
+	add_submenu_page(
 		'tools.php',
 		'WPOrg Options',
 		'WPOrg Options',
-		'manage\_options',
+		'manage_options',
 		'wporg',
-		'wporg\_options\_page\_html'
+		'wporg_options_page_html'
 	);
 }
-add\_action('admin\_menu', 'wporg\_options\_page');
+add_action('admin_menu', 'wporg_options_page');
+```
 
 For a list of parameters and what each do please see the [add\_submenu\_page()](https://developer.wordpress.org/reference/functions/add_submenu_page/) in the reference.
 
@@ -94,21 +98,21 @@ The process of handling form submissions within Sub-menus is exactly the same as
 
 `add_submenu_page()` along with all functions for pre-defined sub-menus (`add_dashboard_page`, `add_posts_page`, etc.) will return a `$hookname`, which you can use as the first parameter of `add_action` in order to handle the submission of forms within custom pages:
 
-function wporg\_options\_page() {
-	$hookname = add\_submenu\_page(
+```php
+function wporg_options_page() {
+	$hookname = add_submenu_page(
 		'tools.php',
 		'WPOrg Options',
 		'WPOrg Options',
-		'manage\_options',
+		'manage_options',
 		'wporg',
-		'wporg\_options\_page\_html'
+		'wporg_options_page_html'
 	);
 
-	add\_action( 'load-' . $hookname, 'wporg\_options\_page\_html\_submit' );
+	add_action( 'load-' . $hookname, 'wporg_options_page_html_submit' );
 }
 
-add\_action('admin\_menu', 'wporg\_options\_page');
-
-[Expand full source code](#)[Collapse full source code](#)
+add_action('admin_menu', 'wporg_options_page');
+```
 
 As always, do not forget to check whether the form is being submitted, do CSRF verification, [validation](https://developer.wordpress.org/plugins/security/data-validation/), and sanitization.

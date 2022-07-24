@@ -2,11 +2,21 @@
 
 There are lot of ins and outs to hosting WordPress plugins. Please take a minute to see if your question is answered here before reaching out for assistance.
 
-Note: Last Updated: 05 May 2021
+Note: Last Updated: 20 April 2022
 
-## How do I contact the Plugin Review team?
+## The Plugin Review Team
+
+### How do I contact the Plugin Review team?
 
 You can contact us by email at `plugins@wordpress.org` – we reply to all emails within 7 business days.
+
+### Does the review team work for Automattic?
+
+No. The review team is made up of 100% volunteers. Some are compensated by their full-time employers, but no one is hired by WordPress.org, Automattic, or WordPress.com
+
+### Can I join the team?
+
+Right now we are invitation only.
 
 ## Submissions and Reviews
 
@@ -73,19 +83,27 @@ Just reply to the email right away and let us know. We can transfer ownership fo
 
 ### How long does it take to get a plugin approved?
 
-There’s no official average, as no two plugins are the same. If your plugin is small and all the code is correct, it should be approved within **fourteen** days. If your plugin has any code issues, it will take as long as it takes for you to correct the issues. Either way, you *will* get an email from `plugins@wordpress.org` with the status, so please add that to your email whitelist and patiently wait for our response.
+There’s no official average, as no two plugins are the same. If your plugin is small and all the code is correct, it should be approved within **fourteen** days.
+
+If your plugin has any code issues, it will take as long as it takes for you to correct the issues. Either way, you *will* get an email from `plugins@wordpress.org` with the status, so please add that to your email whitelist and patiently wait for our response.
+
+### I sent in the fixes but no one replied. How long should I wait?
+
+We aim to reply to all reviews within seven (7) business days. If it’s been less than that, it just means we’ve been really busy. If it’s been two days, like over a weekend or a holiday, then you should not **reasonably** expect a reply.
+
+Remember the review team is made up of 100% volunteers, all of whom have full time day jobs, and other volunteer duties. We do reply promptly, but we also have lives outside of WordPress.
 
 ### If my plugin has a problem, how long do I have to fix it?
 
-There’s no timeline and as long as we know you’re working on it and we feel you’re making progress, we’ll leave the review open.
+There’s no timeline and as long as we know you’re working on it and we feel you’re making progress, we’ll leave the review open. Your plugin will be rejected after 3 months, but the review will remain open.
 
-### Why was my plugin rejected after six months?
+### Why was my plugin rejected after three months?
 
-If your plugin review is not complete after half a year, we will reject your submission in order to keep the queue maintainable. At any point in time, we have 700 people mid-review, and we figure that 6 months is a pretty reasonable time frame.
+If your plugin review is not complete after three (3) months, we will reject your submission in order to keep the queue maintainable. At any point in time, we have 700 people mid-review, and we figure that 3 months is a pretty reasonable time frame.
 
 ### I finally fixed my plugin. Should I resubmit?
 
-No. Reply to the email. Even if it’s been a year and a half. The longest time to date has been 3 years. We don’t mind if it takes a while.
+No. Reply to the email. Even if it’s been 18 months. The longest time to date has been 3 years. We don’t mind if it takes a while.
 
 ### How many plugins can I submit for review at a time?
 
@@ -262,7 +280,7 @@ In addition, any tags where you are the only one who uses them won’t show, bec
 
 Yes and no. You can change the display name, but the *slug* — that part of the plugin URL that is yours — cannot be changed once a plugin is approved. That’s why we warn you, multiple times, upon submission.
 
-To change the display name, edit your main plugin file and change the value of “Plugin Name:” to the new name. You may also want to edit your header in your readme.txt
+To change the display name, edit your main plugin file and change the value of “Plugin Name:” to the new name. You also will want to edit your header in your readme.txt to match.
 
 ### Why can’t I use someone’s trademark/brand as my plugin name?
 
@@ -328,11 +346,7 @@ Neither. Make your display name memorable and descriptive, while keeping it unde
 
 ### How do I get notified for forums posts?
 
-Go to `https://wordpress.org/support/plugin/YOURPLUGIN` and scroll down to the bottom of the list of posts. There you will see an option for the RSS link, as well as a sign up for emails.
-
-[![Signup links for email/rss ](https://developer.wordpress.org/files/2015/04/Screen-Shot-2016-06-20-at-9.58.21-AM.png)](https://developer.wordpress.org/files/2015/04/Screen-Shot-2016-06-20-at-9.58.21-AM.png)
-
-Click the subscribe link for emails, or use the RSS link in your favorite reader.
+Go to `https://wordpress.org/support/plugin/YOURPLUGIN` and look at the sidebar on the right. Click the Subscribe to this Plugin button for email alerts.
 
 ### How do I get notified for all my plugins?
 

@@ -22,57 +22,57 @@ For more information, Mark Jaquith’s [post on WordPress nonces](http://markjaq
 
 Complete example using capability checks, data validation, secure input, secure output and nonces:
 
-</p>
-/\*\*
- \* Generate a Delete link based on the homepage url.
- \*
- \* @param string $content   Existing content.
- \*
- \* @return string|null
- \*/
-function wporg\_generate\_delete\_link( $content ) {
+```php
+/**
+ * Generate a Delete link based on the homepage url.
+ *
+ * @param string $content   Existing content.
+ *
+ * @return string|null
+ */
+function wporg_generate_delete_link( $content ) {
 	// Run only for single post page.
-	if ( is\_single() && in\_the\_loop() && is\_main\_query() ) {
+	if ( is_single() && in_the_loop() && is_main_query() ) {
 		// Add query arguments: action, post, nonce
-		$url = add\_query\_arg(
-			\[
-				'action' => 'wporg\_frontend\_delete',
-				'post'   => get\_the\_ID(),
-				'nonce'  => wp\_create\_nonce( 'wporg\_frontend\_delete' ),
-			\], home\_url()
+		$url = add_query_arg(
+			[
+				'action' => 'wporg_frontend_delete',
+				'post'   => get_the_ID(),
+				'nonce'  => wp_create_nonce( 'wporg_frontend_delete' ),
+			], home_url()
 		);
 
-		return $content . ' <a href="' . esc\_url( $url ) . '">' . esc\_html\_\_( 'Delete Post', 'wporg' ) . '</a>';
+		return $content . ' <a href="' . esc_url( $url ) . '">' . esc_html__( 'Delete Post', 'wporg' ) . '</a>';
 	}
 
 	return null;
 }
 
 
-/\*\*
- \* Request handler
- \*/
-function wporg\_delete\_post() {
-	if ( isset( $\_GET\['action'\] )
-         && isset( $\_GET\['nonce'\] )
-         && 'wporg\_frontend\_delete' === $\_GET\['action'\]
-         && wp\_verify\_nonce( $\_GET\['nonce'\], 'wporg\_frontend\_delete' ) ) {
+/**
+ * Request handler
+ */
+function wporg_delete_post() {
+	if ( isset( $_GET['action'] )
+         && isset( $_GET['nonce'] )
+         && 'wporg_frontend_delete' === $_GET['action']
+         && wp_verify_nonce( $_GET['nonce'], 'wporg_frontend_delete' ) ) {
 
 		// Verify we have a post id.
-		$post\_id = ( isset( $\_GET\['post'\] ) ) ? ( $\_GET\['post'\] ) : ( null );
+		$post_id = ( isset( $_GET['post'] ) ) ? ( $_GET['post'] ) : ( null );
 
 		// Verify there is a post with such a number.
-		$post = get\_post( (int) $post\_id );
+		$post = get_post( (int) $post_id );
 		if ( empty( $post ) ) {
 			return;
 		}
 
 		// Delete the post.
-		wp\_trash\_post( $post\_id );
+		wp_trash_post( $post_id );
 
 		// Redirect to admin page.
-		$redirect = admin\_url( 'edit.php' );
-		wp\_safe\_redirect( $redirect );
+		$redirect = admin_url( 'edit.php' );
+		wp_safe_redirect( $redirect );
 
 		// We are done.
 		die;
@@ -80,17 +80,22 @@ function wporg\_delete\_post() {
 }
 
 
-if ( current\_user\_can( 'edit\_others\_posts' ) ) {
-	/\*\*
-	 \* Add the delete link to the end of the post content.
-	 \*/
-	add\_filter( 'the\_content', 'wporg\_generate\_delete\_link' );
-
-	/\*\*
-	 \* Register our request handler with the init hook.
-	 \*/
-	add\_action( 'init', 'wporg\_delete\_post' );
+/**
+ * Add delete post ability
+ */
+add_action('plugins_loaded', 'wporg_add_delete_post_ability');
+ 
+function wporg_add_delete_post_ability() {    
+    if ( current_user_can( 'edit_others_posts' ) ) {
+        /**
+         * Add the delete link to the end of the post content.
+         */
+        add_filter( 'the_content', 'wporg_generate_delete_link' );
+      
+        /**
+         * Register our request handler with the init hook.
+         */
+        add_action( 'init', 'wporg_delete_post' );
+    }
 }
-<p>
-
-[Expand full source code](#)[Collapse full source code](#)
+```

@@ -12,9 +12,9 @@ PHP’s `__FILE__` magic-constant resolves symlinks automatically, so if the `w
 
 If your plugin includes JavaScript files, CSS files or other external files, then it’s likely you’ll need the URL to these files so you can load them into the page. To do this you should use the [plugins\_url()](https://developer.wordpress.org/reference/functions/plugins_url/) function like so:
 
-</p>
-plugins\_url( 'myscript.js', \_FILE\_ );
-<p>
+```php
+plugins_url( 'myscript.js', __FILE__ );
+```
 
 This will return the full URL to myscript.js, such as `example.com/wp-content/plugins/myplugin/myscript.js`.
 
@@ -81,44 +81,4 @@ UPLOADS // (If set, uploads folder, relative to ABSPATH) (for e.g.: /wp-content/
 
 ****WordPress Directories****:
 
-[home\_url()](https://developer.wordpress.org/reference/functions/home_url/)
-
-Home URL
-
-[http://www.example.com](http://www.example.com)
-
-[site\_url()](https://developer.wordpress.org/reference/functions/site_url/)
-
-Site directory URL
-
-[http://www.example.com](http://www.example.com) or [http://www.example.com/wordpress](http://www.example.com/wordpress)
-
-[admin\_url()](https://developer.wordpress.org/reference/functions/admin_url/)
-
-Admin directory URL
-
-[http://www.example.com/wp-admin](http://www.example.com/wp-admin)
-
-[includes\_url()](https://developer.wordpress.org/reference/functions/includes_url/)
-
-Includes directory URL
-
-[http://www.example.com/wp-includes](http://www.example.com/wp-includes)
-
-[content\_url()](https://developer.wordpress.org/reference/functions/content_url/)
-
-Content directory URL
-
-[http://www.example.com/wp-content](http://www.example.com/wp-content)
-
-[plugins\_url()](https://developer.wordpress.org/reference/functions/plugins_url/)
-
-Plugins directory URL
-
-[http://www.example.com/wp-content/plugins](http://www.example.com/wp-content/plugins)
-
-[wp\_upload\_dir()](https://developer.wordpress.org/reference/functions/wp_upload_dir/)
-
-Upload directory URL (returns an array)
-
-[http://www.example.com/wp-content/uploads](http://www.example.com/wp-content/uploads)
+<table><tbody><tr><td><a href="https://developer.wordpress.org/reference/functions/home_url/">home_url()</a></td><td>Home URL</td><td><a href="http://www.example.com">http://www.example.com</a></td></tr><tr><td><a href="https://developer.wordpress.org/reference/functions/site_url/">site_url()</a></td><td>Site directory URL</td><td><a href="http://www.example.com">http://www.example.com</a> or <a href="http://www.example.com/wordpress">http://www.example.com/wordpress</a></td></tr><tr><td><a href="https://developer.wordpress.org/reference/functions/admin_url/">admin_url()</a></td><td>Admin directory URL</td><td><a href="http://www.example.com/wp-admin">http://www.example.com/wp-admin</a></td></tr><tr><td><a href="https://developer.wordpress.org/reference/functions/includes_url/">includes_url()</a></td><td>Includes directory URL</td><td><a href="http://www.example.com/wp-includes">http://www.example.com/wp-includes</a></td></tr><tr><td><a href="https://developer.wordpress.org/reference/functions/content_url/">content_url()</a></td><td>Content directory URL</td><td><a href="http://www.example.com/wp-content">http://www.example.com/wp-content</a></td></tr><tr><td><a href="https://developer.wordpress.org/reference/functions/plugins_url/">plugins_url()</a></td><td>Plugins directory URL</td><td><a href="http://www.example.com/wp-content/plugins">http://www.example.com/wp-content/plugins</a></td></tr><tr><td><a href="https://developer.wordpress.org/reference/functions/wp_upload_dir/">wp_upload_dir()</a></td><td>Upload directory URL (returns an array)</td><td><a href="http://www.example.com/wp-content/uploads">http://www.example.com/wp-content/uploads</a></td></tr></tbody></table>

@@ -23,33 +23,38 @@ To create a meta box use the [add\_meta\_box()](https://developer.wordpress.org/
 
 The following example is adding a meta box to the `post` edit screen and the `wporg_cpt` edit screen.
 
-function wporg\_add\_custom\_box() {
-	$screens = \[ 'post', 'wporg\_cpt' \];
+```php
+function wporg_add_custom_box() {
+	$screens = [ 'post', 'wporg_cpt' ];
 	foreach ( $screens as $screen ) {
-		add\_meta\_box(
-			'wporg\_box\_id',                 // Unique ID
+		add_meta_box(
+			'wporg_box_id',                 // Unique ID
 			'Custom Meta Box Title',      // Box title
-			'wporg\_custom\_box\_html',  // Content callback, must be of type callable
+			'wporg_custom_box_html',  // Content callback, must be of type callable
 			$screen                            // Post type
 		);
 	}
 }
-add\_action( 'add\_meta\_boxes', 'wporg\_add\_custom\_box' );
+add_action( 'add_meta_boxes', 'wporg_add_custom_box' );
+```
 
 The `wporg_custom_box_html` function will hold the HTML for the meta box.
 
 The following example is adding form elements, labels, and other HTML elements.
 
-function wporg\_custom\_box\_html( $post ) {
+```php
+function wporg_custom_box_html( $post ) {
 	?>
-	<label for="wporg\_field">Description for this field</label>
-	<select name="wporg\_field" id="wporg\_field" class="postbox">
+	<label for="wporg_field">Description for this field</label>
+	<select name="wporg_field" id="wporg_field" class="postbox">
 		<option value="">Select something...</option>
 		<option value="something">Something</option>
 		<option value="else">Else</option>
 	</select>
 	<?php
 }
+
+```
 
 Note:  
 **Note there are no submit buttons in meta boxes.** The meta box HTML is included inside the edit screen’s form tags, all the post data including meta box values are transfered via `POST` when the user clicks on the Publish or Update buttons.
@@ -62,17 +67,20 @@ To retrieve saved user data and make use of it, you need to get it from wherever
 
 The following example enhances the previous form elements with pre-populated data based on saved meta box values. You will learn how to save meta box values in the next section.
 
-function wporg\_custom\_box\_html( $post ) {
-	$value = get\_post\_meta( $post->ID, '\_wporg\_meta\_key', true );
+```php
+function wporg_custom_box_html( $post ) {
+	$value = get_post_meta( $post->ID, '_wporg_meta_key', true );
 	?>
-	<label for="wporg\_field">Description for this field</label>
-	<select name="wporg\_field" id="wporg\_field" class="postbox">
+	<label for="wporg_field">Description for this field</label>
+	<select name="wporg_field" id="wporg_field" class="postbox">
 		<option value="">Select something...</option>
 		<option value="something" <?php selected( $value, 'something' ); ?>>Something</option>
 		<option value="else" <?php selected( $value, 'else' ); ?>>Else</option>
 	</select>
 	<?php
 }
+
+```
 
 More on the [selected()](https://developer.wordpress.org/reference/functions/selected/) function.
 
@@ -84,16 +92,18 @@ You may save the entered data anywhere you want, even outside WordPress. Since y
 
 The following example will save the `wporg_field` field value in the `_wporg_meta_key` meta key, which is hidden.
 
-function wporg\_save\_postdata( $post\_id ) {
-	if ( array\_key\_exists( 'wporg\_field', $\_POST ) ) {
-		update\_post\_meta(
-			$post\_id,
-			'\_wporg\_meta\_key',
-			$\_POST\['wporg\_field'\]
+```php
+function wporg_save_postdata( $post_id ) {
+	if ( array_key_exists( 'wporg_field', $_POST ) ) {
+		update_post_meta(
+			$post_id,
+			'_wporg_meta_key',
+			$_POST['wporg_field']
 		);
 	}
 }
-add\_action( 'save\_post', 'wporg\_save\_postdata' );
+add_action( 'save_post', 'wporg_save_postdata' );
+```
 
 In production code, remember to follow the security measures outlined in the info box!
 
@@ -119,51 +129,52 @@ So far we’ve been using the procedural technique of implementing meta boxes. M
 Adding meta boxes using OOP is easy and saves you from having to worry about naming collisions in the global namespace.  
 To save memory and allow easier implementation, the following example uses an abstract Class with static methods.
 
-abstract class WPOrg\_Meta\_Box {
+```php
+abstract class WPOrg_Meta_Box {
 
 
-	/\*\*
-	 \* Set up and add the meta box.
-	 \*/
+	/**
+	 * Set up and add the meta box.
+	 */
 	public static function add() {
-		$screens = \[ 'post', 'wporg\_cpt' \];
+		$screens = [ 'post', 'wporg_cpt' ];
 		foreach ( $screens as $screen ) {
-			add\_meta\_box(
-				'wporg\_box\_id',          // Unique ID
+			add_meta_box(
+				'wporg_box_id',          // Unique ID
 				'Custom Meta Box Title', // Box title
-				\[ self::class, 'html' \],   // Content callback, must be of type callable
+				[ self::class, 'html' ],   // Content callback, must be of type callable
 				$screen                  // Post type
 			);
 		}
 	}
 
 
-	/\*\*
-	 \* Save the meta box selections.
-	 \*
-	 \* @param int $post\_id  The post ID.
-	 \*/
-	public static function save( int $post\_id ) {
-		if ( array\_key\_exists( 'wporg\_field', $\_POST ) ) {
-			update\_post\_meta(
-				$post\_id,
-				'\_wporg\_meta\_key',
-				$\_POST\['wporg\_field'\]
+	/**
+	 * Save the meta box selections.
+	 *
+	 * @param int $post_id  The post ID.
+	 */
+	public static function save( int $post_id ) {
+		if ( array_key_exists( 'wporg_field', $_POST ) ) {
+			update_post_meta(
+				$post_id,
+				'_wporg_meta_key',
+				$_POST['wporg_field']
 			);
 		}
 	}
 
 
-	/\*\*
-	 \* Display the meta box HTML to the user.
-	 \*
-	 \* @param \\WP\_Post $post   Post object.
-	 \*/
+	/**
+	 * Display the meta box HTML to the user.
+	 *
+	 * @param \WP_Post $post   Post object.
+	 */
 	public static function html( $post ) {
-		$value = get\_post\_meta( $post->ID, '\_wporg\_meta\_key', true );
+		$value = get_post_meta( $post->ID, '_wporg_meta_key', true );
 		?>
-		<label for="wporg\_field">Description for this field</label>
-		<select name="wporg\_field" id="wporg\_field" class="postbox">
+		<label for="wporg_field">Description for this field</label>
+		<select name="wporg_field" id="wporg_field" class="postbox">
 			<option value="">Select something...</option>
 			<option value="something" <?php selected( $value, 'something' ); ?>>Something</option>
 			<option value="else" <?php selected( $value, 'else' ); ?>>Else</option>
@@ -172,10 +183,10 @@ abstract class WPOrg\_Meta\_Box {
 	}
 }
 
-add\_action( 'add\_meta\_boxes', \[ 'WPOrg\_Meta\_Box', 'add' \] );
-add\_action( 'save\_post', \[ 'WPOrg\_Meta\_Box', 'save' \] );
+add_action( 'add_meta_boxes', [ 'WPOrg_Meta_Box', 'add' ] );
+add_action( 'save_post', [ 'WPOrg_Meta_Box', 'save' ] );
 
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 ### AJAX
 
@@ -189,17 +200,19 @@ First, you must define the trigger, this can be a link click, a change of a valu
 
 In the example below we will define `change` as our trigger for performing an AJAX request.
 
-/\*jslint browser: true, plusplus: true \*/
+```php
+/*jslint browser: true, plusplus: true */
 (function ($, window, document) {
     'use strict';
     // execute when the DOM is ready
     $(document).ready(function () {
-        // js 'change' event triggered on the wporg\_field form field
-        $('#wporg\_field').on('change', function () {
+        // js 'change' event triggered on the wporg_field form field
+        $('#wporg_field').on('change', function () {
             // our code
         });
     });
 }(jQuery, window, document));
+```
 
 #### Client Side Code
 
@@ -207,18 +220,20 @@ Next, we need to define what we want the trigger to do, in other words we need t
 
 In the example below we will make a `POST` request, the response will either be success or failure, this will indicate wither the value of the `wporg_field` is valid.
 
-/\*jslint browser: true, plusplus: true \*/
+```php
+/*jslint browser: true, plusplus: true */
 (function ($, window, document) {
     'use strict';
     // execute when the DOM is ready
     $(document).ready(function () {
-        // js 'change' event triggered on the wporg\_field form field
-        $('#wporg\_field').on('change', function () {
+        // js 'change' event triggered on the wporg_field form field
+        $('#wporg_field').on('change', function () {
             // jQuery post method, a shorthand for $.ajax with POST
-            $.post(wporg\_meta\_box\_obj.url,                        // or ajaxurl
+            $.post(wporg_meta_box_obj.url,                        // or ajaxurl
                    {
-                       action: 'wporg\_ajax\_change',               // POST data, action
-                       wporg\_field\_value: $('#wporg\_field').val() // POST data, wporg\_field\_value
+                       action: 'wporg_ajax_change',                // POST data, action
+                       wporg_field_value: $('#wporg_field').val(), // POST data, wporg_field_value
+                       post_ID: jQuery('#post_ID').val()           // The ID of the post currently being edited
                    }, function (data) {
                         // handle response data
                         if (data === 'success') {
@@ -233,8 +248,7 @@ In the example below we will make a `POST` request, the response will either be 
         });
     });
 }(jQuery, window, document));
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 We took the WordPress AJAX file URL dynamically from the `wporg_meta_box_obj` JavaScript custom object that we will create in the next step.
 
@@ -252,56 +266,58 @@ The script file will reside at `/plugin-name/admin/meta-boxes/js/admin.js`,
 `plugin-name` being the main plugin folder,  
 `/plugin-name/plugin.php` the file calling the function.
 
-function wporg\_meta\_box\_scripts()
+```php
+function wporg_meta_box_scripts()
 {
     // get current admin screen, or null
-    $screen = get\_current\_screen();
+    $screen = get_current_screen();
     // verify admin screen object
-    if (is\_object($screen)) {
+    if (is_object($screen)) {
         // enqueue only for specific post types
-        if (in\_array($screen->post\_type, \['post', 'wporg\_cpt'\])) {
+        if (in_array($screen->post_type, ['post', 'wporg_cpt'])) {
             // enqueue script
-            wp\_enqueue\_script('wporg\_meta\_box\_script', plugin\_dir\_url(\_\_FILE\_\_) . 'admin/meta-boxes/js/admin.js', \['jquery'\]);
+            wp_enqueue_script('wporg_meta_box_script', plugin_dir_url(__FILE__) . 'admin/meta-boxes/js/admin.js', ['jquery']);
             // localize script, create a custom js object
-            wp\_localize\_script(
-                'wporg\_meta\_box\_script',
-                'wporg\_meta\_box\_obj',
-                \[
-                    'url' => admin\_url('admin-ajax.php'),
-                \]
+            wp_localize_script(
+                'wporg_meta_box_script',
+                'wporg_meta_box_obj',
+                [
+                    'url' => admin_url('admin-ajax.php'),
+                ]
             );
         }
     }
 }
-add\_action('admin\_enqueue\_scripts', 'wporg\_meta\_box\_scripts');
-
-[Expand full source code](#)[Collapse full source code](#)
+add_action('admin_enqueue_scripts', 'wporg_meta_box_scripts');
+```
 
 #### Server Side Code
 
 The last step is to write our server side code that is going to handle the request.
 
-function wporg\_meta\_box\_scripts() {
-	 // Get current admin screen, or null.
-	$screen = get\_current\_screen();
-	// Verify admin screen object before use.
-	if ( is\_object( $screen ) ) {
-		// Enqueue only for specific post types.
-		if ( in\_array( $screen->post\_type, \[ 'post', 'wporg\_cpt' \], true ) ) {
-			wp\_enqueue\_script( 'wporg\_meta\_box\_script', plugin\_dir\_url( \_\_FILE\_\_ ) . 'admin/meta-boxes/js/admin.js', \[ 'jquery' \], '1.0.0', true );
-			wp\_localize\_script(
-				'wporg\_meta\_box\_script',
-				'wporg\_meta\_box\_obj',
-				\[
-					'url' => admin\_url( 'admin-ajax.php' ),
-				\]
-			);
-		}
-	}
+```php
+// The piece after `wp_ajax_`  matches the action argument being sent in the POST request.
+add_action( 'wp_ajax_wporg_ajax_change', 'my_ajax_handler' );
+ 
+/**
+ * Handles my AJAX request.
+ */
+function my_ajax_handler() {
+    // Handle the ajax request here
+    if ( array_key_exists( 'wporg_field_value', $_POST ) ) {
+        $post_id = (int) $_POST['post_ID'];
+        if ( current_user_can( 'edit_post', $post_id ) ) {
+            update_post_meta(
+                $post_id,
+                '_wporg_meta_key',
+                $_POST['wporg_field_value']
+            );
+        }
+    }
+ 
+    wp_die(); // All ajax handlers die when finished
 }
-add\_action( 'admin\_enqueue\_scripts', 'wporg\_meta\_box\_scripts' );
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 As a final reminder, the code illustrated on this page lacks important operations that take care of security. Be sure your production code includes such operations.
 
