@@ -27,21 +27,21 @@ PHP provides a number of functions to verify existence of variables, functions, 
 
 #### Example
 
-//Create a function called "wporg\_init" if it doesn't already exist
-if ( !function\_exists( 'wporg\_init' ) ) {
-    function wporg\_init() {
-        register\_setting( 'wporg\_settings', 'wporg\_option\_foo' );
+```php
+//Create a function called "wporg_init" if it doesn't already exist
+if ( !function_exists( 'wporg_init' ) ) {
+    function wporg_init() {
+        register_setting( 'wporg_settings', 'wporg_option_foo' );
     }
 }
 
-//Create a function called "wporg\_get\_foo" if it doesn't already exist
-if ( !function\_exists( 'wporg\_get\_foo' ) ) {
-    function wporg\_get\_foo() {
-        return get\_option( 'wporg\_option\_foo' );
+//Create a function called "wporg_get_foo" if it doesn't already exist
+if ( !function_exists( 'wporg_get_foo' ) ) {
+    function wporg_get_foo() {
+        return get_option( 'wporg_option_foo' );
     }
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 ### Object Oriented Programming Method
 
@@ -51,23 +51,23 @@ You will still need to take care of checking whether the name of the class you w
 
 #### Example
 
-if ( !class\_exists( 'WPOrg\_Plugin' ) ) {
-    class WPOrg\_Plugin
+```php
+if ( !class_exists( 'WPOrg_Plugin' ) ) {
+    class WPOrg_Plugin
     {
         public static function init() {
-            register\_setting( 'wporg\_settings', 'wporg\_option\_foo' );
+            register_setting( 'wporg_settings', 'wporg_option_foo' );
         }
 
-        public static function get\_foo() {
-            return get\_option( 'wporg\_option\_foo' );
+        public static function get_foo() {
+            return get_option( 'wporg_option_foo' );
         }
     }
 
-    WPOrg\_Plugin::init();
-    WPOrg\_Plugin::get\_foo();
+    WPOrg_Plugin::init();
+    WPOrg_Plugin::get_foo();
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 ## File Organization
 
@@ -107,10 +107,12 @@ It’s helpful to separate your admin code from the public code. Use the conditi
 
 For example:
 
-if ( is\_admin() ) {
+```php
+if ( is_admin() ) {
     // we are in admin mode
-    require\_once \_\_DIR\_\_ . '/admin/plugin-name-admin.php';
+    require_once __DIR__ . '/admin/plugin-name-admin.php';
 }
+```
 
 ### Architecture Patterns
 

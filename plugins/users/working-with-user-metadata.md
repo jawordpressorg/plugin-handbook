@@ -40,14 +40,14 @@ This action hook is fired whenever a user edits a user profile of **somebody els
 
 In the example below we will be adding a birthday field to the all profile screens. Saving it to the database on profile updates.
 
-</p>
+```php
 <?php
-/\*\*
- \* The field on the editing screens.
- \*
- \* @param $user WP\_User user object
- \*/
-function wporg\_usermeta\_form\_field\_birthday( $user )
+/**
+ * The field on the editing screens.
+ *
+ * @param $user WP_User user object
+ */
+function wporg_usermeta_form_field_birthday( $user )
 {
     ?>
     <h3>It's Your Birthday</h3>
@@ -61,9 +61,9 @@ function wporg\_usermeta\_form\_field\_birthday( $user )
                        class="regular-text ltr"
                        id="birthday"
                        name="birthday"
-                       value="<?= esc\_attr( get\_user\_meta( $user->ID, 'birthday', true ) ) ?>"
+                       value="<?= esc_attr( get_user_meta( $user->ID, 'birthday', true ) ) ?>"
                        title="Please use YYYY-MM-DD as the date format."
-                       pattern="(19\[0-9\]\[0-9\]|20\[0-9\]\[0-9\])-(1\[0-2\]|0\[1-9\])-(3\[01\]|\[21\]\[0-9\]|0\[1-9\])"
+                       pattern="(19[0-9][0-9]|20[0-9][0-9])-(1[0-2]|0[1-9])-(3[01]|[21][0-9]|0[1-9])"
                        required>
                 <p class="description">
                     Please enter your birthday date.
@@ -74,54 +74,52 @@ function wporg\_usermeta\_form\_field\_birthday( $user )
     <?php
 }
  
-/\*\*
- \* The save action.
- \*
- \* @param $user\_id int the ID of the current user.
- \*
- \* @return bool Meta ID if the key didn't exist, true on successful update, false on failure.
- \*/
-function wporg\_usermeta\_form\_field\_birthday\_update( $user\_id )
+/**
+ * The save action.
+ *
+ * @param $user_id int the ID of the current user.
+ *
+ * @return bool Meta ID if the key didn't exist, true on successful update, false on failure.
+ */
+function wporg_usermeta_form_field_birthday_update( $user_id )
 {
-    // check that the current user have the capability to edit the $user\_id
-    if ( ! current\_user\_can( 'edit\_user', $user\_id ) ) {
+    // check that the current user have the capability to edit the $user_id
+    if ( ! current_user_can( 'edit_user', $user_id ) ) {
         return false;
     }
  
-    // create/update user meta for the $user\_id
-    return update\_user\_meta(
-        $user\_id,
+    // create/update user meta for the $user_id
+    return update_user_meta(
+        $user_id,
         'birthday',
-        $\_POST\['birthday'\]
+        $_POST['birthday']
     );
 }
  
 // Add the field to user's own profile editing screen.
-add\_action(
-    'show\_user\_profile',
-    'wporg\_usermeta\_form\_field\_birthday'
+add_action(
+    'show_user_profile',
+    'wporg_usermeta_form_field_birthday'
 );
  
 // Add the field to user profile editing screen.
-add\_action(
-    'edit\_user\_profile',
-    'wporg\_usermeta\_form\_field\_birthday'
+add_action(
+    'edit_user_profile',
+    'wporg_usermeta_form_field_birthday'
 );
  
 // Add the save action to user's own profile editing screen update.
-add\_action(
-    'personal\_options\_update',
-    'wporg\_usermeta\_form\_field\_birthday\_update'
+add_action(
+    'personal_options_update',
+    'wporg_usermeta_form_field_birthday_update'
 );
  
 // Add the save action to user profile editing screen update.
-add\_action(
-    'edit\_user\_profile\_update',
-    'wporg\_usermeta\_form\_field\_birthday\_update'
+add_action(
+    'edit_user_profile_update',
+    'wporg_usermeta_form_field_birthday_update'
 );
-<p>
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 ### Programmatically
 
@@ -131,51 +129,51 @@ The functions available for manipulating User Metadata are: `[add_user_meta()](/
 
 #### Add
 
-</p>
-add\_user\_meta(
-    int $user\_id,
-    string $meta\_key,
-    mixed $meta\_value,
+```php
+add_user_meta(
+    int $user_id,
+    string $meta_key,
+    mixed $meta_value,
     bool $unique = false
 );
-<p>
+```
 
 Please refer to the Function Reference about `[add_user_meta()](/reference/functions/add_user_meta/)` for full explanation about the used parameters.
 
 #### Update
 
-</p>
-update\_user\_meta(
-    int $user\_id,
-    string $meta\_key,
-    mixed $meta\_value,
-    mixed $prev\_value = ''
+```php
+update_user_meta(
+    int $user_id,
+    string $meta_key,
+    mixed $meta_value,
+    mixed $prev_value = ''
 );
-<p>
+```
 
 Please refer to the Function Reference about `[update_user_meta()](/reference/functions/update_user_meta/)` for full explanation about the used parameters.
 
 #### Delete
 
-</p>
-delete\_user\_meta(
-    int $user\_id,
-    string $meta\_key,
-    mixed $meta\_value = ''
+```php
+delete_user_meta(
+    int $user_id,
+    string $meta_key,
+    mixed $meta_value = ''
 );
-<p>
+```
 
 Please refer to the Function Reference about `[delete_user_meta()](/reference/functions/delete_user_meta/)` for full explanation about the used parameters.
 
 #### Get
 
-</p>
-get\_user\_meta(
-    int $user\_id,
+```php
+get_user_meta(
+    int $user_id,
     string $key = '',
     bool $single = false
 );
-<p>
+```
 
 Please refer to the Function Reference about `[get_user_meta()](/reference/functions/get_user_meta/)` for full explanation about the used parameters.
 

@@ -30,7 +30,7 @@ The `sanitize_*()` series of helper functions are super nice, as they ensure you
 *   [sanitize\_title\_for\_query()](https://developer.wordpress.org/reference/functions/sanitize_title_for_query/)
 *   [sanitize\_title\_with\_dashes()](https://developer.wordpress.org/reference/functions/sanitize_title_with_dashes/)
 *   [sanitize\_user()](https://developer.wordpress.org/reference/functions/sanitize_user/)
-*   [esc\_url\_raw()](https://developer.wordpress.org/reference/functions/esc_url_raw/)
+*   [sanitize\_url()](https://developer.wordpress.org/reference/functions/sanitize_url/)
 *   [wp\_kses()](https://developer.wordpress.org/reference/functions/wp_kses/)
 *   [wp\_kses\_post()](https://developer.wordpress.org/reference/functions/wp_kses_post/)
 
@@ -38,12 +38,16 @@ The `sanitize_*()` series of helper functions are super nice, as they ensure you
 
 Let’s say we have an input field named title.
 
+```php
 <input id="title" type="text" name="title">
+```
 
 You can sanitize the input data with the [sanitize\_text\_field()](https://developer.wordpress.org/reference/functions/sanitize_text_field/) function:
 
-$title = sanitize\_text\_field( $\_POST\['title'\] );
-update\_post\_meta( $post->ID, 'title', $title );
+```php
+$title = sanitize_text_field( $_POST['title'] );
+update_post_meta( $post->ID, 'title', $title );
+```
 
 Behind the scenes, `sanitize_text_field()` does the following:
 

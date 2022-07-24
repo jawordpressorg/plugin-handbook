@@ -2,7 +2,7 @@
 
 ## Introduction to Taxonomies
 
-To understand what Taxonomies are and what they do please read the [Taxonomy](https://developer.wordpress.org/plugins/taxonomy/) introduction.
+To understand what Taxonomies are and what they do please read the [Taxonomy](https://developer.wordpress.org/plugins/taxonomies/) introduction.
 
 ## Custom Taxonomies
 
@@ -42,41 +42,41 @@ Go to **Posts > Add New** page. You will notice that you only have Categories an
 
 Register the Taxonomy “course” for the post type “post” using the `init` action hook.
 
-/\*
-\* Plugin Name: Course Taxonomy
-\* Description: A short example showing how to add a taxonomy called Course.
-\* Version: 1.0
-\* Author: developer.wordpress.org
-\* Author URI: https://codex.wordpress.org/User:Aternus
-\*/
+```php
+/*
+* Plugin Name: Course Taxonomy
+* Description: A short example showing how to add a taxonomy called Course.
+* Version: 1.0
+* Author: developer.wordpress.org
+* Author URI: https://codex.wordpress.org/User:Aternus
+*/
 
-function wporg\_register\_taxonomy\_course() {
+function wporg_register_taxonomy_course() {
 	 $labels = array(
-		 'name'              => \_x( 'Courses', 'taxonomy general name' ),
-		 'singular\_name'     => \_x( 'Course', 'taxonomy singular name' ),
-		 'search\_items'      => \_\_( 'Search Courses' ),
-		 'all\_items'         => \_\_( 'All Courses' ),
-		 'parent\_item'       => \_\_( 'Parent Course' ),
-		 'parent\_item\_colon' => \_\_( 'Parent Course:' ),
-		 'edit\_item'         => \_\_( 'Edit Course' ),
-		 'update\_item'       => \_\_( 'Update Course' ),
-		 'add\_new\_item'      => \_\_( 'Add New Course' ),
-		 'new\_item\_name'     => \_\_( 'New Course Name' ),
-		 'menu\_name'         => \_\_( 'Course' ),
+		 'name'              => _x( 'Courses', 'taxonomy general name' ),
+		 'singular_name'     => _x( 'Course', 'taxonomy singular name' ),
+		 'search_items'      => __( 'Search Courses' ),
+		 'all_items'         => __( 'All Courses' ),
+		 'parent_item'       => __( 'Parent Course' ),
+		 'parent_item_colon' => __( 'Parent Course:' ),
+		 'edit_item'         => __( 'Edit Course' ),
+		 'update_item'       => __( 'Update Course' ),
+		 'add_new_item'      => __( 'Add New Course' ),
+		 'new_item_name'     => __( 'New Course Name' ),
+		 'menu_name'         => __( 'Course' ),
 	 );
 	 $args   = array(
 		 'hierarchical'      => true, // make it hierarchical (like categories)
 		 'labels'            => $labels,
-		 'show\_ui'           => true,
-		 'show\_admin\_column' => true,
-		 'query\_var'         => true,
-		 'rewrite'           => \[ 'slug' => 'course' \],
+		 'show_ui'           => true,
+		 'show_admin_column' => true,
+		 'query_var'         => true,
+		 'rewrite'           => [ 'slug' => 'course' ],
 	 );
-	 register\_taxonomy( 'course', \[ 'post' \], $args );
+	 register_taxonomy( 'course', [ 'post' ], $args );
 }
-add\_action( 'init', 'wporg\_register\_taxonomy\_course' );
-
-[Expand full source code](#)[Collapse full source code](#)
+add_action( 'init', 'wporg_register_taxonomy_course' );
+```
 
 ### Step 3: Review the Result
 

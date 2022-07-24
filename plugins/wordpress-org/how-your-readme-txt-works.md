@@ -16,7 +16,7 @@ All plugins contain a main PHP file, and almost all plugins have a `readme.txt` 
 
 The Plugin readme header consists of this information:
 
-</p>
+```php
 === Plugin Name ===
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: https://example.com/
@@ -29,15 +29,16 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
-<p>
+```
 
 *   **Contributors** – a case sensitive, comma separated list of all WordPress.org usernames who have contributed to the code. It is generally considered respectful to include the names of people who worked on forked projects. Some developers will ask to be removed from the list, as they don’t want other plugins showing up on their profile page. It’s best to honor those requests. Remember to *only* use the WordPress.org username – anything else will show up sans profile link and gravatar. To change someone’s display name (which shows on the front facing pages for the plugin), edit the profile `https://wordpress.org/support/users/YOURID/edit/` and change the display name.
-*   **Donate link** – Makes a “Donate to this plugin” link in the sidebar. It’s entirely optional, and if there is no link, nothing shows up.
+*   **Donate link** – (OPTIONAL) Makes a “Donate to this plugin” link in the sidebar. If there is no link, nothing shows up.
 *   **Tags** – 1 to 12 comma separated terms that describe the plugin. Only the first five will show on the generated page, and anything over 12 will be detrimental to SEO. Plugins must refrain from using competitors plugin names as tags.
 *   **Tested up to** – The version of WordPress that the plugin has been tested against. This field *ignores* minor versions, as plugins shouldn’t break with a minor update. This means a plugin only need to define the major version it is tested against and the WordPress.org plugin directory will automatically add the minor version. This should be numbers *only*, so ‘4.9’ and not ‘WP 4.9’
+*   **Requires PHP** – (OPTIONAL) The required *minimum* version of PHP needed for use with this plugin. This This should be numbers *only*, so ‘7.0’ and not ‘PHP 7.0’
 *   **Stable Tag** – The stable version of the plugin. This is *not* the version of WordPress, but the version of the plugin itself. Only use numbers and periods, and [SemVer formatting](https://semver.org/) is recommended.
 *   **License** – The GPLV2 (or later) compatible license used for the plugin.
-*   **License URI** – A link to the license. This is optional, but if a plugin uses a more rare license, strongly recommended.
+*   **License URI** – (OPTIONAL) A link to the license. This is optional, but if a plugin uses a more rare license, strongly recommended.
 
 At the end of the header section is a place for a *short* description of a plugin. The example recommends no more than 150 characters and to not use markup. That line of text is the single line description of the plugin which shows up right under the plugin name. If it’s longer than 150 characters, it gets cut off, so keep it short.
 
@@ -63,7 +64,7 @@ When the Stable Tag is properly set, WordPress.org will go and look in `/tags/` 
 
 Tip: The readme.txt in the tag folder must also be properly updated to have the correct “Stable Tag” — failing to do so may cause your plugin to not be updatable.
 
-If the Stable Tag is 1.2.3 and `/tags/1.2.3/` exists, then nothing in trunk will be read any further for parsing by any part of the system. If you try to change the description of the plugin in `/trunk/readme.txt` then your changes won’t do anything on your plugin page. Everything comes from the `readme.txt` in the file being pointed to by the Stable Tag. If there is no folder for the Stable Tag, then WordPress will default to using the trunk folder’s content.
+If the Stable Tag is 1.2.3 and `/tags/1.2.3/` exists, then nothing in trunk will be read any further for parsing by any part of the system. If you try to change the description of the plugin in `/trunk/readme.txt` then your changes won’t do anything on your plugin page. Everything comes from the `readme.txt` in the file being pointed to by the Stable Tag.
 
 The WordPress.org Plugin Directory reads the main plugin PHP file to get things like the Name of the plugin, the Plugin URI, and most importantly, the version number. On the plugin page, you’ll see the download button which reads “Download Version 1.2.3” or similar. That version number comes from the plugin’s main PHP file, *not* the readme!
 

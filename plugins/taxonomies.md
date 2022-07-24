@@ -2,7 +2,7 @@
 
 A **Taxonomy** is a fancy word for the classification/grouping of things. Taxonomies can be hierarchical (with parents/children) or flat.
 
-WordPress stores the Taxonomies in the `term_taxonomy` table allowing developers to register Custom Taxonomies along the ones that already exist.
+WordPress stores the Taxonomies in the `term_taxonomy` database table allowing developers to register Custom Taxonomies along the ones that already exist.
 
 Taxonomies have **Terms** which serve as the topic by which you classify/group things. They are stored inside the `terms` table.
 

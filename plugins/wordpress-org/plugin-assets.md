@@ -74,12 +74,16 @@ If you find your images are downloading when people click on them from your Word
 
 To fix it, run this command:
 
-svn propset svn:mime-type image/png \*.png
-svn propset svn:mime-type image/jpeg \*.jpg
+```php
+svn propset svn:mime-type image/png *.png
+svn propset svn:mime-type image/jpeg *.jpg
+```
 
 Alternatively, plugin authors can set this in their ~/.subversion/config file:
 
-\*.png = svn:mime-type=image/png
-\*.jpg = svn:mime-type=image/jpeg
+```php
+*.png = svn:mime-type=image/png
+*.jpg = svn:mime-type=image/jpeg
+```
 
 That’ll apply to only new files though. Fixing already-committed files will require the command above.

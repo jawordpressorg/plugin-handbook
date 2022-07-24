@@ -7,7 +7,7 @@ New settings pages can be registered along with sections and fields inside them.
 Organizing registration and validation of fields still requires some effort from developers, but avoids a lot of complex debugging of underlying options management.
 
 Alert:  
-When using the Settings API, the form POST to `wp-admin/options.php` which provides fairly strict capabilities checking. Users will need the `manage_options` capability (and in Multisite will have to be a Super Admin) to submit the form.  
+When using the Settings API, the form POST to `wp-admin/options.php` which provides fairly strict capabilities checking. Users will need the `manage_options` capability (and in Multisite will have to be a Super Admin) to submit the form.
 
 ## Why Use the Setting API?
 
@@ -31,24 +31,16 @@ Of course the most immediate benefit is that the WordPress API does a lot of wor
 
 ## Function Reference
 
-Setting Register/Unregister
+| Setting Register/Unregister | Add Field/Section |
+| --- | --- |
+| [register\_setting()](https://developer.wordpress.org/reference/functions/register_setting/)  
+[unregister\_setting()](https://developer.wordpress.org/reference/functions/unregister_setting/) | [add\_settings\_section()](https://developer.wordpress.org/reference/functions/add_settings_section/)  
+[add\_settings\_field()](https://developer.wordpress.org/reference/functions/add_settings_field/) |
 
-Add Field/Section
-
-[register\_setting()](https://developer.wordpress.org/reference/functions/register_setting/)  
-[unregister\_setting()](https://developer.wordpress.org/reference/functions/unregister_setting/)
-
-[add\_settings\_section()](https://developer.wordpress.org/reference/functions/add_settings_section/)  
-[add\_settings\_field()](https://developer.wordpress.org/reference/functions/add_settings_field/)
-
-Options Form Rendering
-
-Errors
-
-[settings\_fields()](https://developer.wordpress.org/reference/functions/settings_fields/)  
+| Options Form Rendering | Errors |
+| --- | --- |
+| [settings\_fields()](https://developer.wordpress.org/reference/functions/settings_fields/)  
 [do\_settings\_sections()](https://developer.wordpress.org/reference/functions/do_settings_sections/)  
-[do\_settings\_fields()](https://developer.wordpress.org/reference/functions/do_settings_fields/)
-
-[add\_settings\_error()](https://developer.wordpress.org/reference/functions/add_settings_error/)  
+[do\_settings\_fields()](https://developer.wordpress.org/reference/functions/do_settings_fields/) | [add\_settings\_error()](https://developer.wordpress.org/reference/functions/add_settings_error/)  
 [get\_settings\_errors()](https://developer.wordpress.org/reference/functions/get_settings_errors/)  
-[settings\_errors()](https://developer.wordpress.org/reference/functions/settings_errors/)
+[settings\_errors()](https://developer.wordpress.org/reference/functions/settings_errors/) |

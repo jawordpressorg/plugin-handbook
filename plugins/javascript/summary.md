@@ -45,13 +45,13 @@ function my\_ajax\_handler() {
 
 This code is in the file `js/myjquery.js` below your plugin folder.
 
-</p>
+```php
 jQuery(document).ready(function($) { 	   //wrapper
 	$(".pref").change(function() { 		   //event
 		var this2 = this; 		           //use in callback
-		$.post(my\_ajax\_obj.ajax\_url, { 	   //POST request
-	       \_ajax\_nonce: my\_ajax\_obj.nonce, //nonce
-			action: "my\_tag\_count",        //action
+		$.post(my_ajax_obj.ajax_url, { 	   //POST request
+	       _ajax_nonce: my_ajax_obj.nonce, //nonce
+			action: "my_tag_count",        //action
 	  		title: this.value 	           //data
   		}, function(data) {		           //callback
 			this2.nextSibling.remove();    //remove the current title
@@ -59,9 +59,7 @@ jQuery(document).ready(function($) { 	   //wrapper
 		});
 	});
 });
-<p>
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 And after storing the preference, the resulting post count is added to the selected title.
 

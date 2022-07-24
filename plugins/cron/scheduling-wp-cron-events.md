@@ -8,9 +8,9 @@ In order to get your task to run you must create your own custom hook and give t
 
 The following example will create a hook. The first parameter is the name of the hook you are creating, and the second is the name of the function to call.
 
-</p>
-add\_action( 'bl\_cron\_hook', 'bl\_cron\_exec' );
-<p>
+```php
+add_action( 'bl_cron_hook', 'bl_cron_exec' );
+```
 
 Note: Remember, the “bl\_” part of the function name is a *function prefix*. You can learn why prefixes are important [here](https://developer.wordpress.org/plugins/plugin-basics/best-practices/#prefix-everything).
 
@@ -22,9 +22,9 @@ An important note is that WP-Cron is a simple task scheduler. As we know, tasks 
 
 WordPress provides a convenient function called [wp\_next\_scheduled()](https://developer.wordpress.org/reference/functions/wp_next_scheduled/) to check if a particular hook is already scheduled. `wp_next_scheduled()` takes one parameter, the hook name. It will return either a string containing the timestamp of the next execution or false, signifying the task is not scheduled. It is used like so:
 
-</p>
-wp\_next\_scheduled( 'bl\_cron\_hook' )
-<p>
+```php
+wp_next_scheduled( 'bl_cron_hook' )
+```
 
 Scheduling a recurring task is accomplished with [wp\_schedule\_event()](https://developer.wordpress.org/reference/functions/wp_schedule_event/). This function takes three required parameters, and one additional parameter that is an array that can be passed to the function executing the wp-cron task. We will focus on the first three parameters. The parameters are as follows:
 
@@ -34,17 +34,17 @@ Scheduling a recurring task is accomplished with [wp\_schedule\_event()](https:/
 
 We will use the 5 second interval we created [here](https://developer.wordpress.org/plugins/cron/understanding-wp-cron-scheduling/) and the hook we created above, like so:
 
-</p>
-wp\_schedule\_event( time(), 'five\_seconds', 'bl\_cron\_hook' );
-<p>
+```php
+wp_schedule_event( time(), 'five_seconds', 'bl_cron_hook' );
+```
 
 Remember, we need to first ensure the task is not already scheduled. So we wrap the scheduling code in a check like this:
 
-</p>
-if ( ! wp\_next\_scheduled( 'bl\_cron\_hook' ) ) {
-    wp\_schedule\_event( time(), 'five\_seconds', 'bl\_cron\_hook' );
+```php
+if ( ! wp_next_scheduled( 'bl_cron_hook' ) ) {
+    wp_schedule_event( time(), 'five_seconds', 'bl_cron_hook' );
 }
-<p>
+```
 
 ## Unscheduling tasks
 
@@ -59,22 +59,22 @@ This function will not only unschedule the task indicated by the timestamp, it w
 
 Put it all together and the code looks like:
 
-</p>
-$timestamp = wp\_next\_scheduled( 'bl\_cron\_hook' );
-wp\_unschedule\_event( $timestamp, 'bl\_cron\_hook' );
-<p>
+```php
+$timestamp = wp_next_scheduled( 'bl_cron_hook' );
+wp_unschedule_event( $timestamp, 'bl_cron_hook' );
+```
 
 It is very important to unschedule tasks when you no longer need them because WordPress will continue to attempt to execute the tasks, even though they are no longer in use (or even after your plugin has been deactivated or removed). An important place to remember to unschedule your tasks is upon plugin deactivation.
 
 Unfortunately there are many plugins in the WordPress.org Plugin Directory that do not clean up after themselves. If you find one of these plugins please let the author know to update their code. WordPress provides a function called [register\_deactivation\_hook()](https://developer.wordpress.org/reference/functions/register_deactivation_hook/) that allows developers to run a function when their plugin is deactivated. It is very simple to setup and looks like:
 
-</p>
-register\_deactivation\_hook( \_\_FILE\_\_, 'bl\_deactivate' ); 
+```php
+register_deactivation_hook( __FILE__, 'bl_deactivate' ); 
 
-function bl\_deactivate() {
-    $timestamp = wp\_next\_scheduled( 'bl\_cron\_hook' );
-    wp\_unschedule\_event( $timestamp, 'bl\_cron\_hook' );
+function bl_deactivate() {
+    $timestamp = wp_next_scheduled( 'bl_cron_hook' );
+    wp_unschedule_event( $timestamp, 'bl_cron_hook' );
 }
-<p>
+```
 
 Note: You can read more about activation and deactivation hooks [here](https://developer.wordpress.org/plugins/plugin-basics/activation-deactivation-hooks/).

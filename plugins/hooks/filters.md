@@ -19,12 +19,12 @@ You will use the [add\_filter()](https://developer.wordpress.org/reference/funct
 
 The example below will run when the `the_title` filter is executed.
 
-</p>
-function wporg\_filter\_title( $title ) {
+```php
+function wporg_filter_title( $title ) {
 	return 'The ' . $title . ' was filtered';
 }
-add\_filter( 'the\_title', 'wporg\_filter\_title' );
-<p>
+add_filter( 'the_title', 'wporg_filter_title' );
+```
 
 Lets say we have a post title, “Learning WordPress”, the above example will modify it to be “The Learning WordPress was filtered”.
 
@@ -42,12 +42,12 @@ For detailed explanation of these parameters please read the article on [Actions
 
 To add a CSS class to the `<body>` tag when a certain condition is met:
 
-</p>
-function wporg\_css\_body\_class( $classes ) {
-	if ( ! is\_admin() ) {
-		$classes\[\] = 'wporg-is-awesome';
+```php
+function wporg_css_body_class( $classes ) {
+	if ( ! is_admin() ) {
+		$classes[] = 'wporg-is-awesome';
 	}
 	return $classes;
 }
-add\_filter( 'body\_class', 'wporg\_css\_body\_class' );
-<p>
+add_filter( 'body_class', 'wporg_css_body_class' );
+```

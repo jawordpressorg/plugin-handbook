@@ -14,7 +14,7 @@ Simple examples of data validation:
 **Data validation should be performed as early as possible.** That means validating the data before performing any actions.
 
 Note:  
-Validation can be performed by using JavaScript on the front end and by using PHP on the back end.
+Validation can be performed by using JavaScript on the front end and by using PHP on the back end.  
 
 ## Validating the Data
 
@@ -52,7 +52,9 @@ The function should return a boolean, either true or false, depending on whether
 
 Let’s say you have an U.S. zip code input field that a user submits.
 
-<input id="wporg\_zip\_code" type="text" maxlength="10" name="wporg\_zip\_code">
+```php
+<input id="wporg_zip_code" type="text" maxlength="10" name="wporg_zip_code">
+```
 
 The text field allows up to 10 characters of input with no limitations on the types of characters that can be used. Users could enter something valid like `1234567890` or something invalid (and evil) like `eval()`.
 
@@ -62,40 +64,42 @@ By using validation we can ensure we’re accepting only valid zip codes.
 
 First you need to write a function to validate a U.S. zip codes:
 
-/\*\*
- \* Validate a US zip code.
- \*
- \* @param string $zip\_code   RAW zip code to check.
- \*
- \* @return bool              true if valid, false otherwise.
- \*/
-function wporg\_is\_valid\_us\_zip\_code( $zip\_code ) {
+```php
+/**
+ * Validate a US zip code.
+ *
+ * @param string $zip_code   RAW zip code to check.
+ *
+ * @return bool              true if valid, false otherwise.
+ */
+function wporg_is_valid_us_zip_code( $zip_code ) {
 	// Scenario 1: empty.
-	if ( empty( $zip\_code ) ) {
+	if ( empty( $zip_code ) ) {
 		return false;
 	}
 
 	// Scenario 2: more than 10 characters.
-	if ( 10 < strlen( trim( $zip\_code ) ) ) {
+	if ( 10 < strlen( trim( $zip_code ) ) ) {
 		return false;
 	}
 
 	// Scenario 3: incorrect format.
-	if ( ! preg\_match( '/^\\d{5}(\\-?\\d{4})?$/', $zip\_code ) ) {
+	if ( ! preg_match( '/^\d{5}(-?\d{4})?$/', $zip_code ) ) {
 		return false;
 	}
 
 	// Passed successfully.
 	return true;
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 When processing the form, your code should check the `wporg_zip_code` field and perform the action based on the result:
 
-if ( isset( $\_POST\['wporg\_zip\_code'\] ) && wporg\_is\_valid\_us\_zip\_code( $\_POST\['wporg\_zip\_code'\] ) ) {
+```php
+if ( isset( $_POST['wporg_zip_code'] ) && wporg_is_valid_us_zip_code( $_POST['wporg_zip_code'] ) ) {
 	// your action
 }
+```
 
 ## Example 2
 
@@ -107,8 +111,10 @@ Before checking the incoming sort key against the array, the key is passed into
 
 Passing “true” into the third parameter of [`in_array`](//php.net/in_array) enables strict type checking, which tells the function to not only compare values but value *[types](http://php.net/manual/en/language.types.php)* as well. This allows the code to be certain that the incoming sort key is a string and not some other data type.
 
-$allowed\_keys = \[ 'author', 'post\_author', 'date', 'post\_date' \];
-$orderby      = sanitize\_key( $\_POST\['orderby'\] );
-if ( in\_array( $orderby, $allowed\_keys, true ) ) {
+```php
+$allowed_keys = [ 'author', 'post_author', 'date', 'post_date' ];
+$orderby      = sanitize_key( $_POST['orderby'] );
+if ( in_array( $orderby, $allowed_keys, true ) ) {
 	// Modify the query to sort by the orderby key.
 }
+```

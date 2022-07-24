@@ -6,8 +6,8 @@ In the [Header Requirements](https://developer.wordpress.org/plugins/the-basics/
 
 This license block comment usually looks something like this:
 
-</p>
-/\*
+```php
+/*
 {Plugin Name} is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -20,7 +20,5 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with {Plugin Name}. If not, see {URI to Plugin License}.
-\*/
-<p>
-
-[Expand full source code](#)[Collapse full source code](#)
+*/
+```

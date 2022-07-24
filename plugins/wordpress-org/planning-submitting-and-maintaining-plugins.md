@@ -8,7 +8,7 @@ With any luck, your plugin will be used by lots of people in many different situ
 
 ## 2\. Pick a good name
 
-A plugin name should reflect the uniqueness of you and your work. When you pick a name, make sure you’re not violating trademarks or stomping on someone else’s product names. If you’re not working for Facebook, you shouldn’t name your plugin ‘Facebook’s Dancing Squirrels’ after all. A much better name would be ‘Dancing Squirrels for Facebook’ for example. It can be hard to come up with a good name, so take your time. Your plugin URL cannot be changed after you submit it, but the display name can change a thousand times.
+A plugin name should reflect the uniqueness of you and your work. When you pick a name, make sure you’re not violating trademarks or stomping on someone else’s product names. If you’re not working for FaceRange (a fake company), you shouldn’t name your plugin ‘FaceRange’s Dancing Squirrels’ after all. A much better name would be ‘Dancing Squirrels for FaceRange’ for example. It can be hard to come up with a good name, so take your time. Your plugin URL cannot be changed after you submit it, but the display name can change a thousand times.
 
 Display names are generated from the headers in the main plugin file so mind your Ps and Qs.
 
@@ -36,14 +36,14 @@ After you upload your plugin (and a [readme file](https://wordpress.org/plugin
 
 The WordPress.org plugins directory is the easiest way for potential users to download and install your plugin. WordPress’ integration with the plugin directory means your plugin can be updated by the user in a couple of clicks.
 
-When you’re ready to release your first version, you’ll want to [sign up](https://wordpress.org/plugins/add/). After a review process is completed successfully, you’ll be granted a Subversion Repository for your code. The WordPress.org site has good documentation for [making your first Subversion commits](https://developer.wordpress.org/plugin/wordpress-org/deploying-your-plugin/ "Deploying Your Plugin") and [the overall process](https://developer.wordpress.org/plugins/wordpress-org/).
+When you’re ready to release your first version, you’ll want to [sign up](https://wordpress.org/plugins/add/). After a review process is completed successfully, you’ll be granted a Subversion Repository for your code. We have documentation about [using SVN on WordPress.org](https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/), which is a slightly different workflow than you may be familiar with if you use GIT.
 
 ## 6\. Embrace open source
 
 Open source is one of the most powerful ideas of our time because it empowers collaboration across borders. By encouraging contributions, you’re allowing others to love your code as much as you do. There are several options to open source your code:
 
 *   [Github](http://github.com) makes it simple to get others involved with your project. Other developers and users can submit bug fixes or reports, feature requests, or brand new contributions easily. Github has a [great documentation portal](https://help.github.com/) and even an [interactive demo](http://try.github.com/) if you’ve never used Git before.
-*   [Bitbucket](https://bitbucket.org/) is an alternative to Github with similar features.
+    *   [Bitbucket](https://bitbucket.org/) and [Gitlab](https://about.gitlab.com/) are alternatives with similar features.
 *   The WordPress.org Plugin Directory provides and requires you to use a [Subversion repository](https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/).
 
 ## 7\. Listen to your users

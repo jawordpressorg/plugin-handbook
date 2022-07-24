@@ -8,17 +8,24 @@ Alert: Not all requests will be approved, even following a successful review.
 
 ## The Adoption Process
 
-There are two ways a plugin can be adopted. First is by you asking the developer, them saying yes and adding you. The second is when the plugin review team is needed to contact the developer.
+There are two ways a plugin can be adopted.
+
+1.  You ask the developer directly, they say yes and add you
+2.  You ask the Plugin Review team to assist you
+
+Since you’re reading this, you likely are working on the second method, so keep reading. You will be expected to have followed **all** the steps herein.
 
 ### 1\. Check the Plugin Status
 
 If the plugin is open and active, give it a full review on your own before you go any further. Make sure you feel comfortable and capable of maintaining the code long term.
 
-If a plugin is closed because it was unused, you can skip the rest of this and email `plugins@wordpress.org` right away and attach your version of the proposed plugin.
+If a plugin is closed because it was **unused**, you can skip the rest of this and email `plugins@wordpress.org` right away and attach your version of the proposed plugin.
 
 If the plugin was closed for security issues, we require **all** those issues to be resolved, so put your best foot forward and demonstrate you have the impetus to find and fix those issues.
 
-Keep in mind, closed plugins are less likely to be able to be adopted, as the nature of their closures may be more complex and intricate. If a plugin was closed for license issues, for example, we may not be permitted to reopen it for anyone except the license holders.
+Closed plugins are *less* likely to be able to be adopted, as the nature of their closures may be more complex and intricate. If a plugin was closed for license issues, for example, we may not be permitted to reopen it for anyone except the license holders.
+
+Larger plugins (100k users or more) are also less likely to be adopted, as that is a not-insignificant userbase, and we need to be sure you really are capable of managing a plugin of that size.
 
 ### 2\. Contact the Original Developer
 
@@ -30,11 +37,15 @@ You *must* attempt to contact the original developer, as they can [give you acce
 
 We expect you to make all reasonable efforts to reach out to them. If the plugin page says the plugin has no active developer, then you’re fine.
 
-If you *do* get in touch with the developer, ask them to [transfer ownership to you](https://developer.wordpress.org/plugins/wordpress-org/plugin-developer-faq/#plugin-ownership). They can do this on their own and once it’s done, you may manage the plugin.
+If you *do* get in touch with the developer, ask them to [transfer ownership to you](https://developer.wordpress.org/plugins/wordpress-org/plugin-developer-faq/#plugin-ownership). They can do this on their own and, once it’s done, you may manage the plugin. If they have issues, have them contact the plugin team via email and we will assist them.
+
+If there’s no way to get in touch, or they don’t reply, move to step 3.
 
 ### 3\. Update The Code
 
-Even if the plugins has been given to you by the developer, you must review the code from the top down to make sure it’s safe, secure, and meets our current [guidelines](https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/).
+Even if the plugin has been given to you by the developer, you must review the code from the top down to make sure it’s safe, secure, and meets our current [guidelines](https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/).
+
+Your update must include editing the readme to ensure it documents the new ownership (and preferably when it takes place), removing all links to their site/support resources, as well as updating the copyright information to include you. Remember, copyright is additive. You keep the old and add yours on.
 
 If your plugin is a major upgrade, you *must* provide an upgrade path. Just wanting a name-slug is not sufficient reason to take over a plugin. We care deeply about our users, and violating their trust in us by breaking their existing sites with your upgrades is to be avoided at all costs.
 
@@ -42,7 +53,7 @@ Remember you need to *increase* the version number so people are prompted to upg
 
 ### 4\. Submit Your Code for Review
 
-If you can’t get in touch with the original developer, you’ll need to ask the Plugin Review Team for help.
+If you still can’t get in touch with the original developer, you’ll need to ask the Plugin Review Team for help.
 
 Once you’ve finished updating the code, email `plugins@wordpress.org` explaining how you tried to contact the original developer and with your code attached as a zip. If you can’t email zips, then upload it to some file service (Google Drive, Dropbox, etc) or provide a link to your code repository (Github, Bitbucket, etc). Make sure the link is public!
 
@@ -58,11 +69,11 @@ We’ll do everything we can to ensure the original plugin author has been notif
 
 ### 6\. Wait Patiently
 
-We give the original developer 7-14 days to reply to our inquiry. Should they reply and deny the request, we will honour their decision and ask you to convert the plugin into a forked version. We do our best to respect them as much as we respect you as a developer, and honor their wishes with their work.
+We give the original developer 30 days (1 month) to reply to our inquiry. Should they reply and deny the request, we will honour their decision and ask you to convert the plugin into a forked version. We do our best to respect them as much as we respect you as a developer, and honor their wishes with their work.
 
 If they approve it, we will assist in transitioning the plugin to your account.
 
-If they don’t reply, and you’ve made it this far, we will transfer the plugin to you.
+If they don’t reply, and you’ve made it this far, we will likely transfer the plugin to you.
 
 ### 7\. Update the Plugin
 

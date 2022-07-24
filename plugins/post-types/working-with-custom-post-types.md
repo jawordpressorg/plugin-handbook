@@ -17,23 +17,23 @@ Alternatively, you can use the [is\_post\_type\_archive()](https://developer.wor
 
 You can query posts of a specific type by passing the `post_type` key in the arguments array of the `WP_Query` class constructor.
 
+```php
 <?php
 $args = array(
-	'post\_type'      => 'product',
-	'posts\_per\_page' => 10,
+	'post_type'      => 'product',
+	'posts_per_page' => 10,
 );
-$loop = new WP\_Query($args);
-while ( $loop->have\_posts() ) {
-	$loop->the\_post();
+$loop = new WP_Query($args);
+while ( $loop->have_posts() ) {
+	$loop->the_post();
 	?>
 	<div class="entry-content">
-		<?php the\_title(); ?>
-		<?php the\_content(); ?>
+		<?php the_title(); ?>
+		<?php the_content(); ?>
 	</div>
 	<?php
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 This loops through the latest ten product posts and displays the title and content of them one by one.
 
@@ -45,10 +45,12 @@ If you want your custom post type posts to show up on standard archives or inclu
 
 The next example will show posts from `post`, `page` and `movie` post types on the home page:
 
-function wporg\_add\_custom\_post\_types($query) {
-	if ( is\_home() && $query->is\_main\_query() ) {
-		$query->set( 'post\_type', array( 'post', 'page', 'movie' ) );
+```php
+function wporg_add_custom_post_types($query) {
+	if ( is_home() && $query->is_main_query() ) {
+		$query->set( 'post_type', array( 'post', 'page', 'movie' ) );
 	}
 	return $query;
 }
-add\_action('pre\_get\_posts', 'wporg\_add\_custom\_post\_types');
+add_action('pre_get_posts', 'wporg_add_custom_post_types');
+```
