@@ -12,21 +12,19 @@ This class is one of the three main infrastructure classes introduced in WordPre
 
 Request objects have many different properties, each of which can be used in various ways. The main properties are the request method, route, headers, parameters and attributes. Let’s break each of these down into their role in a request. If you were to create a request object yourself it would look like this:
 
-$request = new WP\_REST\_Request( 'GET', '/my-namespace/v1/examples' );
+```php
+$request = new WP_REST_Request( 'GET', '/my-namespace/v1/examples' );
+```
 
 In the above code sample we are only specifying that the request object method is `GET` and we should be matching the route `/my-namespace/v1/examples` which in the context of an entire URL would look like this: `https://ourawesomesite.com/wp-json/my-namepsace/v1/examples`. The method and route arguments for the `WP_REST_Request` constructor are used to map the request to the desired endpoint. If the request is made to an endpoint that is not registered then a helpful 404 error message is returned in the response. Let’s look at the various properties in more depth.
 
 ### Method
 
-The method property of a request object by default matches the HTTP Request method. The method in most cases will be one of `GET`, `POST`, `PUT`, `DELETE`, `OPTIONS`, or `HEAD`. These methods will be used to match the various endpoints registered to a route. When the API finds a match for the method and route it will fire the callbacks for that endpoint.
-
-The following convention is a best practice for matching HTTP methods: `GET` for read only tasks, `POST` for creation, `PUT` for updating, and `DELETE` for deleting. The request method acts as an indicator for the expected functionality of your endpoints. When you make a `GET` request to a route, you should expect to be returned read only data.
+The method property of a request object by default matches the HTTP Request method. The method in most cases will be one of `GET`, `POST`, `PUT`, `DELETE`, `OPTIONS`, or `HEAD`. These methods will be used to match the various endpoints registered to a route. When the API finds a match for the method and route it will fire the callbacks for that endpoint. The following convention is a best practice for matching HTTP methods: `GET` for read only tasks, `POST` for creation, `PUT` for updating, and `DELETE` for deleting. The request method acts as an indicator for the expected functionality of your endpoints. When you make a `GET` request to a route, you should expect to be returned read only data.
 
 ### Route
 
-The route for a request, by default, will match the server environment variable for path info; `$_SERVER['PATH_INFO']`. When you make an HTTP request to a route of the WordPress REST API, the generated `WP_REST_Request` object will be made to match that path, which will hopefully then be matched to a valid endpoint. In short the route for a request is where you want to target your request in the API.
-
-If we had registered a books endpoint, using `GET`, it might live at `https://ourawesomesite.com/wp-json/my-namespace/v1/books`. If we went to that URL in our browser, we would see our collection of books represented in JSON. WordPress will automatically generate the request object for us and handle all of the routing to match endpoints. So since we don’t really have to worry about the routing ourselves understanding how to pass extra data we want in our requests is a much more important thing to understand.
+The route for a request, by default, will match the server environment variable for path info; `$_SERVER['PATH_INFO']`. When you make an HTTP request to a route of the WordPress REST API, the generated `WP_REST_Request` object will be made to match that path, which will hopefully then be matched to a valid endpoint. In short the route for a request is where you want to target your request in the API. If we had registered a books endpoint, using `GET`, it might live at `https://ourawesomesite.com/wp-json/my-namespace/v1/books`. If we went to that URL in our browser, we would see our collection of books represented in JSON. WordPress will automatically generate the request object for us and handle all of the routing to match endpoints. So since we don’t really have to worry about the routing ourselves understanding how to pass extra data we want in our requests is a much more important thing to understand.
 
 ### Headers
 
@@ -38,36 +36,35 @@ When making requests to the WordPress REST API, most of the additional data pass
 
 #### URL Params
 
-URL parameters are automatically generated in a `WP_REST_Request` from the path variables in the requested route. What does that mean? Let’s look at this route, which grabs individual books by id: `/my-namespace/v1/books/(?P\d+)`. The odd looking `(?P\d+)` is a path variable. The name of the path variable is ‘`id`‘.
+URL parameters are automatically generated in a `WP_REST_Request` from the path variables in the requested route. What does that mean? Let’s look at this route, which grabs individual books by id: `/my-namespace/v1/books/(?P\d+)`. The odd looking `(?P\d+)` is a path variable. The name of the path variable is ‘`id`‘. If we were to make a request like `GET https://ourawesomesite.com/wp-json/my-namespace/v1/books/5`, `5` will become the value for our `id` path variable. The `WP_REST_Request` object will automatically take that path variable and store it as a URL parameter. Now inside of our endpoint callbacks we can interact with that URL parameter really easily. Let’s look at an example.
 
-If we were to make a request like `GET https://ourawesomesite.com/wp-json/my-namespace/v1/books/5`, `5` will become the value for our `id` path variable. The `WP_REST_Request` object will automatically take that path variable and store it as a URL parameter. Now inside of our endpoint callbacks we can interact with that URL parameter really easily. Let’s look at an example.
-
+```php
 // Register our individual books endpoint.
-function prefix\_register\_book\_route() {
-    register\_rest\_route( 'my-namespace/v1', '/books/(?P<id>\\d+)', array(
-        // Supported methods for this endpoint. WP\_REST\_Server::READABLE translates to GET.
-        'methods' => WP\_REST\_Server::READABLE,
+function prefix_register_book_route() {
+    register_rest_route( 'my-namespace/v1', '/books/(?P<id>\d+)', array(
+        // Supported methods for this endpoint. WP_REST_Server::READABLE translates to GET.
+        'methods' => WP_REST_Server::READABLE,
         // Register the callback for the endpoint.
-        'callback' => 'prefix\_get\_book',
+        'callback' => 'prefix_get_book',
     ) );
 }
 
-add\_action( 'rest\_api\_init', 'prefix\_register\_book\_route' ); 
+add_action( 'rest_api_init', 'prefix_register_book_route' ); 
 
-/\*\*
- \* Our registered endpoint callback. Notice how we are passing in $request as an argument.
- \* By default, the WP\_REST\_Server will pass in the matched request object to our callback.
- \*
- \* @param WP\_REST\_Request $request The current matched request object.
- \*/
-function prefix\_get\_book( $request ) {
+/**
+ * Our registered endpoint callback. Notice how we are passing in $request as an argument.
+ * By default, the WP_REST_Server will pass in the matched request object to our callback.
+ *
+ * @param WP_REST_Request $request The current matched request object.
+ */
+function prefix_get_book( $request ) {
     // Here we are accessing the path variable 'id' from the $request.
-    $book = prefix\_get\_the\_book( $request\['id'\] );
-    return rest\_ensure\_response( $book );
+    $book = prefix_get_the_book( $request['id'] );
+    return rest_ensure_response( $book );
 }
 
 // A simple function that grabs a book title from our books by ID.
-function prefix\_get\_the\_book( $id ) {
+function prefix_get_the_book( $id ) {
     $books = array(
         'Design Patterns',
         'Clean Code',
@@ -76,165 +73,157 @@ function prefix\_get\_the\_book( $id ) {
     );
 
     $book = '';
-    if ( isset( $books\[ $id \] ) ) {
+    if ( isset( $books[ $id ] ) ) {
         // Grab the matching book.
-        $book = $books\[ $id \];
+        $book = $books[ $id ];
     } else {
         // Error handling.
-        return new WP\_Error( 'rest\_not\_found', esc\_html\_\_( 'The book does not exist', 'my-text-domain' ), array( 'status' => 404 ) );
+        return new WP_Error( 'rest_not_found', esc_html__( 'The book does not exist', 'my-text-domain' ), array( 'status' => 404 ) );
     }
 
     return $book;
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 In the example above we see how path variables are stored as URL parameters in the request object. We can then access those parameters in our endpoint callbacks. The above example is a pretty common use case for using URL params. Adding too many path variables to a route can slow down the matching of routes and it can also over complicate registering endpoints, it is advised to use URL parameters sparingly. If we aren’t supposed to use parameters directly in our URL path, then we need another way to pass in extra information to our request. This is where query and body parameters come in, they will typically do most of the heavy lifting in your API.
 
 #### Query Params
 
-Query parameters exist in the query string portion of a URI. The query string portion of a URI in `https://ourawesomesite.com/wp-json/my-namespace/v1/books?per_page=2&genre=fiction` is `?per_page=2&genre=fiction`. The query string is started by the ‘`?`‘ character, the different values within the query string are separated by the ‘`&`‘ character. We specified two parameters in our query string; `per_page` and `fiction`. In our endpoint we would want to grab only two books from the fiction genre. We could access those values in a callback like this: `$request['per_page']`, and `$request['genre']` ( assuming $request is the name of the argument we are using ). If you are familiar with PHP you have probably used query parameters in your web applications.
-
-In PHP, the query parameters get stored in the superglobal `$_GET`. It is important to note that you should never directly access any superglobals or server variables in your endpoints. It is always best to work with what is provided by the `WP_REST_Request` class. Another common method for passing in variables to an endpoint is to use body parameters.
+Query parameters exist in the query string portion of a URI. The query string portion of a URI in `https://ourawesomesite.com/wp-json/my-namespace/v1/books?per_page=2&genre=fiction` is `?per_page=2&genre=fiction`. The query string is started by the ‘`?`‘ character, the different values within the query string are separated by the ‘`&`‘ character. We specified two parameters in our query string; `per_page` and `fiction`. In our endpoint we would want to grab only two books from the fiction genre. We could access those values in a callback like this: `$request['per_page']`, and `$request['genre']` ( assuming $request is the name of the argument we are using ). If you are familiar with PHP you have probably used query parameters in your web applications. In PHP, the query parameters get stored in the superglobal `$_GET`. It is important to note that you should never directly access any superglobals or server variables in your endpoints. It is always best to work with what is provided by the `WP_REST_Request` class. Another common method for passing in variables to an endpoint is to use body parameters.
 
 #### Body Params
 
-Body parameters are key value pairs that are stored in the request body. If you have ever sent a `POST` request via a , through cURL, or some other method, then you have used body parameters. With body parameters you can pass them as different content types as well. The default `Content-Type` header for a `POST` request is `x-www-form-urlencoded`. When using `x-www-form-urlencoded`, the parameters are sent like a query string; `per_page=2&genre=fiction`. An HTML form, by default, will bundle up the various inputs and send a `POST` request matching the `x-www-form-urlencoded` pattern.
-
-It is important to note that although the HTTP specification does not prohibit the use of sending body parameters in `GET` requests, it is encouraged that you do not use body parameters in a `GET` request. Body parameters can and should be used for `POST`, `PUT`, and `DELETE` requests.
+Body parameters are key value pairs that are stored in the request body. If you have ever sent a `POST` request via a , through cURL, or some other method, then you have used body parameters. With body parameters you can pass them as different content types as well. The default `Content-Type` header for a `POST` request is `x-www-form-urlencoded`. When using `x-www-form-urlencoded`, the parameters are sent like a query string; `per_page=2&genre=fiction`. An HTML form, by default, will bundle up the various inputs and send a `POST` request matching the `x-www-form-urlencoded` pattern. It is important to note that although the HTTP specification does not prohibit the use of sending body parameters in `GET` requests, it is encouraged that you do not use body parameters in a `GET` request. Body parameters can and should be used for `POST`, `PUT`, and `DELETE` requests.
 
 #### File Params
 
-File parameters in a `WP_REST_Request` object are stored when the request uses a special content type header; `multipart/form-data`. The file data can then be accessed from the request object using `$request->get_file_params()`. The file parameters are equivalent to the PHP superglobal: `$_FILES`. Remember, do not access the superglobals directly only use what the `WP_REST_Request` object provides.
-
-In the endpoint callback we could use `wp_handle_upload()` to then add in the desired files to WordPress’s media uploads directory. The file parameters are only useful for dealing with file data and you should never use them for any other purpose.
+File parameters in a `WP_REST_Request` object are stored when the request uses a special content type header; `multipart/form-data`. The file data can then be accessed from the request object using `$request->get_file_params()`. The file parameters are equivalent to the PHP superglobal: `$_FILES`. Remember, do not access the superglobals directly only use what the `WP_REST_Request` object provides. In the endpoint callback we could use `wp_handle_upload()` to then add in the desired files to WordPress’s media uploads directory. The file parameters are only useful for dealing with file data and you should never use them for any other purpose.
 
 ### Attributes
 
-`WP_REST_Request` also supports request attributes. The attributes of a request are the attributes registered to the match route. If we made a `GET` request to `my-namespace/v1/books`, and then we called `$request->get_attributes()` inside of our endpoint callback, we would be returned all of the registration options for the `my-namespace/v1/books` endpoint. If we made a `POST` request to the same route and our endpoint callback also returned `$request->get_attributes()`, we would receive a different set of endpoint options registered to the `POST` endpoint callback.
+`WP_REST_Request` also supports request attributes. The attributes of a request are the attributes registered to the match route. If we made a `GET` request to `my-namespace/v1/books`, and then we called `$request->get_attributes()` inside of our endpoint callback, we would be returned all of the registration options for the `my-namespace/v1/books` endpoint. If we made a `POST` request to the same route and our endpoint callback also returned `$request->get_attributes()`, we would receive a different set of endpoint options registered to the `POST` endpoint callback. In the attributes we will get a response containing supported methods, options, whether to show this endpoint in the index, a list of registered arguments for the endpoint, and our registered callbacks. It might look something like this:
 
-In the attributes we will get a response containing supported methods, options, whether to show this endpoint in the index, a list of registered arguments for the endpoint, and our registered callbacks. It might look something like this:
-
+```js
 {
   "methods": {
     "GET": true
   },
-  "accept\_json": false,
-  "accept\_raw": false,
-  "show\_in\_index": true,
+  "accept_json": false,
+  "accept_raw": false,
+  "show_in_index": true,
   "args": {
     "context": {
       "description": "Scope under which the request is made; determines fields present in response.",
       "type": "string",
-      "sanitize\_callback": "sanitize\_key",
-      "validate\_callback": "rest\_validate\_request\_arg",
-      "enum": \[
+      "sanitize_callback": "sanitize_key",
+      "validate_callback": "rest_validate_request_arg",
+      "enum": [
         "view",
         "embed",
         "edit"
-      \],
+      ],
       "default": "view"
     },
     "page": {
       "description": "Current page of the collection.",
       "type": "integer",
       "default": 1,
-      "sanitize\_callback": "absint",
-      "validate\_callback": "rest\_validate\_request\_arg",
+      "sanitize_callback": "absint",
+      "validate_callback": "rest_validate_request_arg",
       "minimum": 1
     },
-    "per\_page": {
+    "per_page": {
       "description": "Maximum number of items to be returned in result set.",
       "type": "integer",
       "default": 10,
       "minimum": 1,
       "maximum": 100,
-      "sanitize\_callback": "absint",
-      "validate\_callback": "rest\_validate\_request\_arg"
+      "sanitize_callback": "absint",
+      "validate_callback": "rest_validate_request_arg"
     },
     "search": {
       "description": "Limit results to those matching a string.",
       "type": "string",
-      "sanitize\_callback": "sanitize\_text\_field",
-      "validate\_callback": "rest\_validate\_request\_arg"
+      "sanitize_callback": "sanitize_text_field",
+      "validate_callback": "rest_validate_request_arg"
     },
     "after": {
       "description": "Limit response to resources published after a given ISO8601 compliant date.",
       "type": "string",
       "format": "date-time",
-      "validate\_callback": "rest\_validate\_request\_arg"
+      "validate_callback": "rest_validate_request_arg"
     },
     "author": {
       "description": "Limit result set to posts assigned to specific authors.",
       "type": "array",
-      "default": \[\],
-      "sanitize\_callback": "wp\_parse\_id\_list",
-      "validate\_callback": "rest\_validate\_request\_arg"
+      "default": [],
+      "sanitize_callback": "wp_parse_id_list",
+      "validate_callback": "rest_validate_request_arg"
     },
-    "author\_exclude": {
+    "author_exclude": {
       "description": "Ensure result set excludes posts assigned to specific authors.",
       "type": "array",
-      "default": \[\],
-      "sanitize\_callback": "wp\_parse\_id\_list",
-      "validate\_callback": "rest\_validate\_request\_arg"
+      "default": [],
+      "sanitize_callback": "wp_parse_id_list",
+      "validate_callback": "rest_validate_request_arg"
     },
     "before": {
       "description": "Limit response to resources published before a given ISO8601 compliant date.",
       "type": "string",
       "format": "date-time",
-      "validate\_callback": "rest\_validate\_request\_arg"
+      "validate_callback": "rest_validate_request_arg"
     },
     "exclude": {
       "description": "Ensure result set excludes specific ids.",
       "type": "array",
-      "default": \[\],
-      "sanitize\_callback": "wp\_parse\_id\_list"
+      "default": [],
+      "sanitize_callback": "wp_parse_id_list"
     },
     "include": {
       "description": "Limit result set to specific ids.",
       "type": "array",
-      "default": \[\],
-      "sanitize\_callback": "wp\_parse\_id\_list"
+      "default": [],
+      "sanitize_callback": "wp_parse_id_list"
     },
     "offset": {
       "description": "Offset the result set by a specific number of items.",
       "type": "integer",
-      "sanitize\_callback": "absint",
-      "validate\_callback": "rest\_validate\_request\_arg"
+      "sanitize_callback": "absint",
+      "validate_callback": "rest_validate_request_arg"
     },
     "order": {
       "description": "Order sort attribute ascending or descending.",
       "type": "string",
       "default": "desc",
-      "enum": \[
+      "enum": [
         "asc",
         "desc"
-      \],
-      "validate\_callback": "rest\_validate\_request\_arg"
+      ],
+      "validate_callback": "rest_validate_request_arg"
     },
     "orderby": {
       "description": "Sort collection by object attribute.",
       "type": "string",
       "default": "date",
-      "enum": \[
+      "enum": [
         "date",
         "relevance",
         "id",
         "include",
         "title",
         "slug"
-      \],
-      "validate\_callback": "rest\_validate\_request\_arg"
+      ],
+      "validate_callback": "rest_validate_request_arg"
     },
     "slug": {
       "description": "Limit result set to posts with a specific slug.",
       "type": "string",
-      "validate\_callback": "rest\_validate\_request\_arg"
+      "validate_callback": "rest_validate_request_arg"
     },
     "status": {
       "default": "publish",
       "description": "Limit result set to posts assigned a specific status; can be comma-delimited list of status types.",
-      "enum": \[
+      "enum": [
         "publish",
         "future",
         "draft",
@@ -244,13 +233,13 @@ In the attributes we will get a response containing supported methods, options, 
         "auto-draft",
         "inherit",
         "any"
-      \],
-      "sanitize\_callback": "sanitize\_key",
+      ],
+      "sanitize_callback": "sanitize_key",
       "type": "string",
-      "validate\_callback": \[
+      "validate_callback": [
         {},
-        "validate\_user\_can\_query\_private\_statuses"
-      \]
+        "validate_user_can_query_private_statuses"
+      ]
     },
     "filter": {
       "description": "Use WP Query arguments to modify the response; private query vars require appropriate authorization."
@@ -258,149 +247,147 @@ In the attributes we will get a response containing supported methods, options, 
     "categories": {
       "description": "Limit result set to all items that have the specified term assigned in the categories taxonomy.",
       "type": "array",
-      "sanitize\_callback": "wp\_parse\_id\_list",
-      "default": \[\]
+      "sanitize_callback": "wp_parse_id_list",
+      "default": []
     },
     "tags": {
       "description": "Limit result set to all items that have the specified term assigned in the tags taxonomy.",
       "type": "array",
-      "sanitize\_callback": "wp\_parse\_id\_list",
-      "default": \[\]
+      "sanitize_callback": "wp_parse_id_list",
+      "default": []
     }
   },
-  "callback": \[
+  "callback": [
     {},
-    "get\_items"
-  \],
-  "permission\_callback": \[
+    "get_items"
+  ],
+  "permission_callback": [
     {},
-    "get\_items\_permissions\_check"
-  \]
+    "get_items_permissions_check"
+  ]
 }
+```
 
-[Expand full source code](#)[Collapse full source code](#)
-
-As you can see we have all of the information we have registered to our endpoint already there, ready to go! The request attributes are typically used at a lower level and are handled by the `WP_REST_Server` class, however there are cool things that can be done inside of endpoint callbacks, like restricting accepted parameters to match registered arguments.
-
-The WP REST API is designed for you so that you do not have to mess around with any internals, so some of these more advanced methods of interacting with `WP_REST_Request` are not going to be commonly practiced. The core of using the WP REST API is linked to registering routes and endpoints. Requests are the tool we use to tell the API which endpoint we want to hit. This is most commonly done over HTTP, however we can also use `WP_REST_Request`s internally.
+As you can see we have all of the information we have registered to our endpoint already there, ready to go! The request attributes are typically used at a lower level and are handled by the `WP_REST_Server` class, however there are cool things that can be done inside of endpoint callbacks, like restricting accepted parameters to match registered arguments. The WP REST API is designed for you so that you do not have to mess around with any internals, so some of these more advanced methods of interacting with `WP_REST_Request` are not going to be commonly practiced. The core of using the WP REST API is linked to registering routes and endpoints. Requests are the tool we use to tell the API which endpoint we want to hit. This is most commonly done over HTTP, however we can also use `WP_REST_Request`s internally.
 
 ## Internal Requests
 
 The key to making internal requests is using `rest_do_request()`. All you need to do is pass in a request object and you will be returned a response. Because the request is never served by the `WP_REST_Server`, the response data is never encoded into json, meaning we have our response object as a PHP object. This is pretty awesome and enables us to do a lot of interesting things. For one, we can create efficient batch endpoints. From a performance perspective, one of the hurdles is minimizing HTTP requests. We can create batch endpoints that will use `rest_do_request()` to serve all of our requests internally all in one HTTP request. Here is a very simplistic batch endpoint for read only data, so you can see `rest_do_request()` in action.
 
+```php
 // Register our mock batch endpoint.
-function prefix\_register\_batch\_route() {
-    register\_rest\_route( 'my-namespace/v1', '/batch', array(
-        // Supported methods for this endpoint. WP\_REST\_Server::READABLE translates to GET.
-        'methods' => WP\_REST\_Server::READABLE,
+function prefix_register_batch_route() {
+    register_rest_route( 'my-namespace/v1', '/batch', array(
+        // Supported methods for this endpoint. WP_REST_Server::READABLE translates to GET.
+        'methods' => WP_REST_Server::READABLE,
         // Register the callback for the endpoint.
-        'callback' => 'prefix\_do\_batch\_request',
+        'callback' => 'prefix_do_batch_request',
         // Register args for the batch endpoint.
-        'args' => prefix\_batch\_request\_parameters(),
+        'args' => prefix_batch_request_parameters(),
     ) );
 }
 
-add\_action( 'rest\_api\_init', 'prefix\_register\_batch\_route' );
+add_action( 'rest_api_init', 'prefix_register_batch_route' );
 
-/\*\*
- \* Our registered endpoint callback. Notice how we are passing in $request as an argument.
- \* By default, the WP\_REST\_Server will pass in the matched request object to our callback.
- \*
- \* @param WP\_REST\_Request $request The current matched request object.
- \*/
-function prefix\_do\_batch\_request( $request ) {
+/**
+ * Our registered endpoint callback. Notice how we are passing in $request as an argument.
+ * By default, the WP_REST_Server will pass in the matched request object to our callback.
+ *
+ * @param WP_REST_Request $request The current matched request object.
+ */
+function prefix_do_batch_request( $request ) {
     // Here we initialize the array that will hold our response data.
     $data = array();
-	$data = prefix\_handle\_batch\_requests( $request\['requests'\] );
+	$data = prefix_handle_batch_requests( $request['requests'] );
 	return $data;
 }
 
-/\*\*
- \* This handles the building of the response for the batch requests we make.
- \*
- \* @param array $requests An array of data to build WP\_REST\_Request objects from.
- \* @return WP\_REST\_Response A collection of response data for batch endpoints.
- \*/
-function prefix\_handle\_batch\_requests( $requests ) {
+/**
+ * This handles the building of the response for the batch requests we make.
+ *
+ * @param array $requests An array of data to build WP_REST_Request objects from.
+ * @return WP_REST_Response A collection of response data for batch endpoints.
+ */
+function prefix_handle_batch_requests( $requests ) {
 	$data = array();
 
 	// Foreach request specified in the requests param run the endpoint.
-	foreach ( $requests as $request\_params ) {
-		$response = prefix\_handle\_request( $request\_params );
-		$key = $request\_params\['method'\] . ' ' . $request\_params\['route'\];
-		$data\[ $key \] = prefix\_prepare\_for\_collection( $response );
+	foreach ( $requests as $request_params ) {
+		$response = prefix_handle_request( $request_params );
+		$key = $request_params['method'] . ' ' . $request_params['route'];
+		$data[ $key ] = prefix_prepare_for_collection( $response );
 	}
 
-	return rest\_ensure\_response( $data );
+	return rest_ensure_response( $data );
 }
 
-/\*\*
- \* This handles the building of the response for the batch requests we make.
- \*
- \* @param array $request\_params Data to build a WP\_REST\_Request object from.
- \* @return WP\_REST\_Response Response data for the request.
- \*/
-function prefix\_handle\_request( $request\_params ) {
-	$request = new WP\_REST\_Request( $request\_params\['method'\], $request\_params\['route'\] );
+/**
+ * This handles the building of the response for the batch requests we make.
+ *
+ * @param array $request_params Data to build a WP_REST_Request object from.
+ * @return WP_REST_Response Response data for the request.
+ */
+function prefix_handle_request( $request_params ) {
+	$request = new WP_REST_Request( $request_params['method'], $request_params['route'] );
 
 	// Add specified request parameters into the request.
-	if ( isset( $request\_params\['params'\] ) ) {
-		foreach ( $request\_params\['params'\] as $param\_name => $param\_value ) {
-			$request->set\_param( $param\_name, $param\_value );
+	if ( isset( $request_params['params'] ) ) {
+		foreach ( $request_params['params'] as $param_name => $param_value ) {
+			$request->set_param( $param_name, $param_value );
 		}
 	}
-	$response = rest\_do\_request( $request );
+	$response = rest_do_request( $request );
 	return $response;
 }
 
-/\*\*
- \* Prepare a response for inserting into a collection of responses.
- \*
- \* This is lifted from WP\_REST\_Controller class in the WP REST API v2 plugin.
- \*
- \* @param WP\_REST\_Response $response Response object.
- \* @return array Response data, ready for insertion into collection data.
- \*/
-function prefix\_prepare\_for\_collection( $response ) {
-	if ( ! ( $response instanceof WP\_REST\_Response ) ) {
+/**
+ * Prepare a response for inserting into a collection of responses.
+ *
+ * This is lifted from WP_REST_Controller class in the WP REST API v2 plugin.
+ *
+ * @param WP_REST_Response $response Response object.
+ * @return array Response data, ready for insertion into collection data.
+ */
+function prefix_prepare_for_collection( $response ) {
+	if ( ! ( $response instanceof WP_REST_Response ) ) {
 		return $response;
 	}
 
-	$data = (array) $response->get\_data();
-	$server = rest\_get\_server();
+	$data = (array) $response->get_data();
+	$server = rest_get_server();
 
-	if ( method\_exists( $server, 'get\_compact\_response\_links' ) ) {
-		$links = call\_user\_func( array( $server, 'get\_compact\_response\_links' ), $response );
+	if ( method_exists( $server, 'get_compact_response_links' ) ) {
+		$links = call_user_func( array( $server, 'get_compact_response_links' ), $response );
 	} else {
-		$links = call\_user\_func( array( $server, 'get\_response\_links' ), $response );
+		$links = call_user_func( array( $server, 'get_response_links' ), $response );
 	}
 
 	if ( ! empty( $links ) ) {
-		$data\['\_links'\] = $links;
+		$data['_links'] = $links;
 	}
 
 	return $data;
 }
 
-/\*\*
- \* Returns the JSON schema data for our registered parameters.
- \*
- \* @return array $params A PHP representation of JSON Schema data.
- \*/
-function prefix\_batch\_request\_parameters() {
+/**
+ * Returns the JSON schema data for our registered parameters.
+ *
+ * @return array $params A PHP representation of JSON Schema data.
+ */
+function prefix_batch_request_parameters() {
     $params = array();
 
-    $params\['requests'\] = array(
-		'description'        => esc\_html\_\_( 'An array of request objects arguments that can be built into WP\_REST\_Request instances.', 'my-text-domain' ),
+    $params['requests'] = array(
+		'description'        => esc_html__( 'An array of request objects arguments that can be built into WP_REST_Request instances.', 'my-text-domain' ),
 		'type'               => 'array',
 		'required'           => true,
-		'validate\_callback'  => 'prefix\_validate\_requests',
+		'validate_callback'  => 'prefix_validate_requests',
 		'items'              => array(
 			array(
 				'type' => 'object',
 				'properties' => array(
 					'method' => array(
-						'description' => esc\_html\_\_( 'HTTP Method of the desired request.', 'my-text-domain' ),
+						'description' => esc_html__( 'HTTP Method of the desired request.', 'my-text-domain' ),
 						'type'        => 'string',
 						'required'    => true,
 						'enum'        => array(
@@ -412,13 +399,13 @@ function prefix\_batch\_request\_parameters() {
 						),
 					),
 					'route' => array(
-						'description' => esc\_html\_\_( 'Desired route for the request.', 'my-text-domain' ),
+						'description' => esc_html__( 'Desired route for the request.', 'my-text-domain' ),
 						'required'    => true,
 						'type'        => 'string',
 						'format'      => 'uri',
 					),
 					'params' => array(
-						'description' => esc\_html\_\_( 'Key value pairs of desired request parameters.', 'my-text-domain' ),
+						'description' => esc_html__( 'Key value pairs of desired request parameters.', 'my-text-domain' ),
 						'type' => 'object',
 					),
 				),
@@ -429,27 +416,26 @@ function prefix\_batch\_request\_parameters() {
 	return $params;
 }
 
-function prefix\_validate\_requests( $requests, $request, $param\_key ) {
+function prefix_validate_requests( $requests, $request, $param_key ) {
 	// If requests isn't an array of requests then we don't process the batch.
-	if ( ! is\_array( $requests ) ) {
-		return new WP\_Error( 'rest\_invald\_param', esc\_html\_\_( 'The requests parameter must be an array of requests.' ), array( 'status' => 400 ) );
+	if ( ! is_array( $requests ) ) {
+		return new WP_Error( 'rest_invald_param', esc_html__( 'The requests parameter must be an array of requests.' ), array( 'status' => 400 ) );
 	}
 
 	foreach ( $requests as $request ) {
 		// If the method or route is not set then we do not run the requests.
-		if ( ! isset( $request\['method'\] ) || ! isset( $request\['route'\] ) ) {
-			return new WP\_Error( 'rest\_invald\_param', esc\_html\_\_( 'You must specify the method and route for each request.' ), array( 'status' => 400 ) );
+		if ( ! isset( $request['method'] ) || ! isset( $request['route'] ) ) {
+			return new WP_Error( 'rest_invald_param', esc_html__( 'You must specify the method and route for each request.' ), array( 'status' => 400 ) );
 		}
 
-		if ( isset( $request\['params'\] ) && ! is\_array( $request\['params'\] ) ) {
-			return new WP\_Error( 'rest\_invald\_param', esc\_html\_\_( 'You must specify the params for each request as an array of named key value pairs.' ), array( 'status' => 400 ) );
+		if ( isset( $request['params'] ) && ! is_array( $request['params'] ) ) {
+			return new WP_Error( 'rest_invald_param', esc_html__( 'You must specify the params for each request as an array of named key value pairs.' ), array( 'status' => 400 ) );
 		}
 	}
 
 	// This is a black listing approach to data validation.
 	return true;
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 That is quite a decent chunk of code that covers a number of topics, but everything centers around what happens in `prefix_handle_request()`. Here we are passing in an array that tells us a HTTP method, a route, and a set of parameters we want to turn into a request. We then build the request object for the method and route. If any parameters were specified we use the `WP_REST_Request::set_param()` method to add in the desired parameters. Once our `WP_REST_Request` is ready to go we use `rest_do_request` to internally match that endpoint and the response is returned to our batch endpoint response collection. Using a batch endpoint like this can net you huge performance gains, as you will only make one HTTP request to get a response for multiple endpoints. The implementation of this is not necessarily the best and serves as an example; not the only way to do this.

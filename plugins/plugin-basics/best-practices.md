@@ -14,7 +14,17 @@ By default, all variables, functions and classes are defined in the **global nam
 
 #### Prefix Everything
 
-All variables, functions and classes should be prefixed with a unique identifier. Prefixes prevent other plugins from overwriting your variables and accidentally calling your functions and classes. It will also prevent you from doing the same.
+All globally accessible code should be prefixed with a unique identifier. Prefixes prevent other plugins from overwriting your variables and accidentally calling your functions and classes. It will also prevent you from doing the same.
+
+In order to prevent conflicts with other plugins, your prefix should be at least 5 letters long. You should avoid using a common English word, and instead choose something unique to your plugin.
+
+Code that should be prefixed includes:
+
+*   Functions (unless namespaced)
+*   Classes, interfaces, and traits (unless namespaced)
+*   Namespaces
+*   Global variables
+*   Options and transients
 
 #### Check for Existing Implementations
 
@@ -27,21 +37,21 @@ PHP provides a number of functions to verify existence of variables, functions, 
 
 #### Example
 
-//Create a function called "wporg\_init" if it doesn't already exist
-if ( !function\_exists( 'wporg\_init' ) ) {
-    function wporg\_init() {
-        register\_setting( 'wporg\_settings', 'wporg\_option\_foo' );
+```php
+// Create a function called "wporg_init" if it doesn't already exist
+if ( ! function_exists( 'wporg_init' ) ) {
+    function wporg_init() {
+        register_setting( 'wporg_settings', 'wporg_option_foo' );
     }
 }
 
-//Create a function called "wporg\_get\_foo" if it doesn't already exist
-if ( !function\_exists( 'wporg\_get\_foo' ) ) {
-    function wporg\_get\_foo() {
-        return get\_option( 'wporg\_option\_foo' );
+// Create a function called "wporg_get_foo" if it doesn't already exist
+if ( ! function_exists( 'wporg_get_foo' ) ) {
+    function wporg_get_foo() {
+        return get_option( 'wporg_option_foo' );
     }
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 ### Object Oriented Programming Method
 
@@ -51,23 +61,22 @@ You will still need to take care of checking whether the name of the class you w
 
 #### Example
 
-if ( !class\_exists( 'WPOrg\_Plugin' ) ) {
-    class WPOrg\_Plugin
-    {
+```php
+if ( ! class_exists( 'WPOrg_Plugin' ) ) {
+    class WPOrg_Plugin {
         public static function init() {
-            register\_setting( 'wporg\_settings', 'wporg\_option\_foo' );
+            register_setting( 'wporg_settings', 'wporg_option_foo' );
         }
 
-        public static function get\_foo() {
-            return get\_option( 'wporg\_option\_foo' );
+        public static function get_foo() {
+            return get_option( 'wporg_option_foo' );
         }
     }
 
-    WPOrg\_Plugin::init();
-    WPOrg\_Plugin::get\_foo();
+    WPOrg_Plugin::init();
+    WPOrg_Plugin::get_foo();
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 ## File Organization
 
@@ -103,14 +112,28 @@ For large plugins with lots of code, start off with classes in mind. Separate st
 
 ### Conditional Loading
 
-It’s helpful to separate your admin code from the public code. Use the conditional [is\_admin()](https://codex.wordpress.org/Function_Reference/is_admin).
+It’s helpful to separate your admin code from the public code. Use the conditional [](https://codex.wordpress.org/Function_Reference/is_admin)[is\_admin()](https://developer.wordpress.org/reference/functions/is_admin/) . You must still perform capability checks as this doesn’t indicate the user is authenticated or has Administrator-level access. See [Checking User Capabilities](https://developer.wordpress.org/plugins/security/checking-user-capabilities/).
 
 For example:
 
-if ( is\_admin() ) {
+```php
+if ( is_admin() ) {
     // we are in admin mode
-    require\_once \_\_DIR\_\_ . '/admin/plugin-name-admin.php';
+    require_once __DIR__ . '/admin/plugin-name-admin.php';
 }
+```
+
+### Avoiding Direct File Access
+
+As a security precaution, it’s a good practice to disallow access if the `ABSPATH` global is not defined. This is only applicable to files which contain code outside of class or function definitions, such as the main plugin file.
+
+You can implement this by including this code at the top of the file:
+
+```php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+```
 
 ### Architecture Patterns
 

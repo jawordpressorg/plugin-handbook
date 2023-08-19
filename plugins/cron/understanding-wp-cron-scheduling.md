@@ -17,15 +17,15 @@ The default intervals provided by WordPress are:
 
 To add a custom interval, you can create a filter, such as:
 
-</p>
-add\_filter( 'cron\_schedules', 'example\_add\_cron\_interval' );
-function example\_add\_cron\_interval( $schedules ) { 
-    $schedules\['five\_seconds'\] = array(
+```php
+add_filter( 'cron_schedules', 'example_add_cron_interval' );
+function example_add_cron_interval( $schedules ) { 
+    $schedules['five_seconds'] = array(
         'interval' => 5,
-        'display'  => esc\_html\_\_( 'Every Five Seconds' ), );
+        'display'  => esc_html__( 'Every Five Seconds' ), );
     return $schedules;
 }
-<p>
+```
 
 This filter function creates a new interval that will allow us to run a cron task every five seconds.
 

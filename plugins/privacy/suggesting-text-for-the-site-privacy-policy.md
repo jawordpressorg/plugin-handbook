@@ -30,22 +30,22 @@ Note: It is recommended to call wp\_add\_privacy\_policy\_content during the adm
 
 Note: Supplemental information can be provided through the use of the specialized `.privacy-policy-tutorial` CSS class. Any content contained within HTML elements that have this CSS class applied will be omitted from the clipboard when the section content is copied.
 
-/\*\*
- \* Adds a privacy policy statement.
- \*/
-function wporg\_add\_privacy\_policy\_content() {
-	if ( ! function\_exists( 'wp\_add\_privacy\_policy\_content' ) ) {
+```php
+/**
+ * Adds a privacy policy statement.
+ */
+function wporg_add_privacy_policy_content() {
+	if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
 		return;
 	}
-	$content = '<p class="privacy-policy-tutorial">' . \_\_( 'Some introductory content for the suggested text.', 'text-domain' ) . '</p>'
-			. '<strong class="privacy-policy-tutorial">' . \_\_( 'Suggested Text:', 'my\_plugin\_textdomain' ) . '</strong> '
+	$content = '<p class="privacy-policy-tutorial">' . __( 'Some introductory content for the suggested text.', 'text-domain' ) . '</p>'
+			. '<strong class="privacy-policy-tutorial">' . __( 'Suggested Text:', 'my_plugin_textdomain' ) . '</strong> '
 			. sprintf(
-				\_\_( 'When you leave a comment on this site, we send your name, email address, IP address and comment text to example.com. Example.com does not retain your personal data. The example.com privacy policy is <a href="%1$s" target="\_blank">here</a>.', 'text-domain' ),
+				__( 'When you leave a comment on this site, we send your name, email address, IP address and comment text to example.com. Example.com does not retain your personal data. The example.com privacy policy is <a href="%1$s" target="_blank">here</a>.', 'text-domain' ),
 				'https://example.com/privacy-policy'
 			);
-	wp\_add\_privacy\_policy\_content( 'Example Plugin', wp\_kses\_post( wpautop( $content, false ) ) );
+	wp_add_privacy_policy_content( 'Example Plugin', wp_kses_post( wpautop( $content, false ) ) );
 }
 
-add\_action( 'admin\_init', 'wporgmy\_example\_plugin\_add\_privacy\_policy\_content' );
-
-[Expand full source code](#)[Collapse full source code](#)
+add_action( 'admin_init', 'wporg_add_privacy_policy_content' );
+```

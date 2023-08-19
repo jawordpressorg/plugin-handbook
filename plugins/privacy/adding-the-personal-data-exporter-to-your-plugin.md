@@ -27,64 +27,65 @@ First, let’s assume the plugin has used \`add\_comment\_meta\` to add location
 
 The first thing the plugin needs to do is to create an exporter function that accepts an email address and a page, e.g.:
 
-/\*\*
- \* Export user meta for a user using the supplied email.
- \*
- \* @param string $email\_address   email address to manipulate
- \* @param int    $page            pagination
- \*
- \* @return array
- \*/
-function wporg\_export\_user\_data\_by\_email( $email\_address, $page = 1 ) {
+```php
+/**
+ * Export user meta for a user using the supplied email.
+ *
+ * @param string $email_address   email address to manipulate
+ * @param int    $page            pagination
+ *
+ * @return array
+ */
+function wporg_export_user_data_by_email( $email_address, $page = 1 ) {
 	$number = 500; // Limit us to avoid timing out
 	$page   = (int) $page;
 
-	$export\_items = array();
+	$export_items = array();
 
-	$comments = get\_comments(
+	$comments = get_comments(
 		array(
-			'author\_email' => $email\_address,
+			'author_email' => $email_address,
 			'number'       => $number,
 			'paged'        => $page,
-			'order\_by'     => 'comment\_ID',
+			'order_by'     => 'comment_ID',
 			'order'        => 'ASC',
 		)
 	);
 
 	foreach ( (array) $comments as $comment ) {
-		$latitude  = get\_comment\_meta( $comment->comment\_ID, 'latitude', true );
-		$longitude = get\_comment\_meta( $comment->comment\_ID, 'longitude', true );
+		$latitude  = get_comment_meta( $comment->comment_ID, 'latitude', true );
+		$longitude = get_comment_meta( $comment->comment_ID, 'longitude', true );
 
 		// Only add location data to the export if it is not empty.
 		if ( ! empty( $latitude ) ) {
 			// Most item IDs should look like postType-postID. If you don't have a post, comment or other ID to work with,
 			// use a unique value to avoid having this item's export combined in the final report with other items
 			// of the same id.
-			$item\_id = "comment-{$comment->comment\_ID}";
+			$item_id = "comment-{$comment->comment_ID}";
 
 			// Core group IDs include 'comments', 'posts', etc. But you can add your own group IDs as needed
-			$group\_id = 'comments';
+			$group_id = 'comments';
 
 			// Optional group label. Core provides these for core groups. If you define your own group, the first
 			// exporter to include a label will be used as the group label in the final exported report.
-			$group\_label = \_\_( 'Comments', 'text-domain' );
+			$group_label = __( 'Comments', 'text-domain' );
 
 			// Plugins can add as many items in the item data array as they want.
 			$data = array(
 				array(
-					'name'  => \_\_( 'Commenter Latitude', 'text-domain' ),
+					'name'  => __( 'Commenter Latitude', 'text-domain' ),
 					'value' => $latitude,
 				),
 				array(
-					'name'  => \_\_( 'Commenter Longitude', 'text-domain' ),
+					'name'  => __( 'Commenter Longitude', 'text-domain' ),
 					'value' => $longitude,
 				),
 			);
 
-			$export\_items\[\] = array(
-				'group\_id'    => $group\_id,
-				'group\_label' => $group\_label,
-				'item\_id'     => $item\_id,
+			$export_items[] = array(
+				'group_id'    => $group_id,
+				'group_label' => $group_label,
+				'item_id'     => $item_id,
 				'data'        => $data,
 			);
 		}
@@ -93,34 +94,33 @@ function wporg\_export\_user\_data\_by\_email( $email\_address, $page = 1 ) {
 	// Tell core if we have more comments to work on still.
 	$done = count( $comments ) > $number;
 	return array(
-		'data' => $export\_items,
+		'data' => $export_items,
 		'done' => $done,
 	);
 }
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 The next thing the plugin needs to do is to register the callback by filtering the exporter array using the \`wp\_privacy\_personal\_data\_exporters\` filter.
 
 When registering you provide a friendly name for the export (to aid in debugging – this friendly name is not shown to anyone at this time) and the callback, e.g.
 
-/\*\*
- \* Registers all data exporters.
- \*
- \* @param array $exporters
- \*
- \* @return mixed
- \*/
-function wporg\_register\_user\_data\_exporters( $exporters ) {
-	$exporters\['my-plugin-slug'\] = array(
-		'exporter\_friendly\_name' => \_\_( 'Comment Location Plugin', 'text-domain' ),
-		'callback'               => 'my\_plugin\_exporter',
+```php
+/**
+ * Registers all data exporters.
+ *
+ * @param array $exporters
+ *
+ * @return mixed
+ */
+function wporg_register_user_data_exporters( $exporters ) {
+	$exporters['my-plugin-slug'] = array(
+		'exporter_friendly_name' => __( 'Comment Location Plugin', 'text-domain' ),
+		'callback'               => 'my_plugin_exporter',
 	);
 	return $exporters;
 }
 
-add\_filter( 'wp\_privacy\_personal\_data\_exporters', 'wporg\_register\_user\_data\_exporters' );
-
-[Expand full source code](#)[Collapse full source code](#)
+add_filter( 'wp_privacy_personal_data_exporters', 'wporg_register_user_data_exporters' );
+```
 
 And that’s all there is to it! Your plugin will now provide data for the export!

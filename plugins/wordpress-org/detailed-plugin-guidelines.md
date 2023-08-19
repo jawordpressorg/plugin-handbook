@@ -1,6 +1,6 @@
 # Detailed Plugin Guidelines
 
-Tip: Last Updated: November 14, 2019
+Tip: Last Updated: December 21, 2022
 
 Note: Adding a Block Only plugin? Please read the [Block Specific Guidelines](https://developer.wordpress.org/plugins/wordpress-org/block-specific-plugin-guidelines/)
 
@@ -14,7 +14,13 @@ If you have suggestions to improve the guidelines, or questions about them, plea
 
 ## Developer Expectations
 
-Developers, all users with commit access, and all users who officially support a plugin are expected to abide by the Directory Guidelines.
+Developers, all users with commit access, and all users who officially support a plugin are expected to abide by the following guidelines:
+
+*   Plugin Directory Guidelines (this document)
+
+*   [Community Guidelines](https://make.wordpress.org/handbook/community-code-of-conduct/)
+
+*   [Forums Guidelines](https://wordpress.org/support/guidelines/) (should they use the forums/reviews)
 
 Violations may result in plugins or plugin data (for previously approved plugins) being removed from the directory until the issues are resolved. Plugin data, such as user reviews and code, may not be restored depending on the nature of the violation and the results of a peer-review of the situation. Repeat violations may result in all the author’s plugins being removed and the developer being banned from hosting plugins on WordPress.org.
 
@@ -49,6 +55,7 @@ Obscuring code by hiding it with techniques or systems similar to `p,a,c,k,e,r`�
 We require developers to provide public, maintained access to their source code and any build tools in one of the following ways:
 
 *   Include the source code in the deployed plugin
+
 *   A link in the readme to the development location
 
 We strongly recommend you document how any development tools are to be used.
@@ -68,7 +75,9 @@ Plugins that act as an interface to some external third party service (e.g. a vi
 Services and functionality *not* allowed include:
 
 *   A service that exists for the sole purpose of validating licenses or keys while all functional aspects of the plugin are included locally is not permitted.
+
 *   Creation of a service by moving arbitrary code out of the plugin so that the service may falsely appear to provide supplemented functionality is prohibited.
+
 *   Storefronts that are not services. A plugin that acts only as a front-end for products to be purchased from external systems will not be accepted.
 
 #### 7\. Plugins may not track users without their consent.
@@ -78,9 +87,13 @@ In the interest of protecting user privacy, plugins may not contact external ser
 Some examples of prohibited tracking include:
 
 *   Automated collection of user data without explicit confirmation from the user.
+
 *   Intentionally misleading users into submitting information as a requirement for use of the plugin itself.
+
 *   Offloading assets (including images and scripts) that are unrelated to a service.
+
 *   Undocumented (or poorly documented) use of external data (such as blocklists).
+
 *   Third-party advertisement mechanisms which track usage and/or views.
 
 An exception to this policy is Software as a Service, such as Twitter, an Amazon CDN plugin, or Akismet. By installing, activating, registering, and configuring plugins that utilize those services, consent is granted for those systems.
@@ -90,9 +103,13 @@ An exception to this policy is Software as a Service, such as Twitter, an Amazon
 Externally loading code from documented services is permitted, however all communication must be made as securely as possible. Executing outside code within a plugin when not acting as a service is not allowed, for example:
 
 *   Serving updates or otherwise installing plugins, themes, or add-ons from servers other than WordPress.org’s
+
 *   Installing premium versions of the same plugin
+
 *   Calling third party CDNs for reasons other than font inclusions; all non-service related JavaScript and CSS must be included locally
+
 *   Using third party services to manage regularly updated lists of data, when not explicitly permitted in the service’s terms of use
+
 *   Using iframes to connect admin pages; APIs should be used to minimize security risks
 
 Management services that interact with and push software down to a site *are* permitted, provided the service handles the interaction on it’s own domain and not within the WordPress dashboard.
@@ -104,17 +121,31 @@ While this is subjective and rather broad, the intent is to prevent plugins, dev
 This includes (but is not restricted to) the following examples:
 
 *   Artificially manipulating search results via keyword stuffing, black hat SEO, or otherwise
+
 *   Offering to drive more traffic to sites that use the plugin
+
 *   Compensating, misleading, pressuring, extorting, or blackmailing others for reviews or support
+
 *   Implying users must pay to unlock included features
+
 *   Creating accounts to generate fake reviews or support tickets (i.e. sockpuppeting)
+
 *   Taking other developers’ plugins and presenting them as original work
+
 *   implying that a plugin can create, provide, automate, or guarantee legal compliance
+
 *   Utilizing the user’s server or resources without permission, such as part of a botnet or crypto-mining
+
+*   Violations of the [WordPress.org Community Code of Conduct](https://make.wordpress.org/handbook/community-code-of-conduct/)
+
 *   Violations of the [WordCamp code of conduct](https://make.wordpress.org/community/handbook/wordcamp-organizer/planning-details/code-of-conduct/)
+
 *   Violations of the [Forum Guidelines](https://wordpress.org/support/guidelines/)
+
 *   Harassment, threats, or abuse directed at any other member of the WordPress community
+
 *   Falsifying personal information to intentionally disguise identities and avoid sanctions for previous infractions
+
 *   Intentionally attempting to exploit loopholes in the guidelines
 
 #### 10\. Plugins may not embed external links or credits on the public site without explicitly asking the user’s permission.
@@ -174,9 +205,13 @@ Original branding is recommended as it not only helps to avoid confusion, but is
 Our intent is to enforce these guidelines with as much fairness as humanly possible. We do this to ensure overall plugin quality and the safety of their users. To that end, we reserve the following rights:
 
 *   … to update these guidelines at any time.
+
 *   … to disable or remove any plugin from the directory, even for reasons not explicitly covered by the guidelines.
+
 *   … to grant exceptions and allow developers time to address issues, even security related.
+
 *   … to remove developer access to a plugin in lieu of a new, active, developer.
+
 *   … to make changes to a plugin, without developer consent, in the interest of public safety.
 
 In return, we promise to use those rights sparingly and with as much respect as possible for both end users and developers.

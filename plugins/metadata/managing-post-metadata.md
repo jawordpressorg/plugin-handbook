@@ -2,7 +2,7 @@
 
 ## Adding Metadata
 
-Adding metadata can be done quite easily with [add\_post\_meta()](https://developer.wordpress.org/reference/functions/add_post_meta/). The function accepts a `post_id`, a `meta_key`, a `meta_value`, and a `unique` flag.
+Adding metadata can be done quite easily with [add\_post\_meta()](https://developer.wordpress.org/reference/functions/add_post_meta/) . The function accepts a `post_id`, a `meta_key`, a `meta_value`, and a `unique` flag.
 
 The `meta_key` is how your plugin will reference the meta value elsewhere in your code. Something like `mycrazymetakeyname` would work, however a prefix related to your plugin or theme followed by a description of the key would be more useful. `wporg_featured_menu` might be a good one. It should be noted that the same `meta_key` may be used multiple times to store variations of the metadata (see the unique flag below).
 
@@ -13,9 +13,9 @@ If you only ever want **one** price for a post, you should flag it `unique` and 
 
 ## Updating Metadata
 
-If a key already exists and you want to update it, use [update\_post\_meta()](https://developer.wordpress.org/reference/functions/update_post_meta/). If you use this function and the key does **NOT** exist, then it will create it, as if you’d used [add\_post\_meta()](https://developer.wordpress.org/reference/functions/add_post_meta/).
+If a key already exists and you want to update it, use [update\_post\_meta()](https://developer.wordpress.org/reference/functions/update_post_meta/) . If you use this function and the key does **NOT** exist, then it will create it, as if you’d used [add\_post\_meta()](https://developer.wordpress.org/reference/functions/add_post_meta/) .
 
-Similar to [add\_post\_meta()](https://developer.wordpress.org/reference/functions/add_post_meta/), the function accepts a `post_id`, a `meta_key`, a `meta_value`, and a `unique` flag.
+Similar to [add\_post\_meta()](https://developer.wordpress.org/reference/functions/add_post_meta/) , the function accepts a `post_id`, a `meta_key`, and `meta_value`. It also accepts an optional `prev_value` – which, if specified, will cause the function to only update existing metadata entries with this value. If it isn’t provided, the function defaults to updating all entries.
 
 ## Deleting Metadata
 
@@ -23,33 +23,33 @@ Similar to [add\_post\_meta()](https://developer.wordpress.org/reference/functio
 
 ## Character Escaping
 
-Post meta values are passed through the [stripslashes()](http://php.net/manual/en/function.stripslashes.php) function upon being stored, so you will need to be careful when passing in values (such as JSON) that might include \\ escaped characters.
+Post meta values are passed through the [stripslashes()](http://php.net/manual/en/function.stripslashes.php) function upon being stored, so you will need to be careful when passing in values (such as JSON) that might include escaped characters.
 
 Consider the JSON value `{"key":"value with \"escaped quotes\""}`:
 
-</p>
-$escaped\_json = '{"key":"value with \\"escaped quotes\\""}';
-update\_post\_meta( $id, 'escaped\_json', $escaped\_json );
-$broken = get\_post\_meta( $id, 'escaped\_json', true );
-/\*
+```php
+$escaped_json = '{"key":"value with \"escaped quotes\""}';
+update_post_meta( $id, 'escaped_json', $escaped_json );
+$broken = get_post_meta( $id, 'escaped_json', true );
+/*
 $broken, after stripslashes(), ends up unparsable:
 {"key":"value with "escaped quotes""}
-\*/
-<p>
+*/
+```
 
 ### Workaround
 
-By adding one more level of \\ escaping using the function [wp\_slash()](https://developer.wordpress.org/reference/functions/wp_slash/) (introduced in WP 3.6), you can compensate for the call to [stripslashes()](http://php.net/manual/en/function.stripslashes.php):
+By adding one more level of escaping using the function [wp\_slash()](https://developer.wordpress.org/reference/functions/wp_slash/) (introduced in WP 3.6), you can compensate for the call to [stripslashes()](http://php.net/manual/en/function.stripslashes.php):
 
-</p>
-$escaped\_json = '{"key":"value with \\"escaped quotes\\""}';
-update\_post\_meta( $id, 'double\_escaped\_json', wp\_slash( $escaped\_json ) );
-$fixed = get\_post\_meta( $id, 'double\_escaped\_json', true );
-/\*
+```php
+$escaped_json = '{"key":"value with \"escaped quotes\""}';
+update_post_meta( $id, 'double_escaped_json', wp_slash( $escaped_json ) );
+$fixed = get_post_meta( $id, 'double_escaped_json', true );
+/*
 $fixed, after stripslashes(), ends up as desired:
-{"key":"value with \\"escaped quotes\\""}
-\*/
-<p>
+{"key":"value with \"escaped quotes\""}
+*/
+```
 
 ## Hidden Custom Fields
 
@@ -59,9 +59,9 @@ This can be useful in order to show these custom fields in an unusual way by usi
 
 The example below will add a unique custom field with the `meta_key` name ‘\_color’ and the `meta_value` of ‘red’ but this custom field will not display in the post edit screen:
 
-</p>
-add\_post\_meta( 68, '\_color', 'red', true );
-<p>
+```php
+add_post_meta( 68, '_color', 'red', true );
+```
 
 ### Hidden Arrays
 

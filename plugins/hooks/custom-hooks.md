@@ -1,29 +1,29 @@
 # Custom Hooks
 
-**An important, but often overlooked practice is using custom hooks in your plugin so that other developers can extend and modify it.**
+An important, but often overlooked practice is using custom hooks in your plugin so that other developers can extend and modify it.
 
 Custom hooks are created and called in the same way that WordPress Core hooks are.
 
 ## Create a Hook
 
-To create a custom hook, use [do\_action()](https://developer.wordpress.org/reference/functions/do_action/) for [Actions](https://developer.wordpress.org/plugins/hooks/actions/) and [apply\_filters()](https://developer.wordpress.org/reference/functions/apply_filters/) for [Filters](https://developer.wordpress.org/plugins/hooks/filters/).
+To create a custom hook, use `[do_action()](https://developer.wordpress.org/reference/functions/do_action/)` for [Actions](https://developer.wordpress.org/plugins/hooks/actions/) and `[apply_filters()](https://developer.wordpress.org/reference/functions/apply_filters/)` for [Filters](https://developer.wordpress.org/plugins/hooks/filters/).
 
 Note:  
-We recommend using [apply\_filters()](https://developer.wordpress.org/reference/functions/apply_filters/) on any text that is output to the browser. Particularly on the frontend.
+We recommend using \`[](https://developer.wordpress.org/reference/functions/apply_filters/)[apply\_filters()](https://developer.wordpress.org/reference/functions/apply_filters/) \` on any text that is output to the browser. Particularly on the frontend.
 
 This makes it easier for plugins to be modified according to the user’s needs.
 
 ## Add a Callback to the Hook
 
-To add a callback function to a custom hook, use [add\_action()](https://developer.wordpress.org/reference/functions/add_action/) for [Actions](https://developer.wordpress.org/plugins/hooks/actions/) and [add\_filter()](https://developer.wordpress.org/reference/functions/add_filter/) for [Filters](https://developer.wordpress.org/plugins/hooks/filters/).
+To add a callback function to a custom hook, use `[add_action()](https://developer.wordpress.org/reference/functions/add_action/)` for [Actions](https://developer.wordpress.org/plugins/hooks/actions/) and `[add_filter()](https://developer.wordpress.org/reference/functions/add_filter/)` for [Filters](https://developer.wordpress.org/plugins/hooks/filters/).
 
 ## Naming Conflicts
 
-Since any plugin can create a custom hook, it’s important to prefix your hook names to avoid collisions with other plugins.
+Naming conflicts (“collisions”) occur when two developers use the same hook name for completely different purposes. This leads to difficult to find bugs. So it’s important to prefix your hook names with a unique string to avoid hook name collisions.collisions with other plugins.
 
-For example, a filter named `email_body` would be less useful because it’s likely that another developer will choose that same name. If the user installs both plugins, it could lead to bugs that are difficult to track down.
+For example, a filter named `email_body` is generic enough that two or more developers could use this hook in different plugins for different purposes. So to avoid this, a prefix is added. For example, functions used as examples in this handbook use `wporg_` as the prefix.
 
-Naming the function `wporg_email_body` (where `wporg_` is a unique prefix for your plugin) would avoid any collisions.
+When you choose your prefix, you can use your company name, your wp handle, the plugin name, anything you like really. The goal is to make it unique so choose wisely.
 
 ## Examples
 
@@ -31,48 +31,43 @@ Naming the function `wporg_email_body` (where `wporg_` is a unique prefix for yo
 
 If your plugin adds a settings form to the Administrative Panels, you can use Actions to allow other plugins to add their own settings to it.
 
-</p>
-<p>    Foo:<br />
-    Bar:<br />
-   &lt;?php<br />
-    do\_action( &#039;wporg\_after\_settings\_page\_html&#039; );<br />
-}<br />
+```php
+    do_action( 'wporg_after_settings_page_html' );
+```
 
 Now another plugin can register a callback function for the `wporg_after_settings_page_html` hook and inject new settings:
 
-</p>
-<p>    New 1:<br />
-    &lt;?php<br />
-}<br />
-add\_action( &#039;wporg\_after\_settings\_page\_html&#039;, &#039;myprefix\_add\_settings&#039; );<br />
+```php
+add_action( 'wporg_after_settings_page_html', 'myprefix_add_settings' );
+```
+
+Note that because this is an action, no value is returned. Also note that since no priority is given, it will run at default priority 10.
 
 ### Extensible Filter: Custom Post Type
 
 In this example, when the new post type is registered, the parameters that define it are passed through a filter, so another plugin can change them before the post type is created.
 
-<br />
-&lt;?php<br />
-function wporg\_create\_post\_type()<br />
-{<br />
-    $post\_type\_params = \[/\* ... \*/\];</p>
-<p>    register\_post\_type(<br />
-        &#039;post\_type\_slug&#039;,<br />
-        apply\_filters( &#039;wporg\_post\_type\_params&#039;, $post\_type\_params )<br />
-    );<br />
-}<br />
+```php
+function wporg_create_post_type() {
+    $post_type_params = [/* ... */];
+
+    register_post_type(
+        'post_type_slug',
+        apply_filters( 'wporg_post_type_params', $post_type_params )
+    );
+}
+```
 
 Now another plugin can register a callback function for the `wporg_post_type_params` hook and change post type parameters:
 
-<br />
-&lt;?php<br />
-function myprefix\_change\_post\_type\_params( $post\_type\_params ) {<br />
-	$post\_type\_params\[&#039;hierarchical&#039;\] = true;<br />
-	return $post\_type\_params;<br />
-}<br />
-add\_filter( &#039;wporg\_post\_type\_params&#039;, &#039;myprefix\_change\_post\_type\_params&#039; );<br />
+```php
+function myprefix_change_post_type_params( $post_type_params ) {
+	$post_type_params['hierarchical'] = true;
+	return $post_type_params;
+}
+add_filter( 'wporg_post_type_params', 'myprefix_change_post_type_params' );
+```
 
-## External Resources
+Note that filters filters take data, modify it, and return it. So the code called ( `myprefix_change_post_type_params` ) doesn’t output anything using echo or html, or anything else directly to the screen. Also note that the retuned value is used directly by `register_post_type` without being assigned to a variable first. This is simple to skip that extra (an unnecessary) step.
 
-*   [Extendable Extensions](http://wordpress.tv/2012/08/27/michael-fields-extendable-extensions/) by Michael Fields
-*   [The Pluggable Plugin](http://wordpress.tv/2010/12/03/brandon-dove-the-pluggable-plugin/) by Brandon Dove
-*   [WordPress Plugin Pet Peeves #3: Not Being Extensible](http://willnorris.com/2009/06/wordpress-plugin-pet-peeve-3-not-being-extensible) by Will Norris
+Also note that since no priority is given, it will run at default priority 10. And since there is no value for the number of parameters expected, the default of one is assumed.

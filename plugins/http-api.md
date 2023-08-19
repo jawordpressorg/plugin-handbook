@@ -9,7 +9,7 @@ HTTP stands for Hypertext Transfer Protocol and is the foundational communicatio
 
 There are many different methods to send HTTP requests in PHP. The purpose of the WordPress HTTP API is to support as many of those methods as possible and use the one that is the most suitable for the particular request.
 
-The WordPress HTTP API can also be used to communicate and interact with with other APIs like the Twitter API or the Google Maps API.
+The WordPress HTTP API can also be used to communicate and interact with other APIs like the Twitter API or the Google Maps API.
 
 ### HTTP methods
 
@@ -37,67 +37,32 @@ Depending upon how your server is configured you can also implement additional H
 
 ### Response codes
 
-HTTP utilizes both numeric and string response codes. Rather than go into a lengthy explanation of each, here are the the standard response codes. You can define your own response codes when creating APIs, however unless you need to support specific types of responses it may be best to stick to the standard codes. Custom codes are usually in the 1xx ranges.
+HTTP utilizes both numeric and string response codes. Rather than go into a lengthy explanation of each, here are the standard response codes. You can define your own response codes when creating APIs, however unless you need to support specific types of responses it may be best to stick to the standard codes. Custom codes are usually in the 1xx ranges.
 
 #### Code Classes
 
 The type of response can quickly be seen by the leftmost digit of the three digit codes.
 
-Status Code
-
-Description
-
-2xx
-
-Request was successful
-
-3xx
-
-Request was redirected to another URL
-
-4xx
-
-Request failed due to client error. Usually invalid authentication or missing data
-
-5xx
-
-Request failed due to a server error. Commonly missing or misconfigured configuration files
+| Status Code | Description |
+| --- | --- |
+| 2xx | Request was successful |
+| 3xx | Request was redirected to another URL |
+| 4xx | Request failed due to client error. Usually invalid authentication or missing data |
+| 5xx | Request failed due to a server error. Commonly missing or misconfigured configuration files |
 
  **Common Codes**
 
-These are the most commons codes you will encounter.
+These are the most common codes you will encounter.
 
-Status Code
-
-Description
-
-200
-
-OK – Request was successful
-
-301
-
-Resource was moved permanently
-
-302
-
-Resource was moved temporarily
-
-403
-
-Forbidden – Usually due to an invalid authentication
-
-404
-
-Resource not found
-
-500
-
-Internal server error
-
-503
-
-Service unavailable
+| Status Code | Description |
+| --- | --- |
+| 200 | OK – Request was successful |
+| 301 | Resource was moved permanently |
+| 302 | Resource was moved temporarily |
+| 403 | Forbidden – Usually due to an invalid authentication |
+| 404 | Resource not found |
+| 500 | Internal server error |
+| 503 | Service unavailable |
 
 ## GETting data from an API
 
@@ -112,7 +77,7 @@ The following defaults are assumed, though they can be changed via the $args par
 
 *   method – GET
 *   timeout – 5 – How long to wait before giving up
-*   redirection – 5 – How many times to follow redirections.
+*   redirection – 5 – How many times to follow redirects.
 *   httpversion – 1.0
 *   blocking – true – Should the rest of the page wait to finish loading until this operation is complete?
 *   headers – array()
@@ -121,39 +86,39 @@ The following defaults are assumed, though they can be changed via the $args par
 
 Let’s use the URL to a GitHub user account and see what sort of information we can get
 
-$response = wp\_remote\_get( 'https://api.github.com/users/blobaugh' );
+```php
+$response = wp_remote_get( 'https://api.github.com/users/blobaugh' );
+```
 
 $response will contain all the headers, content, and other meta data about our request
 
+```php
 Array(
-	\[headers\] => Array(
-		\[server\] => nginx
-		\[date\] => Fri, 05 Oct 2012 04:43:50 GMT
-		\[content-type\] => application/json; charset=utf-8
-		\[connection\] => close
-		\[status\] => 200 OK
-		\[vary\] => Accept
-		\[x-ratelimit-remaining\] => 4988
-		\[content-length\] => 594
-		\[last-modified\] => Fri, 05 Oct 2012 04:39:58 GMT
-		\[etag\] => "5d5e6f7a09462d6a2b473fb616a26d2a"
-		\[x-github-media-type\] => github.beta
-		\[cache-control\] => public, s-maxage=60, max-age=60
-		\[x-content-type-options\] => nosniff
-		\[x-ratelimit-limit\] => 5000
+	[headers] => Array(
+		[server] => nginx
+		[date] => Fri, 05 Oct 2012 04:43:50 GMT
+		[content-type] => application/json; charset=utf-8
+		[connection] => close
+		[status] => 200 OK
+		[vary] => Accept
+		[x-ratelimit-remaining] => 4988
+		[content-length] => 594
+		[last-modified] => Fri, 05 Oct 2012 04:39:58 GMT
+		[etag] => "5d5e6f7a09462d6a2b473fb616a26d2a"
+		[x-github-media-type] => github.beta
+		[cache-control] => public, s-maxage=60, max-age=60
+		[x-content-type-options] => nosniff
+		[x-ratelimit-limit] => 5000
 	)
-
-	\[body\] => {"type":"User","login":"blobaugh","gravatar\_id":"f25f324a47a1efdf7a745e0b2e3c878f","public\_gists":1,"followers":22,"created\_at":"2011-05-23T21:38:50Z","public\_repos":31,"email":"ben@lobaugh.net","hireable":true,"blog":"http://ben.lobaugh.net","bio":null,"following":30,"name":"Ben Lobaugh","company":null,"avatar\_url":"https://secure.gravatar.com/avatar/f25f324a47a1efdf7a745e0b2e3c878f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png","id":806179,"html\_url":"https://github.com/blobaugh","location":null,"url":"https://api.github.com/users/blobaugh"}
-	\[response\] => Array(
-		\[preserved\_text 5237511b45884ac6db1ff9d7e407f225 /\] => 200
-		\[message\] => OK
+	[body] => {"type":"User","login":"blobaugh","gravatar_id":"f25f324a47a1efdf7a745e0b2e3c878f","public_gists":1,"followers":22,"created_at":"2011-05-23T21:38:50Z","public_repos":31,"email":"ben@lobaugh.net","hireable":true,"blog":"http://ben.lobaugh.net","bio":null,"following":30,"name":"Ben Lobaugh","company":null,"avatar_url":"https://secure.gravatar.com/avatar/f25f324a47a1efdf7a745e0b2e3c878f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png","id":806179,"html_url":"https://github.com/blobaugh","location":null,"url":"https://api.github.com/users/blobaugh"}
+	[response] => Array(
+		[preserved_text 5237511b45884ac6db1ff9d7e407f225 /] => 200
+		[message] => OK
 	)
-
-	\[cookies\] => Array()
-	\[filename\] =>
+	[cookies] => Array()
+	[filename] =>
 )
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 All of the same helper functions can be used on this function as with the previous two. The exception here being that HEAD never returns a body, so that element will always be empty.
 
@@ -161,16 +126,22 @@ All of the same helper functions can be used on this function as with the previo
 
 Just the body can be retrieved using `[wp_remote_retrieve_body()](https://developer.wordpress.org/reference/functions/wp_remote_retrieve_body/ "wp_remote_retrieve_body")`. This function takes just one parameter, the response from any of the other [wp\_remote\_X](https://developer.wordpress.org/?s=wp_remote_&post_type%5B%5D=wp-parser-function) functions where retrieve is not the next value.
 
-$response = wp\_remote\_get( 'https://api.github.com/users/blobaugh' );
-$body     = wp\_remote\_retrieve\_body( $response );
+```php
+$response = wp_remote_get( 'https://api.github.com/users/blobaugh' );
+$body     = wp_remote_retrieve_body( $response );
+```
 
 Still using the GitHub resource from the previous example, $body will be
 
-{"type":"User","login":"blobaugh","public\_repos":31,"gravatar\_id":"f25f324a47a1efdf7a745e0b2e3c878f","followers":22,"avatar\_url":"https://secure.gravatar.com/avatar/f25f324a47a1efdf7a745e0b2e3c878f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png","public\_gists":1,"created\_at":"2011-05-23T21:38:50Z","email":"ben@lobaugh.net","following":30,"name":"Ben Lobaugh","company":null,"hireable":true,"id":806179,"html\_url":"https://github.com/blobaugh","blog":"http://ben.lobaugh.net","location":null,"bio":null,"url":"https://api.github.com/users/blobaugh"}
+```php
+{"type":"User","login":"blobaugh","public_repos":31,"gravatar_id":"f25f324a47a1efdf7a745e0b2e3c878f","followers":22,"avatar_url":"https://secure.gravatar.com/avatar/f25f324a47a1efdf7a745e0b2e3c878f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png","public_gists":1,"created_at":"2011-05-23T21:38:50Z","email":"ben@lobaugh.net","following":30,"name":"Ben Lobaugh","company":null,"hireable":true,"id":806179,"html_url":"https://github.com/blobaugh","blog":"http://ben.lobaugh.net","location":null,"bio":null,"url":"https://api.github.com/users/blobaugh"}
+```
 
 If you do not have any other operations to perform on the response other than getting the body you can reduce the code to one line with
 
-$body = wp\_remote\_retrieve\_body( wp\_remote\_get( 'https://api.github.com/users/blobaugh' ) );
+```php
+$body = wp_remote_retrieve_body( wp_remote_get( 'https://api.github.com/users/blobaugh' ) );
+```
 
 Many of these helper functions can be used on one line similarly.
 
@@ -178,8 +149,10 @@ Many of these helper functions can be used on one line similarly.
 
 You may want to check the response code to ensure your retrieval was successful. This can be done via the `[wp_remote_retrieve_response_code()](https://developer.wordpress.org/reference/functions/wp_remote_retrieve_response_code/)` function:
 
-$response = wp\_remote\_get( 'https://api.github.com/users/blobaugh' );
-$http\_code = wp\_remote\_retrieve\_response\_code( $response );
+```php
+$response = wp_remote_get( 'https://api.github.com/users/blobaugh' );
+$http_code = wp_remote_retrieve_response_code( $response );
+```
 
 If successful `$http_code` will contain `200`.
 
@@ -192,8 +165,10 @@ If your desire is to retrieve a specific header, say last-modified, you can do s
 
 To retrieve the last-modified header
 
-$response      = wp\_remote\_get( 'https://api.github.com/users/blobaugh' );
-$last\_modified = wp\_remote\_retrieve\_header( $response, 'last-modified' );
+```php
+$response      = wp_remote_get( 'https://api.github.com/users/blobaugh' );
+$last_modified = wp_remote_retrieve_header( $response, 'last-modified' );
+```
 
 `$last_modified` will contain `[last-modified] => Fri, 05 Oct 2012 04:39:58 GMT`  
 You can also retrieve all of the headers in an array with `wp_remote_retrieve_headers( $response )`.
@@ -202,12 +177,14 @@ You can also retrieve all of the headers in an array with `wp_remote_retrieve_he
 
 APIs that are secured more provide one or more of many different types of authentication. A common, though not highly secure, authentication method is HTTP Basic Authentication. It can be used in WordPress by passing ‘Authorization’ to the second parameter of the `[wp_remote_get()](https://developer.wordpress.org/reference/functions/wp_remote_get)` function, as well as the other HTTP method functions.
 
+```php
 $args = array(
     'headers' => array(
-        'Authorization' => 'Basic ' . base64\_encode( YOUR\_USERNAME . ':' . YOUR\_PASSWORD )
+        'Authorization' => 'Basic ' . base64_encode( YOUR_USERNAME . ':' . YOUR_PASSWORD )
     )
 );
-wp\_remote\_get( $url, $args );
+wp_remote_get( $url, $args );
+```
 
 ## POSTing data to an API
 
@@ -221,15 +198,18 @@ Because GitHub does not allow POSTing to the API used in the previous example, t
 
 Lets assume we are submitting a contact form with the following fields: name, email, subject, comment. To setup the body we do the following:
 
+```php
 $body = array(
 	'name'    => 'Jane Smith',
 	'email'   => 'some@email.com',
 	'subject' => 'Checkout this API stuff',
 	'comment' => 'I just read a great tutorial. You gotta check it out!',
 );
+```
 
 Now we need to set up the rest of the values that will be passed to the second parameter of `[wp_remote_post()](https://developer.wordpress.org/reference/functions/wp_remote_post)`
 
+```php
 $args = array(
 	'body'        => $body,
 	'timeout'     => '5',
@@ -239,18 +219,21 @@ $args = array(
 	'headers'     => array(),
 	'cookies'     => array(),
 );
+```
 
 Then of course to make the call
 
-$response = wp\_remote\_post( 'http://your-contact-form.com', $args );
+```php
+$response = wp_remote_post( 'http://your-contact-form.com', $args );
+```
 
 ## HEADing off bandwidth usage
 
-It can be pretty important, and sometimes required by the API, to check a resource status using HEAD before retrieving it. On high traffic APIs, GET is often limited to number of requests per minute or hour. There is no need to even attempt a GET request unless the HEAD request shows that the data on the API has been updated.
+It can be pretty important, and sometimes required by the API, to check a resource status using HEAD before retrieving it. On high traffic APIs, GET is often limited to a number of requests per minute or hour. There is no need to even attempt a GET request unless the HEAD request shows that the data on the API has been updated.
 
 As mentioned previously, HEAD contains data on whether or not the data has been updated, if the data should be cached, when to expire the cached copy, and sometimes a rate limit on requests to the API.
 
-Going back to the GitHub example, here are are few headers to watch out for. Most of these headers are standard, but you should always check the API docs to ensure you understand which headers are named what, and their purpose.
+Going back to the GitHub example, here are few headers to watch out for. Most of these headers are standard, but you should always check the API docs to ensure you understand which headers are named what, and their purpose.
 
 *   `x-ratelimit-limit` – Number of requests allowed in a time period
 *   `x-ratelimit-remaining` – Number of remaining available requests in time period
@@ -260,40 +243,42 @@ Going back to the GitHub example, here are are few headers to watch out for. Mos
 
 The following will check the HEAD value of my GitHub user account:
 
-$response = wp\_remote\_head( 'https://api.github.com/users/blobaugh' );
+```php
+$response = wp_remote_head( 'https://api.github.com/users/blobaugh' );
+```
 
 $response should look similar to
 
+```php
 Array(
-	\[headers\] => Array
+	[headers] => Array
 		(
-		\[server\] => nginx
-		\[date\] => Fri, 05 Oct 2012 05:21:26 GMT
-		\[content-type\] => application/json; charset=utf-8
-		\[connection\] => close
-		\[status\] => 200 OK
-		\[vary\] => Accept
-		\[x-ratelimit-remaining\] => 4982
-		\[content-length\] => 594
-		\[last-modified\] => Fri, 05 Oct 2012 04:39:58 GMT
-		\[etag\] => "5d5e6f7a09462d6a2b473fb616a26d2a"
-		\[x-github-media-type\] => github.beta
-		\[cache-control\] => public, s-maxage=60, max-age=60
-		\[x-content-type-options\] => nosniff
-		\[x-ratelimit-limit\] => 5000
+		[server] => nginx
+		[date] => Fri, 05 Oct 2012 05:21:26 GMT
+		[content-type] => application/json; charset=utf-8
+		[connection] => close
+		[status] => 200 OK
+		[vary] => Accept
+		[x-ratelimit-remaining] => 4982
+		[content-length] => 594
+		[last-modified] => Fri, 05 Oct 2012 04:39:58 GMT
+		[etag] => "5d5e6f7a09462d6a2b473fb616a26d2a"
+		[x-github-media-type] => github.beta
+		[cache-control] => public, s-maxage=60, max-age=60
+		[x-content-type-options] => nosniff
+		[x-ratelimit-limit] => 5000
 	)
-    \[body\] =>
-    \[response\] => Array
+    [body] =>
+    [response] => Array
 		(
-		\[preserved\_text 39a8515bd2dce2aa06ee8a2a6656b1de /\] => 200
-		\[message\] => OK
+		[preserved_text 39a8515bd2dce2aa06ee8a2a6656b1de /] => 200
+		[message] => OK
 	)
-    \[cookies\] => Array(
+    [cookies] => Array(
 	)
-	\[filename\] =>
+	[filename] =>
 )
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 All of the same helper functions can be used on this function as with the previous two. The exception here being that HEAD never returns a body, so that element will always be empty.
 
@@ -303,10 +288,12 @@ If you need to make a request using an HTTP method that is not supported by any 
 
 To send a DELETE method example you may have something similar to the following:
 
+```php
 $args     = array(
 	'method' => 'DELETE',
 );
-$response = wp\_remote\_request( 'http://some-api.com/object/to/delete', $args );
+$response = wp_remote_request( 'http://some-api.com/object/to/delete', $args );
+```
 
 ## Introduction to caching
 
@@ -322,7 +309,7 @@ The snap answer to this is \*always\*, but again there are times when you should
 
 ## WordPress Transients
 
-WordPress Transients provide a convenient way to store and use cached objects. Transients live for a specified amount of time, or until you need them to expire when a resource from the API has been updated. Using the transient functionality in WordPress may be the easiest to use caching system you ever encounter. There are only three function to do all the heavy lifting for you.
+WordPress Transients provide a convenient way to store and use cached objects. Transients live for a specified amount of time, or until you need them to expire when a resource from the API has been updated. Using the transient functionality in WordPress may be the easiest to use caching system you ever encounter. There are only three functions to do all the heavy lifting for you.
 
 ### Cache an object ( Set a transient )
 
@@ -334,22 +321,24 @@ Caching an object is done with the `[set_transient()](https://developer.wordpres
 
 An example of caching the GitHub user information response from above for one hour would be
 
-$response = wp\_remote\_get( 'https://api.github.com/users/blobaugh' );
-
-set\_transient( 'prefix\_github\_userinfo', $response, 60 \* 60 );
+```php
+$response = wp_remote_get( 'https://api.github.com/users/blobaugh' );
+set_transient( 'prefix_github_userinfo', $response, 60 * 60 );
+```
 
 ### Get a cached object ( Get a transient )
 
 Getting a cached object is quite a bit more complex than setting a transient. You need to request the transient, but then you also need to check to see if that transient has expired and if so fetch updated data. Usually the `set_transient()` call is made inside of the `get_transient()` call. Here is an example of getting the transient data for the GitHub user profile:
 
-$github\_userinfo = get\_transient( 'prefix\_github\_userinfo' );
-
-if ( false === $github\_userinfo ) {
+```php
+$github_userinfo = get_transient( 'prefix_github_userinfo' );
+if ( false === $github_userinfo ) {
 	// Transient expired, refresh the data
-	$response = wp\_remote\_get( 'https://api.github.com/users/blobaugh' );
-	set\_transient( 'prefix\_github\_userinfo', $response, HOUR\_IN\_SECONDS );
+	$response = wp_remote_get( 'https://api.github.com/users/blobaugh' );
+	set_transient( 'prefix_github_userinfo', $response, HOUR_IN_SECONDS );
 }
-// Use $github\_userinfo as you will
+// Use $github_userinfo as you will
+```
 
 ## Delete a cached object (Delete a transient)
 
@@ -357,6 +346,8 @@ Deleting a cached object is the easiest of all the transient functions, simply p
 
 To remove the Github user info:
 
-delete\_transient( 'blobaugh\_github\_userinfo' );
+```php
+delete_transient( 'blobaugh_github_userinfo' );
+```
 
 More information on transients can be found [here](https://developer.wordpress.org/apis/handbook/transients/).

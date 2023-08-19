@@ -23,13 +23,22 @@ When designing your header image, keep in mind the use of international plugin d
 ### Filenames
 
 *   Normal Banner: `banner-772x250.(jpg|png)`
-*   Normal Banner (RTL): `banner-772x250-rtl.(jpg|png)`
+
+*   Normal Banner (Localized): `banner-772x250-(rtl|es|es_ES).(jpg|png)`
+
 *   High-DPI (Retina): `banner-1544x500.(jpg|png)`
-*   High-DPI (Retina RTL): `banner-1544x500-rtl.(jpg|png)`
 
-If RTL images are available, then they will be displayed on plugin pages in languages that use RTL. For example of an RTL image, look at Custom WP Login [in English](https://wordpress.org/plugins/custom-wp-login/) and then [in Arabic](https://ar.wordpress.org/plugins/custom-wp-login/).
+*   High-DPI (Retina Localized): `banner-1544x500-(rtl|es|es_ES).(jpg|png)`
 
-For an example of Retina images, [check out Hello Dolly](https://wordpress.org/extend/plugins/hello-dolly/) or [Pluginception](https://wordpress.org/extend/plugins/pluginception/). You *cannot* use the retina image alone, it only works as an “add-on” to the 772×250 image. The larger ‘retina’ image is only used on displays that can show the higher detail.
+Images can be localised to a specific language, or for all RTL languages.  
+The locale can be specified as a full locale (`es_ES`) or as a partial locale (`es`), if the language is RTL and a locale-specific image isn’t provided, the `rtl` image will be checked for.  
+Do not duplicate English images into RTL and locale-specific files without making alterations, the English variant will be used instead.
+
+For example of an RTL image, look at bbPress [in English](https://wordpress.org/plugins/bbpress/) and then [in Arabic](https://ar.wordpress.org/plugins/bbpress/).
+
+For an example of Retina images, [check out Hello Dolly](https://wordpress.org/extend/plugins/hello-dolly/) or [Pluginception](https://wordpress.org/plugins/pluginception/). You *cannot* use the retina image alone, it only works as an “add-on” to the 772×250 image. The larger ‘retina’ image is only used on displays that can show the higher detail.
+
+4MB is the maximum size for headers images, but smaller is better.
 
 ## Plugin Icons
 
@@ -43,10 +52,14 @@ If you do not use an icon, an auto-generated one will be made for you. Some exam
 
 [![Example of auto-generated icons](https://developer.wordpress.org/files/2015/05/auto-generated-icons.jpg)](https://developer.wordpress.org/files/2015/05/auto-generated-icons.jpg)
 
+1MB is maximum file size for icons, but as with headers, the smaller the better.
+
 ### Filenames
 
 *   Normal: `icon-128x128.(png|jpg)`
+
 *   High-DPI (Retina): `icon-256x256.(png|jpg)`
+
 *   SVG: `icon.svg`
 
 There are no plans to change these sizes.
@@ -61,12 +74,21 @@ That would show the caption ‘This is a monkey’ under the first screenshot. P
 
 Screenshots *must* be local to display. Links to external files won’t work.
 
+10MB is maximum file size for screenshots, but as always, the smaller the better.
+
 ### Filenames
 
 *   `screenshot-1.(png|jpg)`
+
 *   `screenshot-2.(png|jpg)`
 
 All filenames should be lowercase; uppercase names won’t work.
+
+Screenshots can be localized [similar to banners](#banner-filenames), the following filenames would take priority over the above English names when the plugin is viewed in German:
+
+*   `screenshot-1**-de**.(png|jpg)`
+
+*   `screenshot-2**-de**.(png|jpg)`
 
 ## Issues
 
@@ -74,12 +96,16 @@ If you find your images are downloading when people click on them from your Word
 
 To fix it, run this command:
 
-svn propset svn:mime-type image/png \*.png
-svn propset svn:mime-type image/jpeg \*.jpg
+```
+svn propset svn:mime-type image/png *.png
+svn propset svn:mime-type image/jpeg *.jpg
+```
 
 Alternatively, plugin authors can set this in their ~/.subversion/config file:
 
-\*.png = svn:mime-type=image/png
-\*.jpg = svn:mime-type=image/jpeg
+```
+*.png = svn:mime-type=image/png
+*.jpg = svn:mime-type=image/jpeg
+```
 
 That’ll apply to only new files though. Fixing already-committed files will require the command above.

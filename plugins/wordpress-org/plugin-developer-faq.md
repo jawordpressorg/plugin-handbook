@@ -2,11 +2,21 @@
 
 There are lot of ins and outs to hosting WordPress plugins. Please take a minute to see if your question is answered here before reaching out for assistance.
 
-Note: Last Updated: 05 May 2021
+Last Updated: 10 July 2023
 
-## How do I contact the Plugin Review team?
+## The Plugin Review Team
+
+### How do I contact the Plugin Review team?
 
 You can contact us by email at `plugins@wordpress.org` – we reply to all emails within 7 business days.
+
+### Does the review team work for Automattic?
+
+No. The review team is made up of 100% volunteers. Some are compensated by their full-time employers, but no one is hired by WordPress.org, Automattic, or WordPress.com
+
+### Can I join the team?
+
+Please take a look at [this handbook page](https://make.wordpress.org/plugins/handbook/apply/).
 
 ## Submissions and Reviews
 
@@ -53,7 +63,9 @@ Sometimes this situation develops when a company or person releases their plugin
 
 That error is to inform you that you may not begin your Display Name with someone else’s trademarked term. This is to protect you and the directory from legal issues regarding trademark abuse. To correct the issue, you must change the Display Name in your plugin’s readme and main PHP files.
 
-### Why am I getting an error that says I cannot use a term entirely in my plugin name?
+Please do not try to ‘work around’ this by cleverly renaming your plugin (WuuCommerce for example). All that does is make us worry you’re not going to be able to follow guidelines in the future.
+
+### Why am I getting an error that says I cannot use a term *entirely* in my plugin name?
 
 Some trademark owners have requested we no longer permit the use of specific terms in plugin names entirely. If you see this error, then you must remove the term from your plugin name.
 
@@ -63,7 +75,9 @@ If you attempt to get around this by changing your term from ‘Facerange’ to 
 
 ### How do I submit an official plugin?
 
-Log in as the official company user account and submit with that account *only*. We cannot accept plugins submitted by individual developer accounts, unless they’re clearly company ones as well. For example, submitting your official Facerange plugin with a user that has a gmail address is likely to be flagged for trademark infringement.
+Log in as the official company user account and submit with that account *only*.
+
+We cannot accept plugins submitted by individual developer accounts, unless they’re clearly company ones as well. For example, submitting your official Facerange plugin with a user that has a gmail address is likely to be flagged for trademark infringement.
 
 ### What if I submitted the plugin with the wrong user ID?
 
@@ -73,19 +87,27 @@ Just reply to the email right away and let us know. We can transfer ownership fo
 
 ### How long does it take to get a plugin approved?
 
-There’s no official average, as no two plugins are the same. If your plugin is small and all the code is correct, it should be approved within **fourteen** days. If your plugin has any code issues, it will take as long as it takes for you to correct the issues. Either way, you *will* get an email from `plugins@wordpress.org` with the status, so please add that to your email whitelist and patiently wait for our response.
+There’s no official average, as no two plugins are the same. If your plugin is small and all the code is correct, it should be approved within **fourteen** days of *initial review*.
+
+If your plugin has any code issues, it will take as long as it takes for you to correct the issues. Either way, you *will* get an email from `plugins@wordpress.org` with the status, so please add that to your email whitelist and patiently wait for our response.
+
+### I sent in the fixes but no one replied. How long should I wait?
+
+We aim to reply to all reviews within seven (7) business days. If it’s been less than that, it just means we’ve been really busy. If it’s been two days, like over a weekend or a holiday, then you should not **reasonably** expect a reply.
+
+Remember the review team is made up of 100% volunteers, all of whom have full time day jobs, and other volunteer duties. We do reply promptly, but we also have lives outside of WordPress.
 
 ### If my plugin has a problem, how long do I have to fix it?
 
-There’s no timeline and as long as we know you’re working on it and we feel you’re making progress, we’ll leave the review open.
+There’s no timeline and as long as we know you’re working on it and we feel you’re making progress, we’ll leave the review open. Your plugin will be rejected after 3 months, but the review will remain open.
 
-### Why was my plugin rejected after six months?
+### Why was my plugin rejected after three months?
 
-If your plugin review is not complete after half a year, we will reject your submission in order to keep the queue maintainable. At any point in time, we have 700 people mid-review, and we figure that 6 months is a pretty reasonable time frame.
+If your plugin review is not complete after three (3) months, we will reject your submission in order to keep the queue maintainable. At any point in time, we have 700 people mid-review, and we figure that 3 months is a pretty reasonable time frame.
 
 ### I finally fixed my plugin. Should I resubmit?
 
-No. Reply to the email. Even if it’s been a year and a half. The longest time to date has been 3 years. We don’t mind if it takes a while.
+No. Reply to the email. Even if it’s been 18 months. The longest time to date has been 3 years. We don’t mind if it takes a while.
 
 ### How many plugins can I submit for review at a time?
 
@@ -184,11 +206,17 @@ No. You can add [svn externals](http://svnbook.red-bean.com/en/1.0/ch07s03.html)
 
 No.
 
+### Can I include minified JS?
+
+Yes! However you either have to keep the non-minified in your plugin *or* direct people via your readme as to where they can get the non-minified files.
+
+It’s fine to minify, but it’s not okay to hide it. All code must be human readable for inclusion in this directory.
+
 ## Your WordPress.Org Page
 
 ### When does my plugin go ‘live’?
 
-As soon as you push code to the SVN folders, your plugin will be live. **DO NOT** push code if you’re not ready, as there’s no ‘off’ switch except to [close the plugin](#closed-plugins). As closing a plugin is permanent, we recommend you not push code until you’re read to go live.
+As soon as you push code to the SVN folders, your plugin will be live. **DO NOT** push code if you’re not ready, as there’s no ‘off’ switch except to [close the plugin](#closed-plugins). As closing a plugin is permanent, we recommend you not push code until you’re ready to go live.
 
 ### Where does the WordPress.org Plugin Directory get its data?
 
@@ -200,9 +228,13 @@ You should also make full use of the [Plugin Headers](https://developer.wordpres
 
 Yes, by specifying the `Stable Tag` field in your trunk directory’s [readme.txt file](https://wordpress.org/plugins/developers/#readme).
 
+We ask you **not** use ‘trunk’ as your stable tag, as that makes rollbacks more complicated than they need to be.
+
 ### What version of WordPress should the “Tested Up To” value be?
 
-Logically, whatever version you tested up to. However, never go above the current release candidate. If there is none, don’t go above the active version. So if WordPress’ stable release is 6.0.9, you can use 6.0 to 6.0.9 and everything will be fine. If there is a release of 6.1-RC then you may use 6.1, however you can go no higher. Do not attempt to be clever and use 6.5 or 7. This will result in errors on your page.
+Logically, whatever version you tested up to. However, never go above the current release candidate. If there is none, don’t go above the active version. So if WordPress’ stable release is 6.0.9, you can use 6.0 to 6.0.9 and everything will be fine. If there is a release of 6.1-RC then you may use 6.1, however you can go no higher.
+
+Do not attempt to be clever and use 6.5 or 7. This will result in errors on your page.
 
 ### Do I need to release a new version of my plugin every time I update the readme?
 
@@ -262,7 +294,7 @@ In addition, any tags where you are the only one who uses them won’t show, bec
 
 Yes and no. You can change the display name, but the *slug* — that part of the plugin URL that is yours — cannot be changed once a plugin is approved. That’s why we warn you, multiple times, upon submission.
 
-To change the display name, edit your main plugin file and change the value of “Plugin Name:” to the new name. You may also want to edit your header in your readme.txt
+To change the display name, edit your main plugin file and change the value of “Plugin Name:” to the new name. You also will want to edit your header in your readme.txt to match.
 
 ### Why can’t I use someone’s trademark/brand as my plugin name?
 
@@ -286,7 +318,9 @@ In order to be forward thinking and proactive about a plugin’s long-term life 
 
 ### Can I change my plugin’s URL/slug?
 
-It’s impossible to change a plugin’s URL once it’s approved and, because of that, we deny most requests for ‘new’ plugins to replace old ones, just to get a better slug.
+It’s impossible to change a plugin’s URL once it’s approved and we warn you about that in multiple places through the process.
+
+Due to that, we deny most requests for ‘new’ plugins to replace old ones just to get a better slug.
 
 This is because we cannot migrate users between plugins nor can we redirect traffic. This means that submitted a new plugin to change a slug is incredibly detrimental to the plugin’s SEO and reputation, as users will be abandoned. The majority of plugins don’t actually need a new URL, and instead just want to edit their display name.
 
@@ -304,7 +338,7 @@ If you’re combining multiple services (a payment gateway to a popular ecommerc
 
 ### Can I use WordPress or Plugin in my display name?
 
-Currently yes, but we’d rather you didn’t. It’s incredibly redundant and doesn’t actually help your SEO in any way, shape, or form. We already put WordPress *and* Plugin in your page title.
+Currently yes, but you shouldn’t. It’s incredibly redundant and doesn’t actually help your SEO in any way, shape, or form. We already put WordPress *and* Plugin in your page title.
 
 ### Should I use the trademark or registered symbol in my plugin name?
 
@@ -328,11 +362,7 @@ Neither. Make your display name memorable and descriptive, while keeping it unde
 
 ### How do I get notified for forums posts?
 
-Go to `https://wordpress.org/support/plugin/YOURPLUGIN` and scroll down to the bottom of the list of posts. There you will see an option for the RSS link, as well as a sign up for emails.
-
-[![Signup links for email/rss ](https://developer.wordpress.org/files/2015/04/Screen-Shot-2016-06-20-at-9.58.21-AM.png)](https://developer.wordpress.org/files/2015/04/Screen-Shot-2016-06-20-at-9.58.21-AM.png)
-
-Click the subscribe link for emails, or use the RSS link in your favorite reader.
+Go to `https://wordpress.org/support/plugin/YOURPLUGIN` and look at the sidebar on the right. Click the Subscribe to this Plugin button for email alerts.
 
 ### How do I get notified for all my plugins?
 
@@ -350,7 +380,9 @@ The UI for managing plugin support reps can be found in Advanced View on the plu
 
 ### Will you delete bad reviews or comments on my plugin?
 
-Generally no. A review is a reflection of an individual’s experience with your product. If they didn’t like it, that’s not for us to change. If you feel that a review is invalid (such as for a different plugin), use the `modlook` button on the post. A member of the **forums** team will investigate. Abuse of Modlook may result in suspension of your plugins. Please, use it wisely.
+Generally no. A review is a reflection of an individual’s experience with your product. If they didn’t like it, that’s not for us to change. If you feel that a review is invalid (such as for a different plugin), use the `modlook` button on the post. A member of the **forums** team will investigate.
+
+Abuse of the modlook feature may result in suspension of your plugins. Please, use it wisely.
 
 ### What is ‘Sockpuppeting’?
 
@@ -388,11 +420,15 @@ If this is for a brand new plugin, you should just call it a ‘public beta’ s
 
 ### What happens when a plugin is closed?
 
-When a plugin is closed, the page shows as closed and the zips are no longer generated. No one will be able to download the plugin via the website, nor will they be able to install it via the WordPress admin. The SVN repository will remain accessible to allow others to download and fork the code if desired, per the tenets of the directory. After 60 days, the closure message will change to alert people as to *why* it was closed.
+When a plugin is closed, the page shows as closed and the zips are no longer generated. No one will be able to download the plugin via the website, nor will they be able to install it via the WordPress admin. The SVN repository will remain accessible to allow others to download and fork the code if desired, per the tenets of the directory.
+
+After 60 days, the closure message will change to alert people as to *why* it was closed but only in the broadest terms (Guideline Violation, Security, etc) and not with explicit details.
 
 ### Why was my plugin closed?
 
-Plugins are closed for guideline violations, security issues, or by author requests. In the case of active issues (such as copyright infringement, abuse, and security), all accounts with commit access to a plugin are notified. If a plugin has never been used within 6 months (i.e. no code has been pushed to SVN), SVN is broken for upwards of 12 months, or a plugin’s readme indicates it’s deprecated, we may close without notification.
+Plugins are closed for guideline violations, security issues, or by author requests. In the case of active issues (such as copyright infringement, abuse, and security), all accounts with commit access to a plugin are notified.
+
+If a plugin has never been used within 6 months (i.e. no code has been pushed to SVN), SVN is broken for upwards of 12 months, or a plugin’s readme indicates it’s deprecated, we *may* close without notification.
 
 ### Why was someone else’s plugin closed?
 

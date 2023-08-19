@@ -9,25 +9,25 @@ Using Custom Post Types, you can register your own post type. Once a custom post
 To register a new post type, you use the [register\_post\_type()](https://developer.wordpress.org/reference/functions/register_post_type/) function.
 
 Alert:  
-We recommend that you put custom post types in a plugin rather than a theme. This ensures that user content remains portable even if the theme is changed.  
+We recommend that you put custom post types in a plugin rather than a theme. This ensures that user content remains portable even if the theme is changed.
 
 The following minimal example registers a new post type, Products, which is identified in the database as `wporg_product`.
 
-function wporg\_custom\_post\_type() {
-	register\_post\_type('wporg\_product',
+```php
+function wporg_custom_post_type() {
+	register_post_type('wporg_product',
 		array(
 			'labels'      => array(
-				'name'          => \_\_('Products', 'textdomain'),
-				'singular\_name' => \_\_('Product', 'textdomain'),
+				'name'          => __('Products', 'textdomain'),
+				'singular_name' => __('Product', 'textdomain'),
 			),
 				'public'      => true,
-				'has\_archive' => true,
+				'has_archive' => true,
 		)
 	);
 }
-add\_action('init', 'wporg\_custom\_post\_type');
-
-[Expand full source code](#)[Collapse full source code](#)
+add_action('init', 'wporg_custom_post_type');
+```
 
 Please visit the reference page for [register\_post\_type()](https://developer.wordpress.org/reference/functions/register_post_type/) for the description of arguments.
 
@@ -68,22 +68,22 @@ To set a custom slug for the slug of your custom post type all you need to do is
 
 Example:
 
-function wporg\_custom\_post\_type() {
-	register\_post\_type('wporg\_product',
+```php
+function wporg_custom_post_type() {
+	register_post_type('wporg_product',
 		array(
 			'labels'      => array(
-				'name'          => \_\_( 'Products', 'textdomain' ),
-				'singular\_name' => \_\_( 'Product', 'textdomain' ),
+				'name'          => __( 'Products', 'textdomain' ),
+				'singular_name' => __( 'Product', 'textdomain' ),
 			),
 			'public'      => true,
-			'has\_archive' => true,
+			'has_archive' => true,
 			'rewrite'     => array( 'slug' => 'products' ), // my custom slug
 		)
 	);
 }
-add\_action('init', 'wporg\_custom\_post\_type');
-
-[Expand full source code](#)[Collapse full source code](#)
+add_action('init', 'wporg_custom_post_type');
+```
 
 The above will result in the following URL structure: `http://example.com/products/%product_name%`
 
