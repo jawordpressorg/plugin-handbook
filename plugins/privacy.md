@@ -43,7 +43,7 @@ To help your plugin be ready, we recommend going through the following list of q
 1.  How does your plugin handle personal data? Use wp\_add\_privacy\_policy\_content (link) to disclose to your users any of the following:
     *   Does the plugin share personal data with third parties (e.g. to outside APIs/servers). If so, what data does it share with which third parties and do they have a published privacy policy you can provide a link to?
     *   Does the plugin collect personal data? If so, what data and where is it stored? Think about places like user data/meta, options, post meta, custom tables, files, etc.
-    *   Does the plugin use personal data collected by others? If so, what data?Does the plugin pass personal data to a SDK? What does that SDK do with the data?
+    *   Does the plugin use personal data collected by others? If so, what data? Does the plugin pass personal data to a SDK? What does that SDK do with the data?
     *   Does the plugin collect telemetry data, directly or indirectly? Loading an image from a third-party source on every install, for example, could indirectly log and track the usage data of all of your plugin installs.
     *   Does the plugin enqueue Javascript, tracking pixels or embed iframes from a third party (third party JS, tracking pixels and iframes can collect visitor’s data/actions, leave cookies, etc.)?
     *   Does the plugin store things in the browser? If so, where and what? Think about things like cookies, local storage, etc.
@@ -57,7 +57,7 @@ To help your plugin be ready, we recommend going through the following list of q
 6.  What personal data is exposed in REST API endpoints by the plugin? Does it appear to logged-in and logged-out users? What roles/capabilities are required to see it? Are those appropriate?
 7.  Does the plugin properly remove/clean-up data, including especially personal data:
     *   During uninstall of the plugin?
-    *   When an related item is deleted (e.g. from the post meta or any post-referencing rows in another table)?
+    *   When a related item is deleted (e.g. from the post meta or any post-referencing rows in another table)?
     *   When a user is deleted (e.g. from any user referencing rows in a table)?
 8.  Does the plugin provide controls to reduce the amount of personal data required?
 9.  Does the plugin share personal data with SDKs or APIs only when the SDK or API requires it, or is the plugin also sharing personal data that is optional?

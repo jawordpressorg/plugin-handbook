@@ -10,164 +10,165 @@ PHP 5.2 does not have namespacing built into it. This means that every function 
 
 Controllers typically do one thing; they receive input, and generate output. For the WordPress REST API our controllers will handle request input as `WP_REST_Request` objects and generate response output as `WP_REST_Response` objects. Let’s look at an example controller class:
 
-class My\_REST\_Posts\_Controller {
+```php
+class My_REST_Posts_Controller {
 
 	// Here initialize our namespace and resource name.
-	public function \_\_construct() {
+	public function __construct() {
 		$this->namespace     = '/my-namespace/v1';
-		$this->resource\_name = 'posts';
+		$this->resource_name = 'posts';
 	}
 
 	// Register our routes.
-	public function register\_routes() {
-		register\_rest\_route( $this->namespace, '/' . $this->resource\_name, array(
+	public function register_routes() {
+		register_rest_route( $this->namespace, '/' . $this->resource_name, array(
 			// Here we register the readable endpoint for collections.
 			array(
 				'methods'   => 'GET',
-				'callback'  => array( $this, 'get\_items' ),
-				'permission\_callback' => array( $this, 'get\_items\_permissions\_check' ),
+				'callback'  => array( $this, 'get_items' ),
+				'permission_callback' => array( $this, 'get_items_permissions_check' ),
 			),
 			// Register our schema callback.
-			'schema' => array( $this, 'get\_item\_schema' ),
+			'schema' => array( $this, 'get_item_schema' ),
 		) );
-		register\_rest\_route( $this->namespace, '/' . $this->resource\_name . '/(?P<id>\[\\d\]+)', array(
+		register_rest_route( $this->namespace, '/' . $this->resource_name . '/(?P<id>[\d]+)', array(
 			// Notice how we are registering multiple endpoints the 'schema' equates to an OPTIONS request.
 			array(
 				'methods'   => 'GET',
-				'callback'  => array( $this, 'get\_item' ),
-				'permission\_callback' => array( $this, 'get\_item\_permissions\_check' ),
+				'callback'  => array( $this, 'get_item' ),
+				'permission_callback' => array( $this, 'get_item_permissions_check' ),
 			),
 			// Register our schema callback.
-			'schema' => array( $this, 'get\_item\_schema' ),
+			'schema' => array( $this, 'get_item_schema' ),
 		) );
 	}
 
-	/\*\*
-	 \* Check permissions for the posts.
-	 \*
-	 \* @param WP\_REST\_Request $request Current request.
-	 \*/
-	public function get\_items\_permissions\_check( $request ) {
-		if ( ! current\_user\_can( 'read' ) ) {
-			return new WP\_Error( 'rest\_forbidden', esc\_html\_\_( 'You cannot view the post resource.' ), array( 'status' => $this->authorization\_status\_code() ) );
+	/**
+	 * Check permissions for the posts.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 */
+	public function get_items_permissions_check( $request ) {
+		if ( ! current_user_can( 'read' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
 
-	/\*\*
-	 \* Grabs the five most recent posts and outputs them as a rest response.
-	 \*
-	 \* @param WP\_REST\_Request $request Current request.
-	 \*/
-	public function get\_items( $request ) {
+	/**
+	 * Grabs the five most recent posts and outputs them as a rest response.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 */
+	public function get_items( $request ) {
 		$args = array(
-			'post\_per\_page' => 5,
+			'post_per_page' => 5,
 		);
-		$posts = get\_posts( $args );
+		$posts = get_posts( $args );
 
 		$data = array();
 
 		if ( empty( $posts ) ) {
-			return rest\_ensure\_response( $data );
+			return rest_ensure_response( $data );
 		}
 
 		foreach ( $posts as $post ) {
-			$response = $this->prepare\_item\_for\_response( $post, $request );
-			$data\[\] = $this->prepare\_response\_for\_collection( $response );
+			$response = $this->prepare_item_for_response( $post, $request );
+			$data[] = $this->prepare_response_for_collection( $response );
 		}
 
 		// Return all of our comment response data.
-		return rest\_ensure\_response( $data );
+		return rest_ensure_response( $data );
 	}
 
-	/\*\*
-	 \* Check permissions for the posts.
-	 \*
-	 \* @param WP\_REST\_Request $request Current request.
-	 \*/
-	public function get\_item\_permissions\_check( $request ) {
-		if ( ! current\_user\_can( 'read' ) ) {
-			return new WP\_Error( 'rest\_forbidden', esc\_html\_\_( 'You cannot view the post resource.' ), array( 'status' => $this->authorization\_status\_code() ) );
+	/**
+	 * Check permissions for the posts.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 */
+	public function get_item_permissions_check( $request ) {
+		if ( ! current_user_can( 'read' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
 
-	/\*\*
-	 \* Grabs the five most recent posts and outputs them as a rest response.
-	 \*
-	 \* @param WP\_REST\_Request $request Current request.
-	 \*/
-	public function get\_item( $request ) {
-		$id = (int) $request\['id'\];
-		$post = get\_post( $id );
+	/**
+	 * Grabs the five most recent posts and outputs them as a rest response.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 */
+	public function get_item( $request ) {
+		$id = (int) $request['id'];
+		$post = get_post( $id );
 
 		if ( empty( $post ) ) {
-			return rest\_ensure\_response( array() );
+			return rest_ensure_response( array() );
 		}
 
-		$response = prepare\_item\_for\_response( $post );
+		$response = prepare_item_for_response( $post );
 
 		// Return all of our post response data.
 		return $response;
 	}
 
-	/\*\*
-	 \* Matches the post data to the schema we want.
-	 \*
-	 \* @param WP\_Post $post The comment object whose response is being prepared.
-	 \*/
-	public function prepare\_item\_for\_response( $post, $request ) {
-		$post\_data = array();
+	/**
+	 * Matches the post data to the schema we want.
+	 *
+	 * @param WP_Post $post The comment object whose response is being prepared.
+	 */
+	public function prepare_item_for_response( $post, $request ) {
+		$post_data = array();
 
-		$schema = $this->get\_item\_schema( $request );
+		$schema = $this->get_item_schema( $request );
 
 		// We are also renaming the fields to more understandable names.
-		if ( isset( $schema\['properties'\]\['id'\] ) ) {
-			$post\_data\['id'\] = (int) $post->ID;
+		if ( isset( $schema['properties']['id'] ) ) {
+			$post_data['id'] = (int) $post->ID;
 		}
 
-		if ( isset( $schema\['properties'\]\['content'\] ) ) {
-			$post\_data\['content'\] = apply\_filters( 'the\_content', $post->post\_content, $post );
+		if ( isset( $schema['properties']['content'] ) ) {
+			$post_data['content'] = apply_filters( 'the_content', $post->post_content, $post );
 		}
 
-		return rest\_ensure\_response( $post\_data );
+		return rest_ensure_response( $post_data );
 	}
 
-	/\*\*
-	 \* Prepare a response for inserting into a collection of responses.
-	 \*
-	 \* This is copied from WP\_REST\_Controller class in the WP REST API v2 plugin.
-	 \*
-	 \* @param WP\_REST\_Response $response Response object.
-	 \* @return array Response data, ready for insertion into collection data.
-	 \*/
-	public function prepare\_response\_for\_collection( $response ) {
-		if ( ! ( $response instanceof WP\_REST\_Response ) ) {
+	/**
+	 * Prepare a response for inserting into a collection of responses.
+	 *
+	 * This is copied from WP_REST_Controller class in the WP REST API v2 plugin.
+	 *
+	 * @param WP_REST_Response $response Response object.
+	 * @return array Response data, ready for insertion into collection data.
+	 */
+	public function prepare_response_for_collection( $response ) {
+		if ( ! ( $response instanceof WP_REST_Response ) ) {
 			return $response;
 		}
 
-		$data = (array) $response->get\_data();
-		$server = rest\_get\_server();
+		$data = (array) $response->get_data();
+		$server = rest_get_server();
 
-		if ( method\_exists( $server, 'get\_compact\_response\_links' ) ) {
-			$links = call\_user\_func( array( $server, 'get\_compact\_response\_links' ), $response );
+		if ( method_exists( $server, 'get_compact_response_links' ) ) {
+			$links = call_user_func( array( $server, 'get_compact_response_links' ), $response );
 		} else {
-			$links = call\_user\_func( array( $server, 'get\_response\_links' ), $response );
+			$links = call_user_func( array( $server, 'get_response_links' ), $response );
 		}
 
 		if ( ! empty( $links ) ) {
-			$data\['\_links'\] = $links;
+			$data['_links'] = $links;
 		}
 
 		return $data;
 	}
 
-	/\*\*
-	 \* Get our sample schema for a post.
-	 \*
-	 \* @param WP\_REST\_Request $request Current request.
-	 \*/
-	public function get\_item\_schema( $request ) {
+	/**
+	 * Get our sample schema for a post.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 */
+	public function get_item_schema( $request ) {
 		$schema = array(
 			// This tells the spec of JSON Schema we are using which is draft 4.
 			'$schema'              => 'http://json-schema.org/draft-04/schema#',
@@ -177,13 +178,13 @@ class My\_REST\_Posts\_Controller {
 			// In JSON Schema you can specify object properties in the properties attribute.
 			'properties'           => array(
 				'id' => array(
-					'description'  => esc\_html\_\_( 'Unique identifier for the object.', 'my-textdomain' ),
+					'description'  => esc_html__( 'Unique identifier for the object.', 'my-textdomain' ),
 					'type'         => 'integer',
 					'context'      => array( 'view', 'edit', 'embed' ),
 					'readonly'     => true,
 				),
 				'content' => array(
-					'description'  => esc\_html\_\_( 'The content for the object.', 'my-textdomain' ),
+					'description'  => esc_html__( 'The content for the object.', 'my-textdomain' ),
 					'type'         => 'string',
 				),
 			),
@@ -193,11 +194,11 @@ class My\_REST\_Posts\_Controller {
 	}
 
 	// Sets up the proper HTTP status code for authorization.
-	public function authorization\_status\_code() {
+	public function authorization_status_code() {
 
 		$status = 401;
 
-		if ( is\_user\_logged\_in() ) {
+		if ( is_user_logged_in() ) {
 			$status = 403;
 		}
 
@@ -206,14 +207,13 @@ class My\_REST\_Posts\_Controller {
 }
 
 // Function to register our new routes from the controller.
-function prefix\_register\_my\_rest\_routes() {
-	$controller = new My\_REST\_Posts\_Controller();
-	$controller->register\_routes();
+function prefix_register_my_rest_routes() {
+	$controller = new My_REST_Posts_Controller();
+	$controller->register_routes();
 }
 
-add\_action( 'rest\_api\_init', 'prefix\_register\_my\_rest\_routes' );
-
-[Expand full source code](#)[Collapse full source code](#)
+add_action( 'rest_api_init', 'prefix_register_my_rest_routes' );
+```
 
 ## Overview & The Future
 

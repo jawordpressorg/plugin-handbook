@@ -17,25 +17,25 @@ Lets say we want to improve the performance of a large theme by removing unneces
 
 Let’s analyze the theme’s code by looking into `functions.php`.
 
-</p>
-function wporg\_setup\_slider() {
+```php
+function wporg_setup_slider() {
 	// ...
 }
-add\_action( 'template\_redirect', 'wporg\_setup\_slider', 9 );
-<p>
+add_action( 'template_redirect', 'wporg_setup_slider', 9 );
+```
 
 The `wporg_setup_slider` function is adding a slider that we don’t need, which probably loads a huge CSS file followed by a JavaScript initialization file which uses a custom written library the size of 1MB. We can can get rid of that.
 
 Since we want to hook into WordPress after the `wporg_setup_slider` callback function was registered (`functions.php` executed) our best chance would be the `[after_setup_theme](https://developer.wordpress.org/reference/hooks/after_setup_theme/)` hook.
 
-</p>
-function wporg\_disable\_slider() {
-	// Make sure all parameters match the add\_action() call exactly.
-	remove\_action( 'template\_redirect', 'wporg\_setup\_slider', 9 );
+```php
+function wporg_disable_slider() {
+	// Make sure all parameters match the add_action() call exactly.
+	remove_action( 'template_redirect', 'wporg_setup_slider', 9 );
 }
-// Make sure we call remove\_action() after add\_action() has been called.
-add\_action( 'after\_setup\_theme', 'wporg\_disable\_slider' );
-<p>
+// Make sure we call remove_action() after add_action() has been called.
+add_action( 'after_setup_theme', 'wporg_disable_slider' );
+```
 
 ## Removing All Callbacks
 
@@ -47,47 +47,47 @@ Sometimes you want to run an Action or a Filter on multiple hooks, but behave di
 
 You can use the `current_action()` / `current_filter()` to determine the current Action / Filter.
 
-</p>
-function wporg\_modify\_content( $content ) {
-	switch ( current\_filter() ) {
-		case 'the\_content':
+```php
+function wporg_modify_content( $content ) {
+	switch ( current_filter() ) {
+		case 'the_content':
 			// Do something.
 			break;
-		case 'the\_excerpt':
+		case 'the_excerpt':
 			// Do something.
 			break;
 	}
 	return $content;
 }
 
-add\_filter( 'the\_content', 'wporg\_modify\_content' );
-add\_filter( 'the\_excerpt', 'wporg\_modify\_content' );
-<p>
-
-[Expand full source code](#)[Collapse full source code](#)
+add_filter( 'the_content', 'wporg_modify_content' );
+add_filter( 'the_excerpt', 'wporg_modify_content' );
+```
 
 ## Checking How Many Times a Hook Has Run
 
 Some hooks are called multiple times in the course of execution, but you may only want your callback function to run once.
 
-In this situation, you can check how many times the hook has run with the [did\_action()](https://developer.wordpress.org/reference/functions/did_action/).
+In this situation, you can check how many times the hook has run with the [did\_action()](https://developer.wordpress.org/reference/functions/did_action/) .
 
-function wporg\_custom() {  
-   *// If save\_post has been run more than once, skip the rest of the code.  
-*   if ( did\_action( 'save\_post' ) !== 1 ) {  
-      return;  
-   }  
-   *// ...  
-*}  
-add\_action( 'save\_post', 'wporg\_custom' );
+```php
+function wporg_custom() {
+   // If save_post has been run more than once, skip the rest of the code.
+   if ( did_action( 'save_post' ) !== 1 ) {
+      return;
+   }
+   // ...
+}
+add_action( 'save_post', 'wporg_custom' );
+```
 
 ## Debugging with the “all” Hook
 
 If you want a callback function to fire on every single hook, you can register it to the `all` hook. Sometimes this is useful in debugging situations to help determine when a particular event is happening or when a page is crashing.
 
-</p>
-function wporg\_debug() {
-	echo '<p>' . current\_action() . '</p>';
+```php
+function wporg_debug() {
+	echo '<p>' . current_action() . '</p>';
 }
-add\_action( 'all', 'wporg\_debug' );
-<p>
+add_action( 'all', 'wporg_debug' );
+```

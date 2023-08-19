@@ -31,11 +31,11 @@ If you need to reset your password, go to [login.wordpress.org](https://login.wo
 
 There are three directories created by default in all SVN repositories.
 
-</p>
+```bash
 /assets/
 /tags/
 /trunk/
-<p>
+```
 
 *The /branches/ directory is no longer created by default, as it was unused.*
 
@@ -112,19 +112,19 @@ To start your plugin, you need to add the files you already have to your new SVN
 
 First create a local directory on your machine to house a copy of the SVN repository:
 
-</p>
+```bash
 $ mkdir my-local-dir
-<p>
+```
 
 Next, check out the pre-built repository
 
-</p>
+```bash
 $ svn co https://plugins.svn.wordpress.org/your-plugin-name my-local-dir
 > A my-local-dir/trunk
 > A my-local-dir/branches
 > A my-local-dir/tags
 > Checked out revision 11325.
-<p>
+```
 
 In our example, subversion has added ( “A” for “add” ) all of the directories from the central SVN repository to your local copy.
 
@@ -136,30 +136,30 @@ Warning: Do not put your *main* plugin file in a subfolder of trunk, like `/trun
 
 Once your files are in the trunk folder, you must let subversion know you want to add those new files back into the central repository.
 
-</p>
+```bash
 $ cd my-local-dir
-my-local-dir/ $ svn add trunk/\*
+my-local-dir/ $ svn add trunk/*
 > A trunk/my-plugin.php
 > A trunk/readme.txt
-<p>
+```
 
 After you add all your files, you’ll check in the changes back to the central repository.
 
-</p>
+```bash
 my-local-dir/ $ svn ci -m 'Adding first version of my plugin'
 > Adding trunk/my-plugin.php
 > Adding trunk/readme.txt
 > Transmitting file data .
 > Committed revision 11326.
-<p>
+```
 
 It’s required to include a commit message for all checkins.
 
 If the commit fails because of ‘Access forbidden’ and you **know** you have commit access, add your username and password to the check-in command.
 
-</p>
-my-local-dir/ $ svn ci -m 'Adding first version of my plugin' --username your\_username --password your\_password
-<p>
+```bash
+my-local-dir/ $ svn ci -m 'Adding first version of my plugin' --username your_username --password your_password
+```
 
 Remember your username is *case sensitive*.
 
@@ -169,11 +169,11 @@ Once your plugin is in the directory, you will likely need to edit the code at s
 
 First go into your your local copy of the repository and make sure it’s up to date.
 
-</p>
+```bash
 $ cd my-local-dir/
 my-local-dir/ $ svn up
 > At revision 11326.
-<p>
+```
 
 In the above example, we’re all up to date. If there had been changes in the central repository, they would have been downloaded and merged into your local copy.
 
@@ -181,30 +181,30 @@ Now you can edit the file that needs changing using whatever editor you prefer.
 
 If you’re not using an SVN GUI tool (like SubVersion or Coda) you can still check and see what’s different between your local copy and the central repository after you make changes. First we check the status of the local copy:
 
-</p>
+```bash
 my-local-dir/ $ svn stat
 > M trunk/my-plugin.php
-<p>
+```
 
 This tells us that our local `trunk/my-plugin.php` is different from the copy we downloaded from the central repository ( “M” for “modified” ).
 
 Let’s see what exactly has changed in that file, so we can check it over and make sure things look right.
 
-</p>
+```bash
 my-local-dir/ $ svn diff
-> \* What comes out is essentially the result of a
-  \* standard \`diff -u\` between your local copy and the
-  \* original copy you downloaded.
-<p>
+> * What comes out is essentially the result of a
+  * standard `diff -u` between your local copy and the
+  * original copy you downloaded.
+```
 
 If it all looks good then it’s time to check in those changes to the central repository.
 
-</p>
-my-local-dir/ $ svn ci -m "fancy new feature: now you can foo \*and\* bar at the same time"
+```bash
+my-local-dir/ $ svn ci -m "fancy new feature: now you can foo *and* bar at the same time"
 > Sending trunk/my-plugin.php
 > Transmitting file data .
 > Committed revision 11327.
-<p>
+```
 
 And now you’ve successfully updated trunk.
 
@@ -216,20 +216,20 @@ First copy your code to a subdirectory in the `tags/` directory. For the sake of
 
 We want to use `svn cp` instead of the regular `cp` in order to take advantage of SVN’s features.
 
-</p>
+```bash
 my-local-dir/ $ svn cp trunk tags/2.0
 > A tags/2.0
-<p>
+```
 
 As always, check in the changes.
 
-</p>
+```bash
 my-local-dir/ $ svn ci -m "tagging version 2.0"
 > Adding         tags/2.0
 > Adding         tags/2.0/my-plugin.php
 > Adding         tags/2.0/readme.txt
 > Committed revision 11328.
-<p>
+```
 
 When tagging a new version, **remember to update** the `Stable Tag` field in [`trunk/readme.txt`](https://wordpress.org/plugins/developers/#readme) to the new version.
 

@@ -4,7 +4,9 @@ As previously mentioned, WP-Cron does not run continuously, which can be an issu
 
 After scheduling the task on your system, there is one more step to complete. WordPress will continue to run WP-Cron on each page load. This is no longer necessary and will contribute to extra resource usage on your server. WP-Cron can be disabled in the `wp-config.php` file. Open the `wp-config.php` file for editing and add the following line:
 
-define('DISABLE\_WP\_CRON', true);
+```php
+define( 'DISABLE_WP_CRON', true );
+```
 
 ## Windows
 
@@ -12,7 +14,9 @@ Windows calls their time based scheduling system the Task Scheduler. It can be a
 
 How you setup the task varies with server setup. One method is to use PowerShell and a Basic Task. After creating a Basic Task the following command can be used to call the WordPress Cron script.
 
-powershell "Invoke-WebRequest http://YOUR\_SITE\_URL/wp-cron.php"
+```powershell
+powershell "Invoke-WebRequest http://YOUR_SITE_URL/wp-cron.php"
+```
 
 ## MacOS and Linux
 
@@ -31,14 +35,20 @@ Cron has a specific syntax that needs to be followed and contains the following 
 
 If a command should be run regardless of one of the time sections an asterisk (\*) should be used. For example if you wanted to run a command every 15 minutes regardless of the hour, day, or month it would look like:
 
-\*/15 \* \* \* \* command
+```bash
+*/15 * * * * command
+```
 
 Many servers have `wget` installed and this is an easy tool to call the WordPress Cron script.
 
-wget --delete-after http://YOUR\_SITE\_URL/wp-cron.php
+```bash
+wget --delete-after http://YOUR_SITE_URL/wp-cron.php
+```
 
 Note: Note: without –delete-after option, wget would save the output of the HTTP GET request.
 
 A daily call to your site’s WordPress Cron that triggers at midnight every night could look similar to:
 
-0 0 \* \* \* wget --delete-after http://YOUR\_SITE\_URL/wp-cron.php
+```bash
+0 0 * * * wget --delete-after http://YOUR_SITE_URL/wp-cron.php
+```

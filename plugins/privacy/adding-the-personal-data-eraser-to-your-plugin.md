@@ -20,58 +20,56 @@ Let’s work on a hypothetical plugin which adds commenter location data to comm
 
 The first thing the plugin needs to do is to create an eraser function that accepts an email address and a page, e.g.:
 
-</p>
-/\*\*
- \* Removes any stored location data from a user's comment meta for the supplied email address.
- \*
- \* @param string $email\_address   email address to manipulate
- \* @param int    $page            pagination
- \*
- \* @return array
- \*/
-function wporg\_remove\_location\_meta\_from\_comments\_for\_email( $email\_address, $page = 1 ) {
+```php
+/**
+ * Removes any stored location data from a user's comment meta for the supplied email address.
+ *
+ * @param string $email_address   email address to manipulate
+ * @param int    $page            pagination
+ *
+ * @return array
+ */
+function wporg_remove_location_meta_from_comments_for_email( $email_address, $page = 1 ) {
 	$number = 500; // Limit us to avoid timing out
 	$page   = (int) $page;
 
-	$comments = get\_comments(
+	$comments = get_comments(
 		array(
-			'author\_email' => $email\_address,
+			'author_email' => $email_address,
 			'number'       => $number,
 			'paged'        => $page,
-			'order\_by'     => 'comment\_ID',
+			'order_by'     => 'comment_ID',
 			'order'        => 'ASC',
 		)
 	);
 
-	$items\_removed = false;
+	$items_removed = false;
 
 	foreach ( (array) $comments as $comment ) {
-		$latitude  = get\_comment\_meta( $comment->comment\_ID, 'latitude', true );
-		$longitude = get\_comment\_meta( $comment->comment\_ID, 'longitude', true );
+		$latitude  = get_comment_meta( $comment->comment_ID, 'latitude', true );
+		$longitude = get_comment_meta( $comment->comment_ID, 'longitude', true );
 
 		if ( ! empty( $latitude ) ) {
-			delete\_comment\_meta( $comment->comment\_ID, 'latitude' );
-			$items\_removed = true;
+			delete_comment_meta( $comment->comment_ID, 'latitude' );
+			$items_removed = true;
 		}
 
 		if ( ! empty( $longitude ) ) {
-			delete\_comment\_meta( $comment->comment\_ID, 'longitude' );
-			$items\_removed = true;
+			delete_comment_meta( $comment->comment_ID, 'longitude' );
+			$items_removed = true;
 		}
 	}
 
 	// Tell core if we have more comments to work on still
 	$done = count( $comments ) < $number;
 	return array(
-		'items\_removed'  => $items\_removed,
-		'items\_retained' => false, // always false in this example
+		'items_removed'  => $items_removed,
+		'items_retained' => false, // always false in this example
 		'messages'       => array(), // no messages in this example
 		'done'           => $done,
 	);
 }
-<p>
-
-[Expand full source code](#)[Collapse full source code](#)
+```
 
 The next thing the plugin needs to do is to register the callback by filtering the eraser array using the \`wp\_privacy\_personal\_data\_erasers\`  
 filter.
@@ -79,25 +77,23 @@ filter.
 When registering you provide a friendly name for the eraser (to aid in debugging – this friendly name is not shown to anyone at this time)  
 and the callback, e.g.
 
-</p>
-/\*\*
- \* Registers all data erasers.
- \*
- \* @param array $exporters
- \*
- \* @return mixed
- \*/
-function wporg\_register\_privacy\_erasers( $erasers ) {
-	$erasers\['my-plugin-slug'\] = array(
-		'eraser\_friendly\_name' => \_\_( 'Comment Location Plugin', 'text-domain' ),
-		'callback'             => 'wporg\_remove\_location\_meta\_from\_comments\_for\_email',
+```php
+/**
+ * Registers all data erasers.
+ *
+ * @param array $exporters
+ *
+ * @return mixed
+ */
+function wporg_register_privacy_erasers( $erasers ) {
+	$erasers['my-plugin-slug'] = array(
+		'eraser_friendly_name' => __( 'Comment Location Plugin', 'text-domain' ),
+		'callback'             => 'wporg_remove_location_meta_from_comments_for_email',
 	);
 	return $erasers;
 }
 
-add\_filter( 'wp\_privacy\_personal\_data\_erasers', 'wporg\_register\_privacy\_erasers' );
-<p>
-
-[Expand full source code](#)[Collapse full source code](#)
+add_filter( 'wp_privacy_personal_data_erasers', 'wporg_register_privacy_erasers' );
+```
 
 And that’s all there is to it! Your plugin will now clean up its personal data!

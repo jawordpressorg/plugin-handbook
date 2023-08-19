@@ -48,19 +48,19 @@ There are multiple ways to translate a `PO` file.
 
 You can use a text editor to enter the translation. In a text editor it will look like this.
 
-</p>
+```
 #: plugin-name.php:123
 msgid "Page Title"
 msgstr ""
-<p>
+```
 
 You enter the translation between the quotation marks. For the German translation it would look like this.
 
-</p>
+```
 #: plugin-name.php:123
 msgid "Page Title"
 msgstr "Seitentitel"
-<p>
+```
 
 ### Poedit
 
@@ -73,9 +73,13 @@ A third option is to use an online translation service. The general idea is that
 Here are a few tools that can be used to translate PO files online:
 
 *   [Transifex](https://www.transifex.com/ "https://www.transifex.com/")
+
 *   [WebTranslateIt](https://webtranslateit.com/en "https://webtranslateit.com/")
+
 *   [Poeditor](https://poeditor.com/)
+
 *   [Google Translator Toolkit](http://translate.google.com/toolkit/ "http://translate.google.com/toolkit/")
+
 *   [GlotPress](http://blog.glotpress.org/ "http://blog.glotpress.org/")
 
 ## Generate MO file
@@ -86,41 +90,41 @@ Here are a few tools that can be used to translate PO files online:
 
 **Unix Operating Systems**
 
-</p>
+```bash
 msgfmt -o filename.mo filename.po
-<p>
+```
 
 **Windows Operating Systems**
 
-</p>
+```bash
 msgfmt -o filename.mo filename.po
-<p>
+```
 
 If you have a lot of `PO` files to convert at once, you can run it as a batch. For example, using a `bash` command:
 
 **Unix Operating Systems**
 
-</p>
+```bash
 # Find PO files, process each with msgfmt and rename the result to MO
-for file in \`find . -name "\*.po"\` ; do msgfmt -o ${file/.po/.mo} $file ; done
-<p>
+for file in `find . -name "*.po"` ; do msgfmt -o ${file/.po/.mo} $file ; done
+```
 
 **Windows Operating Systems**  
 For Windows you need to install [Cygwin](http://www.cygwin.com/) first.
 
 Create a file called `potomo.sh` and put the following into it:
 
-</p>
+```bash
 #! /bin/sh
 # Find PO files, process each with msgfmt and rename the result to MO
-for file in \`/usr/bin/find . -name '\*.po'\` ; do /usr/bin/msgfmt -o ${file/.po/.mo} $file ; done
-<p>
+for file in `/usr/bin/find . -name '*.po'` ; do /usr/bin/msgfmt -o ${file/.po/.mo} $file ; done
+```
 
 You can run this command in the command line.
 
-</p>
+```bash
 cd C:/path/to/language/folder/my-plugin/languages & C:/cygwin/bin/bash -c /cygdrive/c/path/to/script/directory/potomo.sh
-<p>
+```
 
 ### Poedit
 
@@ -156,24 +160,34 @@ Place the localization files in the language folder, either in the plugin `langu
 
 You can change the language in the “General Settings”. If you do not see this option, or the language into which you want to switch i snot listed, do it manually:
 
-*   Define `WPLANG` inside of `wp-config.php` to your chosen language. For example, if you wanted to use French, you would have:
-    
-    define ('WPLANG', 'fr\_FR');
-    
+*   Define `WPLANG` inside of `wp-config.php` to your chosen language. For example, if you wanted to use French, you would have: `define ('WPLANG', 'fr_FR');`
+
 *   Go to `wp-admin/options-general.php` or “Settings” -> “General”
+
 *   Select your language in “Site Language” dropdown
+
 *   Go to `wp-admin/update-core.php`
+
 *   Click “Update translations”, when available
+
 *   Core translations files are downloaded, when available
 
 ## Resources
 
 *   [Creating .pot file for your theme or plugin](https://foxland.fi/creating-pot-file-for-your-theme-or-plugin/)
+
 *   [How To Internationalize WordPress Plugins](http://tommcfarlin.com/internationalize-wordpress-plugins/)
+
 *   [Translating Your Theme](http://wp.tutsplus.com/tutorials/theme-development/translating-your-theme/)
+
 *   [Blank WordPress POT](https://github.com/fxbenard/Blank-WordPress-Pot)
+
 *   [Improved i18n WordPress tools](https://github.com/grappler/i18n)
+
 *   [How to update translations quickly](http://ulrich.pogson.ch/update-translations-quickly)
+
 *   [Workflow between GitHub/Transifex](http://wp-translations.org/workflow-using-github/)
+
 *   [Gist: Complete Localization Grunt task](https://gist.github.com/grappler/10187003)
+
 *   [WordPress.tv](http://wordpress.tv/) tags: [i18n](http://wordpress.tv/tag/i18n/), [internationalization](http://wordpress.tv/tag/internationalization/) and [translation](http://wordpress.tv/tag/translation/)

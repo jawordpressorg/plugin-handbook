@@ -7,20 +7,24 @@ At its simplest, a WordPress plugin is a PHP file with a WordPress plugin header
 To get started creating a new plugin, follow the steps below.
 
 1.  Navigate to the WordPress installation’s **wp-content** directory.
-2.  Open the **plugins** directory.
-3.  Create a new directory and name it after the plugin (e.g. `plugin-name`).
-4.  Open the new plugin’s directory.
-5.  Create a new PHP file (it’s also good to name this file after your plugin, e.g. `plugin-name.php`).
+
+3.  Open the **plugins** directory.
+
+5.  Create a new directory and name it after the plugin (e.g. `plugin-name`).
+
+7.  Open the new plugin’s directory.
+
+9.  Create a new PHP file (it’s also good to name this file after your plugin, e.g. `plugin-name.php`).
 
 Here’s what the process looks like on the Unix command line:
 
-</p>
+```bash
 wordpress $ cd wp-content
 wp-content $ cd plugins
 plugins $ mkdir plugin-name
 plugins $ cd plugin-name
 plugin-name $ vi plugin-name.php
-<p>
+```
 
 In the example above, `vi` is the name of the text editor. Use whichever editor that is comfortable for you.
 
@@ -40,7 +44,7 @@ Hooks are not just for plugin developers; hooks are used extensively to provide 
 
 ### Basic Hooks
 
-The 3 basic hooks you’ll need when creating a plugin are the [register\_activation\_hook()](https://developer.wordpress.org/reference/functions/register_activation_hook/), the [register\_deactivation\_hook()](https://developer.wordpress.org/reference/functions/register_deactivation_hook/), and the [register\_uninstall\_hook()](https://developer.wordpress.org/reference/functions/register_uninstall_hook/).
+The 3 basic hooks you’ll need when creating a plugin are the [register\_activation\_hook()](https://developer.wordpress.org/reference/functions/register_activation_hook/) , the [register\_deactivation\_hook()](https://developer.wordpress.org/reference/functions/register_deactivation_hook/) , and the [register\_uninstall\_hook()](https://developer.wordpress.org/reference/functions/register_uninstall_hook/) .
 
 The [activation hook](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) is run when you *activate* your plugin. You would use this to provide a function to set up your plugin — for example, creating some default settings in the `options` table.
 
@@ -50,11 +54,11 @@ These [uninstall methods](https://developer.wordpress.org/plugins/the-basics/uni
 
 ### Adding Hooks
 
-You can add your own, custom hooks with [do\_action()](https://developer.wordpress.org/reference/functions/do_action/), which will enable developers to extend your plugin by passing functions through your hooks.
+You can add your own, custom hooks with [do\_action()](https://developer.wordpress.org/reference/functions/do_action/) , which will enable developers to extend your plugin by passing functions through your hooks.
 
 ### Removing Hooks
 
-You can also use invoke [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) to remove a function that was defined earlier. For example, if your plugin is an add-on to another plugin, you can use [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) with the same function callback that was added by the previous plugin with [add\_action()](https://developer.wordpress.org/reference/functions/add_action/). The priority of actions is important in these situations, as [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) would need to run after the initial [add\_action()](https://developer.wordpress.org/reference/functions/add_action/).
+You can also use invoke [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) to remove a function that was defined earlier. For example, if your plugin is an add-on to another plugin, you can use [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) with the same function callback that was added by the previous plugin with [add\_action()](https://developer.wordpress.org/reference/functions/add_action/) . The priority of actions is important in these situations, as [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) would need to run after the initial [add\_action()](https://developer.wordpress.org/reference/functions/add_action/) .
 
 You should be careful when removing an action from a hook, as well as when altering priorities, because it can be difficult to see how these changes will affect other interactions with the same hook. We highly recommend testing frequently.
 
