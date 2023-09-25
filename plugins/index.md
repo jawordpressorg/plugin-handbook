@@ -33,7 +33,7 @@ The Plugin Developer Handbook is a resource for all things WordPress plugins. Wh
 * [フック](https://developer.wordpress.org/plugin/hooks/)は、プラグインを WordPress と相互作用させるものであり、他の開発者があなたのプラグインと相互作用できるようにする方法です。
 * [プライバシー](https://developer.wordpress.org/plugins/privacy/) は、機密データの取り扱いについて理解するのに役立ちます。
 * プラグインで使用できるWordPressの組み込み機能については、[管理メニュー](https://developer.wordpress.org/plugin/administration-menus/)、[ショートコード](https://developer.wordpress.org/plugin/shortcodes/)、[設定](https://developer.wordpress.org/plugin/settings/)、[メタデータ](https://developer.wordpress.org/plugin/metadata/)、[カスタム投稿タイプ](https://developer.wordpress.org/plugins/post-types/)、[タクソノミ](https://developer.wordpress.org/plugins/taxonomies/)、[ユーザー](https://developer.wordpress.org/plugin/users/)をご覧ください。
-* [HTTP API](https://developer.wordpress.org/plugin/http-api/)を使用したデータ取得についてはこちらをご覧ください。
+* [HTTP API](https://developer.wordpress.org/plugin/http-api/) を使用したデータ取得についてはこちらをご覧ください。
 * プラグインで [JavaScript、jQuery、Ajax](https://developer.wordpress.org/plugin/javascript/) を使用している場合は、そのセクションで必要な情報を見つけることができます。
 * 時間ベースのWordPressタスクについて学ぶには [Cron](https://developer.wordpress.org/plugin/cron/) の章をご覧ください。
 * [国際化](https://developer.wordpress.org/plugin/internationalization/) は、あなたのプラグインをあなたのロケール以外で使用できるようにする方法です。
