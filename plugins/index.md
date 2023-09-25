@@ -24,7 +24,7 @@ The Plugin Developer Handbook is a resource for all things WordPress plugins. Wh
 * If you’re using [JavaScript, jQuery or Ajax](https://developer.wordpress.org/plugin/javascript/) in your plugin, you’ll find the information you need in that section.
 * To learn about time-based WordPress tasks, check out the [Cron](https://developer.wordpress.org/plugin/cron/) chapter.
 * [Internationalization](https://developer.wordpress.org/plugin/internationalization/) is how you get your plugin ready for use in locales other than your own.
-* When all that is done, you can prepare your plugin for inclusion in the [Plugin Directory](https://developer.wordpress.org/plugin/wordpress-org/)-->
+* When all that is done, you can prepare your plugin for inclusion in the [Plugin Directory](https://developer.wordpress.org/plugin/wordpress-org/)
 * Finally: some [developer tools](https://developer.wordpress.org/plugin/developer-tools/) you might find useful.
 -->
 
