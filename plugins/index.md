@@ -14,7 +14,7 @@ The Plugin Developer Handbook is a resource for all things WordPress plugins. Wh
 プラグイン開発者ハンドブックは WordPress プラグインに関するすべてのリソースです。WordPress プラグイン開発の初心者であろうと、経験豊富なプラグイン開発者であろうと、プラグインに関する多くの疑問に対する答えをここで見つけることができるはずです。
 
 
-<!-- 
+<!--
 * If you’re new to plugin development, start by reading the [introduction](https://developer.wordpress.org/plugin/intro/) and then move on to [the basics](https://developer.wordpress.org/plugins/plugin-basics/).-->
 * The info in [plugin security](https://developer.wordpress.org/plugin/security/) will introduce best practices for security related stuff.-->
 * [Hooks](https://developer.wordpress.org/plugin/hooks/) are what make your plugin interact with WordPress, and how you can let other developers interact with your plugin.-->
