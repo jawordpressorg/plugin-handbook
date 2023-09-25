@@ -38,7 +38,7 @@ The Plugin Developer Handbook is a resource for all things WordPress plugins. Wh
 * 時間ベースのWordPressタスクについて学ぶには [Cron](https://developer.wordpress.org/plugin/cron/) の章をご覧ください。
 * [国際化](https://developer.wordpress.org/plugin/internationalization/) は、あなたのプラグインをあなたのロケール以外で使用できるようにする方法です。
 * すべての作業が完了したら、プラグインを [Plugin Directory](https://developer.wordpress.org/plugin/wordpress-org/) に登録する準備をします。
-* 最後に: 役に立つかもしれないいくつかの[開発者ツール](https://developer.wordpress.org/plugin/developer-tools/)
+* 最後に: 役に立つかもしれない、いくつかの[開発者ツール](https://developer.wordpress.org/plugin/developer-tools/)
 
 
 
