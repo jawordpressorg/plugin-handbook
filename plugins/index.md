@@ -1,11 +1,11 @@
 <!-- # Plugin Handbook -->
-#プラグインハンドブック
+# プラグインハンドブック
 
 <!-- *Welcome to the WordPress Plugin Developer Handbook; are you ready to jump right in to the world of WordPress plugins?*  -->
-#*WordPressプラグイン開発者ハンドブックへようこそ。
+# * WordPressプラグイン開発者ハンドブックへようこそ。
 
 <!-- The Plugin Developer Handbook is a resource for all things WordPress plugins. Whether you’re new to WordPress plugin development, or you’re an experienced plugin developer, you should be able to find the answer to many of your plugin-related questions right here.-->
-#プラグイン開発者ハンドブックは WordPress プラグインに関するすべてのリソースです。WordPress プラグイン開発の初心者であろうと、経験豊富なプラグイン開発者であろうと、プラグインに関する多くの疑問に対する答えをここで見つけることができるはずです。
+# プラグイン開発者ハンドブックは WordPress プラグインに関するすべてのリソースです。WordPress プラグイン開発の初心者であろうと、経験豊富なプラグイン開発者であろうと、プラグインに関する多くの疑問に対する答えをここで見つけることができるはずです。
 
 
 <!-- *   If you’re new to plugin development, start by reading the [introduction](https://developer.wordpress.org/plugin/intro/) and then move on to [the basics](https://developer.wordpress.org/plugins/plugin-basics/).-->
