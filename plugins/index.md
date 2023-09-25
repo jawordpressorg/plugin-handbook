@@ -6,7 +6,7 @@
 <!--
 Welcome to the WordPress Plugin Developer Handbook; are you ready to jump right in to the world of WordPress plugins?
 -->
-WordPressプラグイン開発者ハンドブックへようこそ。WordPress プラグインの世界にすぐに飛び込む準備はできていますか?
+WordPress プラグイン開発者ハンドブックへようこそ。WordPress プラグインの世界にすぐに飛び込む準備はできていますか ?
 
 <!--
 The Plugin Developer Handbook is a resource for all things WordPress plugins. Whether you’re new to WordPress plugin development, or you’re an experienced plugin developer, you should be able to find the answer to many of your plugin-related questions right here.
