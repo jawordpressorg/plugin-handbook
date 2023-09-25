@@ -43,4 +43,4 @@ The Plugin Developer Handbook is a resource for all things WordPress plugins. Wh
 The WordPress Plugin Developer Handbook is created by the WordPress community, for the WordPress community. We are always looking for more contributors; if you’re interested, stop by the [docs team blog](https://make.wordpress.org/docs) to find out more about getting involved.
 -->
 
-WordPress Plugin Developer Handbook は WordPress コミュニティによって WordPress コミュニティのために作成されています。ご興味があれば、[docs team blog](https://make.wordpress.org/docs) をご覧ください。
+WordPress プラグイン開発者ハンドブックは WordPress コミュニティによって WordPress コミュニティのために作成されています。私たちは。常により多くの貢献者を探しています。ご興味があれば、[docs team blog](https://make.wordpress.org/docs) をご覧ください。
