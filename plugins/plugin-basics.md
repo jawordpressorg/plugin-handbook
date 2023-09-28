@@ -1,4 +1,7 @@
+<!--
 # Plugin Basics
+-->
+# プラグインの基本
 
 ## Getting Started
 
