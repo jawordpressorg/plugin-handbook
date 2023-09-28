@@ -1,10 +1,22 @@
+<!--
 # Plugin Basics
+-->
+# プラグインの基本
 
+<!--
 ## Getting Started
+-->
+## はじめに
 
+<!--
 At its simplest, a WordPress plugin is a PHP file with a WordPress plugin header comment. It’s highly recommended that you create a directory to hold your plugin so that all of your plugin’s files are neatly organized in one place.
+-->
+WordPress プラグインは、WordPress プラグインヘッダーコメントを持つ PHP ファイルです。プラグインを保存するディレクトリを作成し、プラグインのすべてのファイルを一箇所にきちんとまとめることを強くお勧めします。
 
+<!--
 To get started creating a new plugin, follow the steps below.
+-->
+新しいプラグインの作成を始めるには、以下の手順に従ってください。
 
 1.  Navigate to the WordPress installation’s **wp-content** directory.
 
