@@ -100,7 +100,7 @@ Hooks are not just for plugin developers; hooks are used extensively to provide 
 <!--
 The 3 basic hooks you’ll need when creating a plugin are the [register\_activation\_hook()](https://developer.wordpress.org/reference/functions/register_activation_hook/) , the [register\_deactivation\_hook()](https://developer.wordpress.org/reference/functions/register_deactivation_hook/) , and the [register\_uninstall\_hook()](https://developer.wordpress.org/reference/functions/register_uninstall_hook/) .
 -->
-プラグインを作成するときに必要な 3 つの基本フックは、 [register\_activation\_hook()](https://developer.wordpress.org/reference/functions/register_activation_hook/) 、 [register\_deactivation\_hook( )](https://developer.wordpress.org/reference/functions/register_deactivation_hook/) 、および [register\_uninstall\_hook()](https://developer.wordpress.org/reference/functions/register_uninstall_hook/) 。
+プラグインを作成するときに必要な 3 つの基本フックは、 [register\_activation\_hook()](https://developer.wordpress.org/reference/functions/register_activation_hook/)、 [register\_deactivation\_hook( )](https://developer.wordpress.org/reference/functions/register_deactivation_hook/)、および [register\_uninstall\_hook()](https://developer.wordpress.org/reference/functions/register_uninstall_hook/) 。
 
 <!--
 The [activation hook](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) is run when you *activate* your plugin. You would use this to provide a function to set up your plugin — for example, creating some default settings in the `options` table.
