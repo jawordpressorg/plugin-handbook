@@ -185,5 +185,5 @@ WordPress が WordPress Admin の プラグインページにインストール�
 <!--
 Sometimes a plugin you create is just for your site. But many people like to share their plugins with the rest of the WordPress community. Before sharing your plugin, one thing you need to do is [choose a license](https://opensource.org/licenses/category). This lets the user of your plugin know how they are allowed to use your code. To maintain compatibility with WordPress core, it is recommended that you pick a license that works with GNU General Public License (GPLv2+).
 -->
-作成したプラグインがサイト専用である場合があります。 しかし、多くの人は自分のプラグインを WordPress コミュニティの他のメンバーと共有したいと考えています。 プラグインを共有する前に、[ライセンスを選択](https://opensource.org/licenses/category) する必要があります。 これにより、プラグインのユーザーはコードの使用がどのように許可されているかを知ることができます。 WordPress コアとの互換性を維持するには、GNU General Public License (GPLv2+) で動作するライセンスを選択することをお勧めします。
+作成したプラグインがサイト専用である場合があります。しかし、多くの人は自分のプラグインを WordPress コミュニティの他のメンバーと共有したいと考えています。プラグインを共有する前に、[ライセンスを選択](https://opensource.org/licenses/category) する必要があります。これにより、プラグインのユーザーはコードの使用がどのように許可されているかを知ることができます。WordPress コアとの互換性を維持するには、GNU General Public License (GPLv2+) で動作するライセンスを選択することをお勧めします。
 
