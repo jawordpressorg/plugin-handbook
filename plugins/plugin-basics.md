@@ -105,7 +105,7 @@ The 3 basic hooks you’ll need when creating a plugin are the [register\_activa
 <!--
 The [activation hook](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) is run when you *activate* your plugin. You would use this to provide a function to set up your plugin — for example, creating some default settings in the `options` table.
 -->
-[アクティベーションフック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) は、プラグインを *アクティベート* するときに実行されます。これを使用して、プラグインをセットアップする機能を提供します。たとえば、「options」テーブルにいくつかのデフォルト設定を作成します。
+[アクティベーションフック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) は、プラグインを**アクティベート**するときに実行されます。これを使用して、プラグインをセットアップする機能を提供します。たとえば、「options」テーブルにいくつかのデフォルト設定を作成します。
 
 <!--
 The [deactivation hook](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) is run when you *deactivate* your plugin. You would use this to provide a function that clears any temporary data stored by your plugin.
