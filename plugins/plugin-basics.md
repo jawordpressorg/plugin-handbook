@@ -65,7 +65,7 @@ Now that you’re editing your new plugin’s PHP file, you’ll need to add a p
 <!--
 Only one file in the plugin’s folder should have the header comment — if the plugin has multiple PHP files, only one of those files should have the header comment.
 -->
-プラグインのフォルダ内の1つのファイルだけがヘッダーコメントを持つようにします - プラグインに複数の PHP ファイルがある場合は、そのうちの1つのファイルだけがヘッダーコメントを持つようにします。
+プラグインのフォルダー内の1つのファイルだけがヘッダーコメントを持つようにします - プラグインに複数の PHP ファイルがある場合は、そのうちの1つのファイルだけがヘッダーコメントを持つようにします。
 
 <!--
 After you save the file, you should be able to see your plugin listed in your WordPress site. Log in to your WordPress site, and click **Plugins** on the left navigation pane of your WordPress Admin. This page displays a listing of all the plugins your WordPress site has. Your new plugin should now be in that list!
