@@ -34,7 +34,7 @@ To get started creating a new plugin, follow the steps below.
 
 2.**plugins** ディレクトリを開く。
 
-3.新しいディレクトリを作成し、プラグインの名前を付けます（例: plugin-name）。
+3.新しいディレクトリを作成し、プラグインの名前を付けます (例: plugin-name)。
 
 4.新しいプラグインのディレクトリを開きます。
 
