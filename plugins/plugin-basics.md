@@ -85,7 +85,7 @@ WordPress のフックを使うと、コアファイルを編集することな�
 <!--
 There are two types of hooks within WordPress: *actions* and *filters*. Actions allow you to add or change WordPress functionality, while filters allow you to alter content as it is loaded and displayed to the website user.
 -->
-WordPress のフックには、*アクション*と*フィルター*の2種類があります。アクションは、WordPress の機能を追加または変更することができ、フィルターはそれがロードされ、ウェブサイトのユーザーに表示されるようにコンテンツを変更することができます。
+WordPress のフックには、*アクション*と*フィルター*の2種類があります。アクションは、WordPress の機能を追加または変更することができ、フィルターはそれがロードされ、Web サイトのユーザーに表示されるようにコンテンツを変更することができます。
 
 <!--
 Hooks are not just for plugin developers; hooks are used extensively to provide default functionality by WordPress core itself. Other hooks are unused place holders that are simply available for you to tap into when you need to alter how WordPress works. This is what makes WordPress so flexible.
