@@ -38,7 +38,7 @@ To get started creating a new plugin, follow the steps below.
 
 4.新しいプラグインのディレクトリを開きます。
 
-5.新しい PHP ファイルを作成します（このファイルにもプラグインの名前を付けるとよいでしょう、plugin-name.php など）。
+5.新しい PHP ファイルを作成します (このファイルにもプラグインの名前を付けるとよいでしょう、plugin-name.php など)。
 
 <!--
 Here’s what the process looks like on the Unix command line:
