@@ -43,7 +43,7 @@ To get started creating a new plugin, follow the steps below.
 <!--
 Here’s what the process looks like on the Unix command line:
 -->
-Unixのコマンドラインでは次のようになります：
+Unixのコマンドラインでは次のようになります:
 
 ```bash
 wordpress $ cd wp-content
