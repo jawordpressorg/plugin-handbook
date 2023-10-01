@@ -165,7 +165,7 @@ The most common one is the [Options API](https://codex.wordpress.org/Options_API
 <!--
 Since we’re talking about plugins, you’ll want to study the [Plugin API](https://codex.wordpress.org/Plugin_API). It has a variety of functions that will assist you in developing plugins.
 -->
-ここではプラグインについて話しているので、[プラグイン API](https://codex.wordpress.org/Plugin_API) について勉強してください。 プラグインの開発を支援するさまざまな機能が備わっています。
+ここではプラグインについて話しているので、[プラグイン API](https://codex.wordpress.org/Plugin_API) について勉強してください。プラグインの開発を支援するさまざまな機能が備わっています。
 
 <!--
 ## How WordPress Loads Plugins
