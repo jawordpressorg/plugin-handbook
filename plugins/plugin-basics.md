@@ -110,7 +110,7 @@ The [activation hook](https://developer.wordpress.org/plugins/the-basics/activat
 <!--
 The [deactivation hook](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) is run when you *deactivate* your plugin. You would use this to provide a function that clears any temporary data stored by your plugin.
 -->
-[アクティベーションフック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) は、プラグインを *アクティベート* するときに実行されます。これを使用して、プラグインをセットアップする機能を提供します。たとえば、「options」テーブルにいくつかのデフォルト設定を作成します。
+[アクティベーションフック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) は、プラグインを**アクティベート**するときに実行されます。これを使用して、プラグインをセットアップする機能を提供します。たとえば、「options」テーブルにいくつかのデフォルト設定を作成します。
 
 <!--
 These [uninstall methods](https://developer.wordpress.org/plugins/the-basics/uninstall-methods/) are used to clean up after your plugin is *deleted* using the WordPress Admin. You would use this to delete all data created by your plugin, such as any options that were added to the `options` table.
