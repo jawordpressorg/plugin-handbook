@@ -55,7 +55,7 @@ plugin-name $ vi plugin-name.php
 <!--
 In the example above, `vi` is the name of the text editor. Use whichever editor that is comfortable for you.
 -->
-上の例では、vi はテキストエディタの名前です。あなたが使いやすいエディタを使用してください。
+上の例では、vi はテキストエディターの名前です。あなたが使いやすいエディターを使用してください。
 
 <!--
 Now that you’re editing your new plugin’s PHP file, you’ll need to add a plugin header comment. This is a specially formatted PHP block comment that contains metadata about the plugin, such as its name, author, version, license, etc. The plugin header comment must comply with the [header requirements](https://developer.wordpress.org/plugins/the-basics/header-requirements/), and at the very least, contain the name of the plugin.
