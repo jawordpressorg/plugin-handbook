@@ -60,7 +60,7 @@ In the example above, `vi` is the name of the text editor. Use whichever editor 
 <!--
 Now that you’re editing your new plugin’s PHP file, you’ll need to add a plugin header comment. This is a specially formatted PHP block comment that contains metadata about the plugin, such as its name, author, version, license, etc. The plugin header comment must comply with the [header requirements](https://developer.wordpress.org/plugins/the-basics/header-requirements/), and at the very least, contain the name of the plugin.
 -->
-新しいプラグインのPHPファイルを編集しているので、プラグインヘッダーコメントを追加する必要があります。これは特別な書式の PHP ブロックコメントで、プラグインの名前、作者、バージョン、ライセンスなどのメタデータを含みます。プラグインヘッダーコメントはヘッダー要件に従わなければならず、最低限プラグインの名前を含まなければなりません。
+新しいプラグインの PHP ファイルを編集しているので、プラグインヘッダーコメントを追加する必要があります。これは特別な書式の PHP ブロックコメントで、プラグインの名前、作者、バージョン、ライセンスなどのメタデータを含みます。プラグインヘッダーコメントはヘッダー要件に従わなければならず、最低限プラグインの名前を含まなければなりません。
 
 <!--
 Only one file in the plugin’s folder should have the header comment — if the plugin has multiple PHP files, only one of those files should have the header comment.
