@@ -71,7 +71,7 @@ After you save the file, you should be able to see your plugin listed in your Wo
 <!--
 ## Hooks: Actions and Filters
 -->
-## フックアクションとフィルター
+## フック: アクションとフィルター
 
 <!--
 WordPress hooks allow you to tap into WordPress at specific points to change how WordPress behaves without editing any core files.
