@@ -126,7 +126,7 @@ You can add your own, custom hooks with [do\_action()](https://developer.wordpre
 <!--
 ### Removing Hooks
 -->
-### フックの取り外し
+### フックの削除
 
 <!--
 You can also use invoke [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) to remove a function that was defined earlier. For example, if your plugin is an add-on to another plugin, you can use [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) with the same function callback that was added by the previous plugin with [add\_action()](https://developer.wordpress.org/reference/functions/add_action/) . The priority of actions is important in these situations, as [remove\_action()](https://developer.wordpress.org/reference/functions/remove_action/) would need to run after the initial [add\_action()](https://developer.wordpress.org/reference/functions/add_action/) .
