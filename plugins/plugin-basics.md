@@ -101,17 +101,17 @@ The 3 basic hooks you’ll need when creating a plugin are the [register\_activa
 <!--
 The [activation hook](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) is run when you *activate* your plugin. You would use this to provide a function to set up your plugin — for example, creating some default settings in the `options` table.
 -->
-[アクティベーションフック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/)は、プラグインを**アクティベート**するときに実行されます。これを使用して、プラグインをセットアップする機能を提供します。たとえば、`options` テーブルにいくつかのデフォルト設定を作成します。
+[アクティベーションフック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/)は、プラグインを**有効化**するときに実行されます。これを使用して、プラグインをセットアップする機能を提供します。たとえば、`options` テーブルにいくつかのデフォルト設定を作成します。
 
 <!--
 The [deactivation hook](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) is run when you *deactivate* your plugin. You would use this to provide a function that clears any temporary data stored by your plugin.
 -->
-[アクティベーションフック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/)は、プラグインを**アクティベート**するときに実行されます。これを使用して、プラグインをセットアップする機能を提供します。たとえば、`options` テーブルにいくつかのデフォルト設定を作成します。
+[非アクティブ化フック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/)は、プラグインを**無効化**すると実行されます。これを使用して、プラグインによって保存された一時データをクリアする関数を提供します。
 
 <!--
 These [uninstall methods](https://developer.wordpress.org/plugins/the-basics/uninstall-methods/) are used to clean up after your plugin is *deleted* using the WordPress Admin. You would use this to delete all data created by your plugin, such as any options that were added to the `options` table.
 -->
-[非アクティブ化フック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/)は、プラグインを**非アクティブ化**すると実行されます。これを使用して、プラグインによって保存された一時データをクリアする関数を提供します。
+これらの[アンインストールメソッド](https://developer.wordpress.org/plugins/the-basics/uninstall-methods/)は、WordPress 管理画面を使用してプラグインが**削除**された後にクリーンアップするために使用されます。これを使用して、オプションテーブルに追加されたオプションなど、プラグインによって作成されたすべてのデータを削除します。
 
 <!--
 ### Adding Hooks
