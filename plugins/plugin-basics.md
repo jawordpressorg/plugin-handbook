@@ -30,15 +30,11 @@ To get started creating a new plugin, follow the steps below.
 9.  Create a new PHP file (it’s also good to name this file after your plugin, e.g. `plugin-name.php`).
 -->
 
-1.WordPress の **wp-content** ディレクトリに移動します。
-
-2.**plugins** ディレクトリを開く。
-
-3.新しいディレクトリを作成し、プラグインの名前を付けます (例: `plugin-name`)。
-
-4.新しいプラグインのディレクトリを開きます。
-
-5.新しい PHP ファイルを作成します (このファイルにもプラグインの名前を付けるとよいでしょう、`plugin-name.php` など)。
+1. WordPress の **wp-content** ディレクトリに移動します。
+2. **plugins** ディレクトリを開く。
+3. 新しいディレクトリを作成し、プラグインの名前を付けます (例: `plugin-name`)。
+4. 新しいプラグインのディレクトリを開きます。
+5. 新しい PHP ファイルを作成します (このファイルにもプラグインの名前を付けるとよいでしょう、`plugin-name.php` など)。
 
 <!--
 Here’s what the process looks like on the Unix command line:
