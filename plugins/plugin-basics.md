@@ -136,7 +136,7 @@ You can also use invoke [remove\_action()](https://developer.wordpress.org/refer
 <!--
 You should be careful when removing an action from a hook, as well as when altering priorities, because it can be difficult to see how these changes will affect other interactions with the same hook. We highly recommend testing frequently.
 -->
-フックからアクションを削除するときや優先順位を変更するときは注意が必要です。これらの変更が同じフックとの他の対話にどのような影響を与えるかを確認するのが難しい場合があるためです。頻繁にテストすることを強くお勧めします。
+フックからアクションを削除するときや優先順位を変更するときは注意が必要です。これらの変更が同じフックとの他の相互作用にどのような影響を与えるかを確認するのが難しい場合があるためです。頻繁にテストすることを強くお勧めします。
 
 <!--
 You can learn more about creating hooks and interacting with them in the [Hooks](https://developer.wordpress.org/plugin/hooks/) section of this handbook.
