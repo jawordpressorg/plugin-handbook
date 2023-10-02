@@ -125,7 +125,7 @@ These [uninstall methods](https://developer.wordpress.org/plugins/the-basics/uni
 <!--
 You can add your own, custom hooks with [do\_action()](https://developer.wordpress.org/reference/functions/do_action/) , which will enable developers to extend your plugin by passing functions through your hooks.
 -->
-[do\_action()](https://developer.wordpress.org/reference/functions/do_action/) を使用して独自のカスタム フックを追加できます。これにより、開発者はフックを介して関数を渡すことによってプラグインを拡張できます。
+[do\_action()](https://developer.wordpress.org/reference/functions/do_action/) を使用して独自のカスタムフックを追加できます。これにより、開発者はフックを介して関数を渡すことによってプラグインを拡張できます。
 
 <!--
 ### Removing Hooks
