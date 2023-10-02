@@ -145,7 +145,7 @@ You should be careful when removing an action from a hook, as well as when alter
 <!--
 You can learn more about creating hooks and interacting with them in the [Hooks](https://developer.wordpress.org/plugin/hooks/) section of this handbook.
 -->
-フックの作成とその操作について詳しくは、このハンドブックの [フック](https://developer.wordpress.org/plugin/hooks/) セクションをご覧ください。
+フックの作成とその操作について詳しくは、このハンドブックの[フック](https://developer.wordpress.org/plugin/hooks/)セクションをご覧ください。
 
 <!--
 ## WordPress APIs
