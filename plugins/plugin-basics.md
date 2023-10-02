@@ -66,7 +66,7 @@ Only one file in the plugin’s folder should have the header comment — if the
 <!--
 After you save the file, you should be able to see your plugin listed in your WordPress site. Log in to your WordPress site, and click **Plugins** on the left navigation pane of your WordPress Admin. This page displays a listing of all the plugins your WordPress site has. Your new plugin should now be in that list!
 -->
-ファイルを保存すると、WordPress サイトにプラグインが表示されるはずです。WordPress サイトにログインし、WordPress 管理画面の左側のナビゲーションペインにある「プラグイン」をクリックします。このページには、WordPress サイトにあるすべてのプラグインのリストが表示されます。新しいプラグインはこのリストにあるはずです !
+ファイルを保存すると、WordPress サイトにプラグインが表示されるはずです。WordPress サイトにログインし、WordPress 管理画面の左側のナビゲーションペインにある**プラグイン**をクリックします。このページには、WordPress サイトにあるすべてのプラグインのリストが表示されます。新しいプラグインはこのリストにあるはずです !
 
 <!--
 ## Hooks: Actions and Filters
