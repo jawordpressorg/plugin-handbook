@@ -155,7 +155,7 @@ You can learn more about creating hooks and interacting with them in the [Hooks]
 <!--
 Did you know that WordPress provides a number of [Application Programming Interfaces (APIs)](https://make.wordpress.org/core/handbook/core-apis/)? These APIs can greatly simplify the code you need to write in your plugins. You don’t want to reinvent the wheel, especially when so many people have done a lot of the work and testing for you.
 -->
-WordPress が多数の [アプリケーション プログラミング インターフェイス (API)](https://make.wordpress.org/core/handbook/core-apis/) を提供していることをご存知ですか ? これらの API を使用すると、プラグインで記述する必要があるコードを大幅に簡素化できます。特に多くの人があなたのために多くの作業やテストを行ってくれた場合には、車輪の再発明はしたくないでしょう。
+WordPress が多数の [アプリケーションプログラミングインターフェイス (API)](https://make.wordpress.org/core/handbook/core-apis/) を提供していることをご存知ですか ? これらの API を使用すると、プラグインで記述する必要があるコードを大幅に簡素化できます。特に多くの人があなたのために多くの作業やテストを行ってくれた場合には、車輪の再発明はしたくないでしょう。
 
 <!--
 The most common one is the [Options API](https://codex.wordpress.org/Options_API), which makes it easy to store data in the database for your plugin. If you’re thinking of using [cURL](https://en.wikipedia.org/wiki/CURL) in your plugin, the [HTTP API](https://codex.wordpress.org/HTTP_API) might be of interest to you.
