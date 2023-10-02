@@ -156,7 +156,7 @@ WordPress が多数の[アプリケーションプログラミングインター
 <!--
 The most common one is the [Options API](https://codex.wordpress.org/Options_API), which makes it easy to store data in the database for your plugin. If you’re thinking of using [cURL](https://en.wikipedia.org/wiki/CURL) in your plugin, the [HTTP API](https://codex.wordpress.org/HTTP_API) might be of interest to you.
 -->
-最も一般的なのは [Options API](https://codex.wordpress.org/Options_API) で、これを使用すると、プラグインのデータベースにデータを簡単に保存できます。プラグインで [cURL](https://en.wikipedia.org/wiki/CURL) を使用することを考えている場合、[HTTP API](https://codex.wordpress.org/HTTP_API) は役に立つでしょう。
+最も一般的なのは [Options API](https://codex.wordpress.org/Options_API) で、これを使用すると、プラグインのデータをデータベースに簡単に保存できます。プラグインで [cURL](https://en.wikipedia.org/wiki/CURL) を使用することを考えている場合、[HTTP API](https://codex.wordpress.org/HTTP_API) は役に立つでしょう。
 
 <!--
 Since we’re talking about plugins, you’ll want to study the [Plugin API](https://codex.wordpress.org/Plugin_API). It has a variety of functions that will assist you in developing plugins.
