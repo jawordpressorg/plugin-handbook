@@ -115,7 +115,7 @@ The [deactivation hook](https://developer.wordpress.org/plugins/the-basics/activ
 <!--
 These [uninstall methods](https://developer.wordpress.org/plugins/the-basics/uninstall-methods/) are used to clean up after your plugin is *deleted* using the WordPress Admin. You would use this to delete all data created by your plugin, such as any options that were added to the `options` table.
 -->
-[非アクティブ化フック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/) は、プラグインを**非アクティブ化**すると実行されます。これを使用して、プラグインによって保存された一時データをクリアする関数を提供します。
+[非アクティブ化フック](https://developer.wordpress.org/plugins/the-basics/activation-deactivation-hooks/)は、プラグインを**非アクティブ化**すると実行されます。これを使用して、プラグインによって保存された一時データをクリアする関数を提供します。
 
 <!--
 ### Adding Hooks
