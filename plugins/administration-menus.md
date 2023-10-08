@@ -23,7 +23,7 @@ For information on managing Navigation Menus, see the Navigation Menus chapter o
 <!--
 The Top-level menus are rendered along the left side of the WordPress Administration. Each menu may contain a set of Sub-menus.
 -->
-トップレベルメニューはWordPress管理画面の左側に表示されます。各メニューはサブメニューのセットを含むことができます。
+トップレベルメニューは WordPress 管理画面の左側に表示されます。各メニューはサブメニューのセットを含むことができます。
 
 <!--
 When deciding between [Top-level menus](https://developer.wordpress.org/plugins/administration-menus/top-level-menus/) and [Sub-menus](https://developer.wordpress.org/plugins/administration-menus/sub-menus/) think carefully about the needs of your plugin as well as the needs of your end users.
