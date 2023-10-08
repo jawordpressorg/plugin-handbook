@@ -34,5 +34,5 @@ When deciding between [Top-level menus](https://developer.wordpress.org/plugins/
 Alert:  
 We recommend developers with a single option page to add it as Sub-menu to one of the existing Top-level menus; such as Settings or Tools.
 -->
-警告:
+注意:
 設定やツールなどの既存のトップレベルメニューのサブメニューとして追加することをお勧めします。
