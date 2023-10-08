@@ -13,7 +13,7 @@ Note:
 For information on managing Navigation Menus, see the Navigation Menus chapter of the Theme Developer Handbook.
 -->
 注意:
-ナビゲーションメニューの管理については、Theme Developer Handbook のナビゲーションメニューの章を参照してください。
+ナビゲーションメニューの管理については、テーマ開発ハンドブックのナビゲーションメニューの章を参照してください。
 
 <!--
 ## Top-Level Menus and Sub-Menus
