@@ -6,7 +6,7 @@
 <!-- 
 WordPress provides two core APIs to make the administrative interfaces easy to build, secure, and consistent with the design of WordPress Administration.
  -->
-WordPress は、管理インターフェイスを簡単に構築でき、安全で、WordPress の管理設計と一貫したものにするために、2つのコア API を提供しています。
+WordPress は、管理インターフェースを簡単に構築でき、安全で、WordPress の管理設計と一貫したものにするために、2つのコア API を提供しています。
 
 <!-- 
 The [Settings API](https://developer.wordpress.org/plugins/settings/settings-api/) focuses on providing a way for developers to create forms and manage form data.
@@ -16,7 +16,7 @@ The [Settings API](https://developer.wordpress.org/plugins/settings/settings-api
 <!-- 
 The [Options API](https://developer.wordpress.org/plugins/settings/options-api/) focuses on managing data using a simple key/value system.
  -->
-[オプションAPI](https://developer.wordpress.org/plugins/settings/options-api/) は、シンプルなキー/バリュー・システムを使ったデータ管理に重点を置いています。
+[オプション API](https://developer.wordpress.org/plugins/settings/options-api/) は、シンプルなキー/バリュー・システムを使ったデータ管理に重点を置いています。
 
 <!-- 
 ## Quick Reference
@@ -26,4 +26,4 @@ The [Options API](https://developer.wordpress.org/plugins/settings/options-api/)
 <!-- 
 See the complete example of [building a custom settings page](https://developer.wordpress.org/plugins/settings/custom-settings-page/) using the Settings API and Options API.
  -->
-設定APIとオプションAPIを使用した[カスタム設定ページの構築](https://developer.wordpress.org/plugins/settings/custom-settings-page/)の完全な例を参照してください。
+設定 API とオプション API を使用した[カスタム設定ページの構築](https://developer.wordpress.org/plugins/settings/custom-settings-page/)の完全な例を参照してください。
