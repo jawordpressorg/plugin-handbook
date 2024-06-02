@@ -6,7 +6,7 @@
 <!-- 
 A **Taxonomy** is a fancy word for the classification/grouping of things. Taxonomies can be hierarchical (with parents/children) or flat.
  -->
-**タクソノミー**とは、物事を分類/グループ化するための造語です。タクソノミーは、階層的（親/子）にもフラットにもなります。
+**タクソノミー**とは、物事を分類/グループ化するための専門用語です。タクソノミーは、階層的（親/子）にもフラットにもなります。
 
 <!-- 
 WordPress stores the Taxonomies in the `term_taxonomy` database table allowing developers to register Custom Taxonomies along the ones that already exist.
